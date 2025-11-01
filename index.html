@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>University</title>
+    <title>TCET University</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script> <!-- Tailwind CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <script>function toggleCard(cardId) {
             const expandedWidth = '800px';
             const normalWidth = '300px';
@@ -760,6 +761,386 @@
         .cards-grid {
             position: relative;
         }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f7f7f7;
+        }
+
+        footer {
+            width: 100%;
+            background: transparent;
+        }
+
+        .enquire-ribbon {
+            position: fixed;
+            left: 0;
+            top: 20px;
+            z-index: 2;
+            background: #fc7823;
+            color: white;
+            padding: 16px 10px 16px 10px;
+            border-radius: 0 4px 4px 0;
+            writing-mode: vertical-rl;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            letter-spacing: 1px;
+            box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.09);
+        }
+
+  .tgb-contact-wrap {
+    width: 100%;
+    max-width: 2000px;
+    background: #223D77;
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;              /* Reduced gap between columns */
+    padding: 28px 24px;     /* Tighter padding for more compact layout */
+}
+
+
+        .tgb-logo-ctn {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-width: 180px;
+            margin-right: 18px;
+        }
+
+        .tgb-logo-ctn img {
+            height: 180px;
+            margin-bottom: 44px;
+        }
+
+        .tgb-header-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: #fb7226;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+            margin-bottom: 0;
+        }
+
+        .tgb-header-line1 {
+            color: #365297;
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 1.3;
+            margin-top: 24px;
+            margin-bottom: 0;
+        }
+
+        .tgb-tag {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #222f58;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+        }
+
+        .tgb-iso {
+            font-size: 15px;
+            color: #365297;
+            margin-top: 5px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .tgb-map {
+            flex: 1.2;
+            min-width: 340px;
+        }
+
+        .tgb-map iframe {
+            width: 100%;
+            height: 240px;
+            border: 0;
+            border-radius: 8px;
+        }
+
+        .tgb-contact-details {
+            flex: 1;
+            margin-left: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .tgb-contact-row {
+            display: flex;
+            align-items: flex-start;
+            font-size: 17px;
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 3px;
+            gap: 13px;
+        }
+
+        .tgb-contact-row i {
+            color: #fff;
+            font-size: 20px;
+            min-width: 28px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .tgb-contact-link {
+            color: #fff;
+            text-decoration: none;
+            transition: text-decoration 0.2s;
+            word-break: break-all;
+        }
+
+        .tgb-contact-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1100px) {
+            .tgb-contact-wrap {
+                flex-direction: column;
+                gap: 32px;
+                padding: 32px 16px;
+                width: 100%;
+                border-radius: 0;
+            }
+
+            .tgb-logo-ctn {
+                align-items: center;
+                margin-right: 0;
+                margin-bottom: 12px;
+            }
+
+            .tgb-contact-details {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .tgb-contact-wrap {
+                padding: 5vw 2vw;
+                width: 100%;
+            }
+
+            .tgb-header-title {
+                font-size: 24px;
+            }
+
+            .tgb-header-line1 {
+                font-size: 18px;
+            }
+
+            .tgb-map iframe {
+                height: 180px;
+            }
+        }
+
+        .tgb-contact-wrap {
+            width: 100%;
+            background: #223D77;
+            margin: 0 auto;
+            box-sizing: border-box;
+            box-shadow: 0 4px 28px rgba(30, 70, 217, 0.05);
+            padding: 38px 28px 38px 28px;
+            /* reduced horizontal padding */
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            /* reduced gap */
+            max-width: 1920px;
+        }
+
+        /* Example flex values for side-by-side sections */
+        .tgb-logo-ctn {
+            flex: 0 0 170px;
+            /* fixed width for logo */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .tgb-contact-details {
+            flex: 2 1 350px;
+            /* contact section grows twice as fast as logo area */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-map {
+            flex: 1 1 280px;
+            /* map takes available width, default 280px */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer-map iframe {
+            width: 100%;
+            max-width: 320px;
+            height: 180px;
+            border: 0;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .tgb-contact-wrap {
+                flex-direction: column;
+                gap: 20px;
+                padding: 18px 8px;
+            }
+
+            .tgb-logo-ctn,
+            .tgb-contact-details,
+            .footer-map {
+                flex: none;
+                width: 100%;
+                align-items: center;
+            }
+
+            .footer-map iframe {
+                max-width: 100%;
+            }
+        }
+
+        .tgb-contact-wrap {
+            width: 100%;
+            max-width: 2000px;
+            background: #223D77;
+            box-sizing: border-box;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 40px;
+            padding: 36px 40px;
+        }
+
+        .tgb-logo-ctn {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1 1 380px;
+            min-width: 330px;
+            max-width: 600px;
+            gap: 24px;
+        }
+
+        .tgb-logo-ctn img {
+        
+            max-width: 60%;
+            height: auto;
+            display: block;
+            margin-bottom: 18px;
+        }
+
+        /* Map inside the logo container, stacked below the logo */
+        .tgb-logo-ctn iframe {
+            width: 100%;
+            min-width: 300px;
+            max-width: 440px;
+            height: 260px;
+            border-radius: 10px;
+            border: 0;
+            box-shadow: 0 4px 18px rgba(36, 98, 165, 0.08);
+        }
+
+        /* The right contact block */
+        .tgb-contact-details {
+            flex: 1 1 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            margin-top: 18px;
+        }
+
+        .tgb-contact-row {
+            display: flex;
+            align-items: center;
+            font-size: 19px;
+            color: #ffffff;
+            font-weight: 500;
+            gap: 18px;
+            letter-spacing: 0.2px;
+        }
+
+        .tgb-contact-row i {
+            color: white;
+            font-size: 28px;
+            min-width: 32px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .tgb-contact-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .tgb-contact-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1100px) {
+            .tgb-contact-wrap {
+                flex-direction: column;
+                gap: 24px;
+                padding: 24px 10px;
+                align-items: center;
+                text-align: center;
+            }
+
+            .tgb-logo-ctn {
+                align-items: center;
+                min-width: 240px;
+                max-width: 100%;
+            }
+
+            .tgb-logo-ctn iframe {
+                min-width: 200px;
+                max-width: 100%;
+                height: 180px;
+            }
+
+            .tgb-contact-details {
+                margin-top: 18px;
+                align-items: center;
+                gap: 18px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .tgb-contact-wrap {
+                padding: 12px 2vw;
+                gap: 14px;
+            }
+
+            .tgb-logo-ctn img {
+                width: 110px;
+            }
+
+            .tgb-logo-ctn iframe {
+                height: 130px;
+            }
+
+            .tgb-contact-details,
+            .tgb-contact-row {
+                font-size: 16px;
+                gap: 10px;
+            }
+
+            .tgb-contact-row i {
+                font-size: 21px;
+                min-width: 22px;
+            }
+        }
+        
     </style>
 
 </head>
@@ -1047,8 +1428,42 @@
 
             </div>
         </div>
-    </section>
 
+    </section>
+    <footer style="width:100%;">
+        <!-- <div class="enquire-ribbon">Enquire Now!</div> -->
+        <div class="tgb-contact-wrap">
+            <div class="tgb-logo-ctn">
+                <img src="Asset 1.svg" alt="TGBS Logo" />
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.7457230581335!2d72.8720306751122!3d19.206305347869158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b0e57647569d%3A0xc0aec329c82d3555!2sThakur%20College%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1761980191965!5m2!1sen!2sin"
+                    width="900" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="tgb-map">
+
+            </div>
+            <div class="tgb-contact-details">
+                <div class="tgb-contact-row">
+                    <i class="fas fa-phone-alt"></i>
+                    022 – 28461891 | 022 – 67308000
+                </div>
+                <div class="tgb-contact-row">
+                    <i class="fas fa-envelope"></i>
+                    <a class="tgb-contact-link" href="mailto:tgbs@thakureducation.org">tcet@thakureducation.org</a>
+                </div>
+                <div class="tgb-contact-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Thakur College of Engineering & Technology,
+                    A-Block, Thakur Educational Campus,
+                    Shyamnarayan Thakur Marg, Thakur Village,
+                    Kandivali(E), Mumbai – 400101.
+                </div>
+            </div>
+
+        </div>
+
+    </footer>
 </body>
 
 </html>
