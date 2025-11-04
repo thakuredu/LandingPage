@@ -4,12 +4,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TCET University</title>
+    <title>University</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script> <!-- Tailwind CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-    <script>function toggleCard(cardId) {
+    <script>
+
+        function toggleCard(cardId) {
             const expandedWidth = '800px';
             const normalWidth = '300px';
 
@@ -48,10 +51,151 @@
 
 
     </script>
+  
+    <script>
+        let currentSlide = 0;
+        let autoplayInterval = null;
+
+        function showCarouselSlide(idx) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            if (!slides.length) return;
+            // Normalize index
+            if (idx < 0) idx = slides.length - 1;
+            if (idx >= slides.length) idx = 0;
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === idx);
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === idx);
+            });
+            currentSlide = idx;
+        }
+
+        function moveCarousel(step) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            if (!slides.length) return;
+            showCarouselSlide(currentSlide + step);
+            resetAutoplay();
+        }
+
+        function setupCarouselDots() {
+            const dotsContainer = document.querySelector('.carousel-dots');
+            const slides = document.querySelectorAll('.carousel-slide');
+            if (!dotsContainer) return;
+            dotsContainer.innerHTML = '';
+            slides.forEach((_slide, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => {
+                    showCarouselSlide(i);
+                    resetAutoplay();
+                };
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        // Autoplay setup
+        function startAutoplay() {
+            autoplayInterval = setInterval(() => {
+                moveCarousel(1);
+            }, 4000); // change slide every 4000ms (4 seconds)
+        }
+
+        function resetAutoplay() {
+            clearInterval(autoplayInterval);
+            startAutoplay();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupCarouselDots();
+            showCarouselSlide(0);
+            startAutoplay();
+        });
+const cardData = [
+  {
+    pink: {
+      main: "1 Million",
+      label: "Rural residents<br>benefited",
+      bgColor: "rgba(217, 35, 82, 0.89)",
+      textColor: "#fff"
+    },
+    yellow: {
+      main: "30+",
+      label: "Institutional<br>Participation",
+      bgColor: "#ffe44d",
+      textColor: "#b00636"
+    }
+  },
+  {
+    pink: {
+      main: "2 Million",
+      label: "Urban residents<br>impacted",
+      bgColor: "rgba(180, 50, 70, 0.85)",
+      textColor: "#fff"
+    },
+    yellow: {
+      main: "45+",
+      label: "New partnerships<br>formed",
+      bgColor: "#ffde63",
+      textColor: "#9a023e"
+    }
+  },
+  // Add more entries as desired
+];
+
+let currentCardIndex = 0;
+
+function updateCards(idx) {
+  const pinkBox = document.querySelector('.impactvis-pinkbox');
+  const yellowBox = document.querySelector('.impactvis-yellowbox');
+  if (!pinkBox || !yellowBox || !cardData[idx]) return;
+
+  // Animate fade out
+  pinkBox.style.opacity = '0';
+  yellowBox.style.opacity = '0';
+
+  setTimeout(() => {
+    // Update pink card
+    pinkBox.style.backgroundColor = cardData[idx].pink.bgColor;
+    pinkBox.querySelector('.impactvis-pink-main').innerHTML = cardData[idx].pink.main;
+    pinkBox.querySelector('.impactvis-pink-label').innerHTML = cardData[idx].pink.label;
+    pinkBox.style.color = cardData[idx].pink.textColor;
+
+    // Update yellow card
+    yellowBox.style.backgroundColor = cardData[idx].yellow.bgColor;
+    yellowBox.querySelector('.impactvis-yellow-main').innerHTML = cardData[idx].yellow.main;
+    yellowBox.querySelector('.impactvis-yellow-label').innerHTML = cardData[idx].yellow.label;
+    yellowBox.style.color = cardData[idx].yellow.textColor;
+
+    // Animate fade in
+    pinkBox.style.opacity = '1';
+    yellowBox.style.opacity = '1';
+  }, 600); // duration matching CSS transition
+}
+
+// Automatic animation every 4 seconds
+function startCardAnimation() {
+  setInterval(() => {
+    currentCardIndex++;
+    if (currentCardIndex >= cardData.length) currentCardIndex = 0;
+    updateCards(currentCardIndex);
+  }, 4000); // change interval here
+}
+
+// Initialize cards on page load and start animation
+document.addEventListener('DOMContentLoaded', () => {
+  updateCards(0); // initial populate cards
+  startCardAnimation();
+});
+
+        
+    </script>
+
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: "Roboto", sans-serif !important;
             background-color: #f0f0f0;
             color: #333;
             transition: box-shadow 0.3s ease;
@@ -169,21 +313,17 @@
             gap: 60px;
         }
 
-        .logo-small {
-            width: 32px;
-            height: 32px;
-            opacity: 0.5;
-        }
+
 
         .logo-large {
             width: 100%;
-            max-width: 300px;
+            max-width: 230px;
         }
 
         .action-buttons {
             display: flex;
             gap: 20px;
-            font-family: 'Cinzel', serif;
+            /* font-family: 'Cinzel', serif; */
         }
 
         .action-buttons a {
@@ -224,7 +364,7 @@
         }
 
         .font-display {
-            font-family: 'Cinzel', serif;
+            /* font-family: 'Cinzel', serif; */
         }
 
         .hero-section {
@@ -251,7 +391,7 @@
             line-height: 1.6;
             color: #e5e7eb;
             /* text-gray-200 */
-            font-family: 'Merriweather', serif;
+            /* font-family: 'Merriweather', serif; */
             margin: 0;
         }
 
@@ -317,24 +457,35 @@
                 font-size: 1.875rem;
             }
         }
+.why-mba-section {
+    position: relative; /* needed for overlay positioning */
+    min-height: 100vh;
+    background: #fff; /* fallback color */
+    background-image: url('./WhatsApp Image 2025-10-25 at 3.46.12 PM.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 3em 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0; 
+}
 
-        .why-mba-section {
+/* Black overlay */
+.why-mba-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* semi-transparent black */
+    pointer-events: none; /* allow clicks through overlay */
+    z-index: -2; /* behind content, above background image */
+}
 
-            min-height: 100vh;
-            background: #fff;
-            /* fallback color */
-            background-image: url('');
-            background-size: cover;
-            /* Ensures image covers section */
-            background-position: center;
-            /* Centers image */
-            background-repeat: no-repeat;
-            /* Prevents repeating */
-            padding: 3em 2em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
 
         .why-mba-main-container {
             width: 100%;
@@ -363,13 +514,13 @@
             font-size: 4.5rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
-            color: #23272a;
+            color: #ffffff;
             filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.18));
         }
 
         .why-mba-lead {
             font-size: 1.1em;
-            color: #23272a;
+            color: #ffffff;
             line-height: 1.7;
             font-weight: 500;
             margin-bottom: 2em;
@@ -413,27 +564,27 @@
         .why-mba-feature-title {
             font-size: 1.2em;
             font-weight: bold;
-            color: #192346;
+            color: #ffffff;
             margin-bottom: 0.2em;
         }
 
         .why-mba-feature-stat {
             font-size: 2.1em;
             font-weight: bold;
-            color: #192346;
+            color: #ffffff;
             margin-bottom: 0.15em;
         }
 
         .why-mba-feature-desc {
             font-size: 1em;
-            color: #3e4b68;
+            color: #ffffff;
         }
 
         /* Container & layout */
         .success-stories-section {
             background-color: #f9fafb;
             color: #1f2937;
-            font-family: 'Georgia', serif;
+            /* font-family: 'Georgia', serif; */
             /* for display font look */
             padding: 3rem 4rem;
             min-height: 100vh;
@@ -474,7 +625,7 @@
 
         .subtitle {
             font-size: 3rem;
-            font-weight: 900;
+            font-weight: 700;
             color: #223D77;
             margin-bottom: 1rem;
         }
@@ -482,7 +633,7 @@
         .title {
             font-size: 4rem;
             /* ~7xl equivalent */
-            font-weight: 900;
+            font-weight: 700;
             line-height: 1.1;
             color: #1f2937;
             margin-bottom: 2rem;
@@ -762,10 +913,1483 @@
             position: relative;
         }
 
-        body {
+        /* Middle Card Styling - Unique Design for Postgraduate */
+        /* Middle Card Styling - Same expansion as UG & PhD */
+        .card-middle-featured {
+            border: 4px solid transparent;
+            box-shadow: 0 0 15px 3px #D92329;
+            background-color: #f3f4f6;
+            position: relative;
+            width: 300px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .card-middle-featured .card-img {
+            border-color: #D92329;
+        }
+
+        .card-middle-featured .card-name {
+            color: #1f2937;
+        }
+
+        .card-middle-featured .card-text {
+            color: #6b7280;
+        }
+
+        .card-middle-featured .card-link {
+            color: #93336e;
+        }
+
+        .impactvis-section {
+            width: 100vw;
+            /* Set fixed width */
+            height: 500px;
+            /* Set fixed height */
+            width: 100vw;
+            /* Prevents resizing below this */
+            min-height: 600px;
+            max-width: 100%;
+            max-height: 100vh;
+            margin: 0 auto;
+            /* Center horizontally if needed */
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+
+
+
+        }
+
+        .impactvis-img-col {
+            flex: 1 1 0%;
+            min-width: 600px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .impactvis-img {
+            width: 100%;
+            height: 100%;
+            min-height: 670px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .impactvis-stats-col {
+            width: calc(100vw - 900px);
+            min-width: 440px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            background: transparent;
+            min-height: 1686px;
+        }
+
+        .impactvis-box-row {
+            margin-left: -150px;
+            /* pink overlaps photo */
+            margin-top: 120px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 70px;
+            width: 100%;
+            z-index: 3;
+            position: relative;
+        }
+
+        .impactvis-pinkbox {
+            background: rgba(217, 35, 82, 0.89);
+            width: 400px;
+            height: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1.5px 16px rgba(217, 35, 82, 0.10);
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .impactvis-pink-main {
+            color: #fff;
+            font-size: 3.1rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+            margin-top: 0;
+            line-height: 1.13;
+        }
+
+        .impactvis-pink-label {
+            color: #fff;
+            opacity: 0.95;
+            font-size: 1.1rem;
+            font-weight: 400;
+            line-height: 1.38;
             margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f7f7f7;
+            margin-bottom: 0;
+        }
+
+        .impactvis-yellowbox {
+            background: #ffe44d;
+            width: 370px;
+            height: 340px;
+            box-shadow: 0 1.5px 16px rgba(240, 209, 54, .09);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            position: relative;
+            text-align: center;
+            margin-top: 60px;
+            /* Adjust this value as needed */
+        }
+
+
+        .impactvis-yellow-main {
+            color: #b00636;
+            font-size: 3.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            margin-top: 0;
+            letter-spacing: -1px;
+            line-height: 1.13;
+        }
+
+        .impactvis-yellow-label {
+            color: #513a04;
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.39;
+            margin: 0;
+        }
+
+        @media (max-width: 1280px) {
+            .impactvis-img-col {
+                min-width: 400px;
+            }
+
+            .impactvis-stats-col {
+                min-width: 300px;
+            }
+
+            .impactvis-pinkbox,
+            .impactvis-yellowbox {
+                width: 270px;
+                height: 180px;
+            }
+
+            .impactvis-box-row {
+                margin-left: -80px;
+                margin-top: 60px;
+                gap: 24px;
+            }
+
+            .impactvis-pink-main,
+            .impactvis-yellow-main {
+                font-size: 2.1rem;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .impactvis-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .impactvis-img-col,
+            .impactvis-stats-col {
+                width: 100vw !important;
+                min-width: 0;
+                min-height: 200px;
+                height: auto;
+            }
+
+            .impactvis-img {
+                min-height: 300px;
+                height: 210px;
+                object-fit: cover;
+            }
+
+            .impactvis-box-row {
+                margin-left: 0;
+                margin-top: 0;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                gap: 20px;
+            }
+
+            .impactvis-pinkbox,
+            .impactvis-yellowbox {
+                width: 90vw;
+                max-width: 370px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .impactvis-pinkbox,
+            .impactvis-yellowbox {
+                width: 96vw;
+                min-width: 120px;
+                max-width: 300px;
+                height: 120px;
+                padding: 22px 10px;
+            }
+
+            .impactvis-pink-main,
+            .impactvis-yellow-main {
+                font-size: 1.2rem;
+            }
+
+            .impactvis-box-row {
+                gap: 8px;
+            }
+        }
+
+        .aboutus-section-uniq {
+            width: 100%;
+            background: #ffffff;
+            color: #333;
+
+            display: flex;
+            justify-content: center;
+            padding: 40px 0 60px 0;
+        }
+
+        .aboutus-layout-uniq {
+            width: 100%;
+            margin: 0;
+            padding: 24px 0;
+            background: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: none;
+        }
+
+        .aboutus-heading-uniq {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .aboutus-title-uniq {
+            color: #002B5B;
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin: 0;
+            line-height: 1.13;
+        }
+
+        .aboutus-bodytext-uniq {
+            max-width: 1000px;
+            margin: 0 auto 30px auto;
+            padding: 0 8px;
+        }
+
+        .aboutus-bodytext-uniq p {
+            font-size: 1.08rem;
+            line-height: 1.7;
+            font-weight: 400;
+            margin-bottom: 12px;
+            color: #333333;
+            align-items: justify;
+            text-align: center;
+        }
+
+        .aboutus-grid-uniq {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .aboutus-grid-uniq {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+        }
+
+        .aboutus-card-uniq {
+            background: #fff;
+            /* border: 1.5px solid #e2e8f0; */
+            /* border-radius: 14px; */
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 18px;
+            box-shadow: 0 2px 7px 0 rgba(0, 32, 73, .04);
+        }
+
+        .aboutus-cardicon-uniq {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #067bf91a;
+            color: #067bf9;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            font-size: 2.8rem;
+            margin-bottom: 6px;
+        }
+
+        .aboutus-icon-uniq {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .aboutus-cardsubtitle-uniq {
+            color: #002B5B;
+            font-size: 1.28rem;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+        }
+
+        .aboutus-cardtext-uniq {
+            color: #6c7a89;
+            font-size: 1rem;
+            margin: 0;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .aboutus-icon-uniq {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            display: block;
+        }
+
+        Research & Innovation Section Styles */ .research-innovation-section {
+            width: 100%;
+            background: #fff;
+            padding: 0;
+        }
+
+        .ri-container {
+            display: flex;
+            min-height: 600px;
+        }
+
+        .ri-stats-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            /* background: #fff; */
+            /* padding-right: 2vw; */
+        }
+
+        .ri-stats-block {
+            margin: 1vw 0;
+            text-align: right;
+        }
+
+        .ri-stats-block span {
+            display: block;
+            font-size: 57px;
+            font-weight: bold;
+            color: #b01841;
+            letter-spacing: 1px;
+        }
+
+        .ri-stats-block label {
+            font-size: 1vw;
+            color: #222;
+            /* margin-top: 0.3vw; */
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .ri-divider {
+            width: 150px;
+            height: 1px;
+            background: #dfddddce;
+            margin: 1vw 0;
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .ri-right-panel {
+            flex: 1;
+            position: relative;
+            /* background: linear-gradient(125deg, #fff 60%, transparent 61%),
+                url('./1.webp') no-repeat center right; */
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            min-height: 480px;
+            overflow: hidden;
+        }
+
+        .ri-overlap-content {
+            margin-left: 15vw;
+        }
+
+        .ri-innovation-label {
+            font-size: 3vw;
+            font-weight: 700;
+            color: #b01841;
+            line-height: 1.2;
+            margin-bottom: 1.5vw;
+            max-width: 90vw;
+        }
+
+        .ri-read-more-btn {
+            padding: 0.5vw 1.3vw;
+            border: 2px solid #b01841;
+            color: #b01841;
+            background: transparent;
+            font-size: 1vw;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+            margin-top: 1vw;
+            font-family: inherit;
+            outline: none;
+            letter-spacing: 2px;
+        }
+
+        .ri-read-more-btn:hover {
+            background: #b01841;
+            color: #fff;
+        }
+
+        @media (max-width: 900px) {
+            .ri-container {
+                flex-direction: column;
+            }
+
+            .ri-stats-panel,
+            .ri-right-panel {
+                padding: 4vw 0;
+                align-items: center;
+                text-align: center;
+            }
+
+            .ri-innovation-label {
+                font-size: 4vw;
+            }
+
+            .ri-stats-block span {
+                font-size: 6vw;
+            }
+
+            .ri-stats-block label {
+                font-size: 2vw;
+            }
+
+            .ri-read-more-btn {
+                font-size: 2vw;
+            }
+        }
+
+        .carousel-stats-section {
+            width: 100%;
+            background: #fff;
+            padding: 0;
+            font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+        }
+
+        .carousel-stats-container {
+            position: relative;
+            width: 100%;
+        }
+
+        /* Carousel Wrapper */
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            min-height: 600px;
+            overflow: hidden;
+            background: #222;
+        }
+
+        .carousel-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 600px;
+            position: relative;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 600px;
+            display: none;
+            position: relative;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Navigation Buttons */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.25);
+            color: #fff;
+            border: none;
+            padding: 12px 18px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 4;
+            transition: background 0.3s;
+            border-radius: 4px;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .carousel-prev {
+            left: 20px;
+        }
+
+        .carousel-next {
+            right: 20px;
+        }
+
+        /* Dots */
+        .carousel-dots {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 4;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .carousel-dot.active {
+            background: #fff;
+        }
+
+        /* Overlay Stat Boxes - Positioned on Image */
+        .stats-boxes-overlay {
+            position: absolute;
+            top: 50%;
+            right: 5%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            z-index: 3;
+        }
+
+        .stat-box {
+            width: 280px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            padding: 30px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-box-pink {
+            background: rgba(176, 24, 65, 0.95);
+            color: #fff;
+        }
+
+        .stat-box-yellow {
+            background: rgba(255, 225, 62, 0.95);
+            color: #b01841;
+        }
+
+        .stat-box-main {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+        }
+
+        .stat-box-sub {
+            font-size: 1.2rem;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .stat-box-yellow .stat-box-sub {
+            color: #444;
+            opacity: 0.88;
+        }
+
+        /* Responsive */
+        @media (max-width: 990px) {
+
+            .carousel-wrapper,
+            .carousel-slider,
+            .carousel-slide,
+            .carousel-slide img {
+                height: 350px;
+                min-height: 350px;
+            }
+
+            .stats-boxes-overlay {
+                position: static;
+                transform: none;
+                flex-direction: row;
+                justify-content: center;
+                gap: 16px;
+                padding: 24px 16px;
+                background: #f8f8f8;
+            }
+
+            .stat-box {
+                width: 180px;
+                min-height: 140px;
+                padding: 20px 16px;
+            }
+
+            .stat-box-main {
+                font-size: 1.6rem;
+            }
+
+            .stat-box-sub {
+                font-size: 1rem;
+            }
+        }
+
+
+        .stat-boxes-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 32px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .stat-box {
+            width: 340px;
+            min-height: 210px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 32px;
+            border-radius: 8px;
+            box-shadow: 0 4px 24px 0 #2222;
+        }
+
+        .stat-box-pink {
+            background: rgba(176, 24, 65, 0.96);
+            color: #fff;
+            margin-left: 0;
+            /* aligns left naturally in flex */
+        }
+
+        .stat-box-yellow {
+            background: rgba(255, 225, 62, 0.97);
+            color: #b01841;
+            margin-right: 0;
+            /* aligns right naturally in flex */
+        }
+
+        .stat-box-main {
+            font-size: 2.1rem;
+            font-weight: 700;
+            margin-bottom: 22px;
+            letter-spacing: 1px;
+        }
+
+        .stat-box-sub {
+            font-size: 1.15rem;
+            font-weight: 400;
+        }
+
+        .stat-box-yellow .stat-box-sub {
+            color: #444;
+            opacity: 0.87;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .stat-boxes-row {
+                flex-direction: column;
+                gap: 18px;
+                width: 100%;
+            }
+
+            .stat-box {
+                width: 98vw;
+                min-height: 120px;
+                padding: 20px 8vw;
+            }
+
+            .stat-box-main {
+                font-size: 1.32rem;
+            }
+        }
+
+
+
+        footer {
+            width: 100%;
+            background: transparent;
+        }
+
+        .enquire-ribbon {
+            position: fixed;
+            left: 0;
+            top: 20px;
+            z-index: 2;
+            background: #fc7823;
+            color: white;
+            padding: 16px 10px 16px 10px;
+            border-radius: 0 4px 4px 0;
+            writing-mode: vertical-rl;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            letter-spacing: 1px;
+            box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.09);
+        }
+
+        .tgb-contact-wrap {
+            width: 100%;
+            max-width: 100%;
+            background: #223D77;
+            box-sizing: border-box;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1px;
+            /* Reduced gap between columns */
+            padding: 28px 24px;
+            /* Tighter padding for more compact layout */
+        }
+
+
+        .tgb-logo-ctn {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-width: 180px;
+            margin-right: 18px;
+        }
+
+        .tgb-logo-ctn img {
+            height: 180px;
+            margin-bottom: 44px;
+        }
+
+        .tgb-header-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: #fb7226;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+            margin-bottom: 0;
+        }
+
+        .tgb-header-line1 {
+            color: #365297;
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 1.3;
+            margin-top: 24px;
+            margin-bottom: 0;
+        }
+
+        .tgb-tag {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #222f58;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+        }
+
+        .tgb-iso {
+            font-size: 15px;
+            color: #365297;
+            margin-top: 5px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .tgb-map {
+            flex: 1.2;
+            min-width: 340px;
+        }
+
+        .tgb-map iframe {
+            width: 100%;
+            height: 240px;
+            border: 0;
+            border-radius: 8px;
+        }
+
+        .tgb-contact-details {
+            flex: 1;
+            margin-left: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .tgb-contact-row {
+            display: flex;
+            align-items: flex-start;
+            font-size: 17px;
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 3px;
+            gap: 13px;
+        }
+
+        .tgb-contact-row i {
+            color: #fff;
+            font-size: 20px;
+            min-width: 28px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .tgb-contact-link {
+            color: #fff;
+            text-decoration: none;
+            transition: text-decoration 0.2s;
+            word-break: break-all;
+        }
+
+        .tgb-contact-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1100px) {
+            .tgb-contact-wrap {
+                flex-direction: column;
+                gap: 32px;
+                padding: 32px 16px;
+                width: 100%;
+                border-radius: 0;
+            }
+
+            .tgb-logo-ctn {
+                align-items: center;
+                margin-right: 0;
+                margin-bottom: 12px;
+            }
+
+            .tgb-contact-details {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .tgb-contact-wrap {
+                padding: 5vw 2vw;
+                width: 100%;
+            }
+
+            .tgb-header-title {
+                font-size: 24px;
+            }
+
+            .tgb-header-line1 {
+                font-size: 18px;
+            }
+
+            .tgb-map iframe {
+                height: 180px;
+            }
+        }
+
+     
+
+        /* Example flex values for side-by-side sections */
+        .tgb-logo-ctn {
+            flex: 0 0 170px;
+            /* fixed width for logo */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .tgb-contact-details {
+            flex: 2 1 350px;
+            /* contact section grows twice as fast as logo area */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-map {
+            flex: 1 1 280px;
+            /* map takes available width, default 280px */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer-map iframe {
+            width: 100%;
+            max-width: 320px;
+            height: 180px;
+            border: 0;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .tgb-contact-wrap {
+                flex-direction: column;
+                gap: 20px;
+                padding: 18px 8px;
+            }
+
+            .tgb-logo-ctn,
+            .tgb-contact-details,
+            .footer-map {
+                flex: none;
+                width: 100%;
+                align-items: center;
+            }
+
+            .footer-map iframe {
+                max-width: 100%;
+            }
+        }
+
+        .tgb-contact-wrap {
+            width: 100%;
+            max-width: 2000px;
+            background: #223D77;
+            box-sizing: border-box;
+            margin: 0 auto;
+            display: grid;
+            gap: 40px;
+            padding: 36px 40px;
+            align-items: start;
+            /* align items at start vertically */
+        }
+
+        .tgb-logo-ctn {
+            /* first column */
+            max-width: 600px;
+            min-width: 330px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .tgb-logo-ctn img {
+            max-width: 60%;
+            height: auto;
+            display: block;
+            margin-bottom: 18px;
+        }
+
+        .tgb-logo-ctn iframe {
+            width: 100%;
+            min-width: 300px;
+            max-width: 440px;
+            height: 260px;
+            border-radius: 10px;
+            border: 0;
+            box-shadow: 0 4px 18px rgba(36, 98, 165, 0.08);
+        }
+
+        .tgb-map {
+            grid-column: 2;
+            /* place map in the bigger middle column */
+            min-width: 340px;
+        }
+
+        .tgb-map iframe {
+            width: 100%;
+            height: 400px;
+            /* increased height for bigger map */
+            border: 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 18px rgba(36, 98, 165, 0.12);
+        }
+
+        .tgb-contact-details {
+            grid-column: 3;
+            /* right column */
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            margin-top: 18px;
+        }
+
+        .tgb-contact-row {
+            display: flex;
+            align-items: center;
+            font-size: 19px;
+            color: #ffffff;
+            font-weight: 500;
+            gap: 18px;
+            letter-spacing: 0.2px;
+        }
+
+        .tgb-contact-row i {
+            color: white;
+            font-size: 28px;
+            min-width: 32px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        /* Adjust responsive styles accordingly to switch grid to column or stacked layouts */
+        @media (max-width: 1100px) {
+            .tgb-contact-wrap {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                padding: 24px 10px;
+                align-items: center;
+                text-align: center;
+            }
+
+            .tgb-logo-ctn,
+            .tgb-map,
+            .tgb-contact-details {
+                grid-column: auto;
+                width: 100%;
+                max-width: none;
+                align-items: center;
+            }
+
+            .tgb-logo-ctn iframe,
+            .tgb-map iframe {
+                height: 180px;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .tgb-contact-wrap {
+                padding: 12px 2vw;
+                gap: 14px;
+            }
+
+            .tgb-logo-ctn img {
+                width: 110px;
+            }
+
+            .tgb-map iframe {
+                height: 130px;
+            }
+
+            .tgb-contact-details,
+            .tgb-contact-row {
+                font-size: 16px;
+                gap: 10px;
+            }
+
+            .tgb-contact-row i {
+                font-size: 21px;
+                min-width: 22px;
+            }
+        }
+
+        .ri-container {
+            position: relative;
+        }
+
+        .vertical-logo-marquees.left-fixed {
+            position: absolute;
+            left: 4vw;
+            top: 40px;
+            display: flex;
+            flex-direction: row;
+            gap: 50px;
+            height: 550px;
+            /* container height */
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .vertical-marquee {
+            width: 150px;
+            /* increased from 54px */
+            height: 550px;
+            overflow: hidden;
+            position: relative;
+            background: transparent;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .marquee-logos {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            /* <-- adjust so logos fit nicely */
+        }
+
+        .marquee-logos img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            /* opacity: 0.95; */
+        }
+
+        .marquee-down .marquee-logos {
+            animation: marquee-down-move 10s linear infinite;
+        }
+
+        @keyframes marquee-down-move {
+            0% {
+                transform: translateY(-84px);
+            }
+
+            100% {
+                transform: translateY(416px);
+            }
+        }
+
+        .marquee-up .marquee-logos {
+            animation: marquee-up-move 10s linear infinite;
+        }
+
+        @keyframes marquee-up-move {
+            0% {
+                transform: translateY(416px);
+            }
+
+            100% {
+                transform: translateY(-84px);
+            }
+        }
+
+
+        .marquee-logos img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            opacity: 0.92;
+            transition: opacity 0.25s;
+        }
+
+
+        @media (max-width: 1100px) {
+            .vertical-logo-marquees.left-fixed {
+                left: 0;
+                gap: 20px;
+                height: 168px;
+                top: 32px;
+            }
+
+            .vertical-marquee {
+                width: 32px;
+                height: 168px;
+            }
+
+            .marquee-logos img {
+                width: 27px;
+                height: 27px;
+            }
+        }
+
+        .hero-section-new {
+            width: 100%;
+            background-color: #E6E6E5;
+            padding: 0;
+            position: relative;
+            overflow: visible;
+            padding-top: 40px;
+            padding-bottom: 60px;
+        }
+
+        /* Cards Container - Positioned Exactly Half In/Half Out */
+        .hero-cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            padding: 0 20px;
+            flex-wrap: wrap;
+            z-index: 2;
+        }
+
+        .hero-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 20px 18px 20px;
+            width: 140px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+        }
+
+        .hero-card-icon {
+            font-size: 48px;
+            background: #fbeaed;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: #e35560;
+        }
+
+        .hero-card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 6px;
+        }
+
+        .hero-card-count {
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+        /* Hero Text Content - Below Cards (with top margin for spacing) */
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 140px 20px 0 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            /* font-size: 1.4rem; */
+            font-weight: 500;
+            color: #223D77;
+            line-height: 1.6;
+            margin: 0;
+            font-family: Merriweather, serif;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-section-new {
+                padding-top: 30px;
+                padding-bottom: 40px;
+                min-height: 450px;
+            }
+
+            .hero-cards-container {
+                gap: 14px;
+                top: 45%;
+            }
+
+            .hero-card {
+                width: 110px;
+                padding: 16px 12px 12px 12px;
+            }
+
+            .hero-card-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 32px;
+            }
+
+            .hero-card-title {
+                font-size: 0.95rem;
+            }
+
+            .hero-content {
+                padding: 120px 20px 0 20px;
+            }
+
+            .hero-text {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-section-new {
+                min-height: 380px;
+            }
+
+            .hero-cards-container {
+                gap: 10px;
+                top: 40%;
+            }
+
+            .hero-card {
+                width: 90px;
+                padding: 12px 8px;
+            }
+
+            .hero-card-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 24px;
+            }
+
+            .hero-card-title {
+                font-size: 0.85rem;
+            }
+
+            .hero-content {
+                padding: 100px 20px 0 20px;
+            }
+
+            .hero-text {
+                font-size: 1rem;
+            }
+        }
+
+
+        /* Place this in your stylesheet */
+        #about-us-section {
+            padding-top: 130px !important;
+            position: relative;
+            overflow: visible;
+        }
+
+        .about-cards-row {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transform: translateY(-25%);
+            display: flex;
+            gap: 125px;
+            z-index: 2;
+            justify-content: center;
+        }
+
+        .about-card {
+            background: #fff;
+            border-radius: 6px;
+            /* or use 0 for sharp corners */
+            box-shadow: 0 8px 32px rgba(4, 8, 231, 0.12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px 13px 0px 9px;
+            width: 200px;
+            text-align: center;
+        }
+
+
+        .about-card-icon {
+            font-size: 44px;
+            background: #fbeaed;
+            border-radius: 50%;
+            width: 62px;
+            height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            color: #e35560;
+        }
+
+        .about-card-title {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 6px;
+        }
+
+        .about-card-count {
+            color: #888;
+            font-size: 0.97rem;
+        }
+
+        /* Section content styles (keep your previous about section styles for text/layout) */
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            #about-us-section {
+                padding-top: 90px !important;
+            }
+
+            .about-cards-row {
+                gap: 16px;
+            }
+
+            .about-card {
+                width: 98px;
+                padding: 14px 6px;
+            }
+
+            .about-card-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 24px;
+            }
+
+            .section-title {
+                margin-top: 60px !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .about-cards-row {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .about-card {
+                width: 80px;
+                font-size: 0.91rem;
+            }
+
+            #about-us-section {
+                padding-top: 52px !important;
+            }
+
+            .section-title {
+                margin-top: 35px !important;
+            }
         }
 
         footer {
@@ -942,20 +2566,6 @@
             }
         }
 
-        .tgb-contact-wrap {
-            width: 100%;
-            background: #223D77;
-            margin: 0 auto;
-            box-sizing: border-box;
-            box-shadow: 0 4px 28px rgba(30, 70, 217, 0.05);
-            padding: 38px 28px 38px 28px;
-            /* reduced horizontal padding */
-            display: flex;
-            align-items: flex-start;
-            gap: 24px;
-            /* reduced gap */
-            max-width: 1920px;
-        }
 
         /* Example flex values for side-by-side sections */
         .tgb-logo-ctn {
@@ -1292,7 +2902,7 @@
 
         .tgb-contact-wrap {
             width: 100%;
-            max-width: 1920px;
+            max-width: 100%;
             background: #223D77;
             box-sizing: border-box;
             margin: 0 auto;
@@ -1409,21 +3019,364 @@
                 font-size: 21px;
                 min-width: 22px;
             }
+
+
         }
-        .tgb-contact-wrap {
-    width: 100%;
-    max-width: 1920px;
-    background: #223D77;
-    box-sizing: border-box;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.5fr 1.5fr; /* Two equal columns */
-    grid-template-rows: 1fr;            /* One row */
-    gap: 40px;
-    padding: 36px 40px;
-    align-items: start;
-    white-space: nowrap; /* Prevent line breaks inside this container */
+
+        .section-container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 60px 170px;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            min-height: 80vh;
+            background: #fff;
+        }
+
+   
+
+        .about-header-section {
+            /* display: flex; */
+            /* flex-direction: column; */
+            gap: 32px;
+            align-items: center;
+        }
+
+        .about-header-content {
+            /* display: flex; */
+            /* flex-direction: column; */
+            gap: 18px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .about-header-title {
+            font-size: 2.75rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: #232f53;
+            text-align: center;
+        }
+
+        .about-header-proposed {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #222a42;
+            margin-left: 10px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+        .about-header-subheader {
+            font-size: 1.25rem;
+            color: #374151;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+       .about-header-text {
+    font-size: 1rem;
+    color: #6b7280;
+    text-align: justify; /* Justify the text */
+    line-height: 1.7;
+    max-width: 1000px; /* limits the width */
+    margin: 0 auto; /* centers the block */
 }
+
+        .about-header-img {
+            flex: 1;
+            max-width: 380px;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-top: 18px;
+        }
+
+        .about-header-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: 18px;
+        }
+
+        @media (min-width: 900px) {
+            .about-header-section {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 48px;
+                text-align: left;
+            }
+
+            .about-header-content {
+                text-align: left;
+                margin-right: 40px;
+            }
+
+            .about-header-img {
+                margin-top: 0;
+            }
+        }
+
+        .vision-mission-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 36px;
+        }
+
+        .vision-container,
+        .mission-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .vision-title,
+        .mission-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #232f53;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+            transition: filter 0.2s ease;
+        }
+
+        .vision-title:hover,
+        .mission-title:hover {
+            filter: brightness(0.88);
+        }
+
+        .vision-text,
+        .mission-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #6b7280;
+            font-weight: 400;
+            text-align: justify;
+        }
+
+        @media (max-width: 900px) {
+            .section-container {
+                padding: 38px 14px;
+            }
+
+            .vision-mission-section {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+
+            .about-header-img {
+                max-width: 90vw;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+ .impactvis-pinkbox,
+.impactvis-yellowbox {
+  transition: background-color 0.6s ease, color 0.6s ease, opacity 0.6s ease;
+  opacity: 1;
+}
+.sidebar {
+    position: relative;
+    width: 420px;
+    min-width: 350px;
+    max-width: 100vw;
+    height: 100vh;
+    background-image: url('./WhatsApp Image 2025-10-31 at 11.26.45 AM.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #d4af37;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 0;
+    box-shadow: 0 12px 48px 8px rgba(32, 35, 60, 0.7), 0 4px 16px 0 rgba(0,0,0,0.25);
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.sidebar-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.2);
+    box-shadow: 0 12px 48px 8px rgba(32,35,60,0.7), 0 4px 16px 0 rgba(0,0,0,0.25);
+    z-index: 1;
+    pointer-events: none; /* This is crucial! */
+}
+
+
+.sidebar-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+    margin-top: 30px;
+    gap: 18px;
+}
+
+.logo-large {
+    width: 190px;
+    object-fit: contain;
+    margin-bottom: 32px;
+}
+
+.tcet-form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.tcet-form input[type="text"],
+.tcet-form input[type="email"] {
+    background: #fff;
+    border: 1px solid #d4af37;
+    color: #31334a;
+    font-size: 16px;
+    padding: 3px 14px;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 0;
+    box-sizing: border-box;
+    transition: border 0.2s;
+}
+
+.tcet-form input:focus {
+    border: 1.5px solid #e6c964;
+    outline: none;
+}
+
+.input-split-row {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.input-split-row input {
+    width: 50%;
+}
+
+.captcha-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    
+}
+
+.captcha-box {
+    background: #fff;
+    color: #19356a;
+    padding: 3px 13px;
+    font-weight: bold;
+    border-radius: 3px;
+    font-size: 15px;
+    border: 1px solid #d4af37;
+    letter-spacing: 2px;
+}
+
+.refresh-btn {
+    background: transparent;
+    color: #d4af37;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.captcha-row input[type="text"] {
+    background: #fff;
+    border: 1px solid #d4af37;
+    color: #31334a;
+     /* padding-top: 3px; */
+    padding-bottom: 3px;
+    border-radius: 3px;
+    font-size: 15px;
+    width: 100%;
+    margin-left: 4px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #d4af37;
+    font-size: 14px;
+    /* margin-bottom: 12px; */
+    margin-top: 8px;
+}
+
+.submit-btn {
+    background: #d4af37;
+    color: #0d1d47;
+    border: none;
+    border-radius: 4px;
+    padding: 7px 0;
+    font-size: 17px;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 4px;
+    box-shadow: 0 2px 8px 0 rgba(32, 35, 60, 0.12);
+}
+.submit-btn:hover {
+    background: #b4973a;
+}
+
+@media (max-width: 800px) {
+    .sidebar {
+        min-width: unset;
+        width: 100vw;
+        justify-content: flex-start;
+    }
+    .sidebar-content {
+        margin-right: 0;
+        max-width: 96vw;
+    }
+}
+.placement-bg-container {
+    
+    position: relative;
+    width: 100vw;
+    min-height: 500px;
+    background: #fff; /* fallback */
+    background-image: url('./Landing_Placement_01.webp'); /* update path if needed */
+    background-size: cover;
+ background-position: 80% bottom;
+
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    overflow: hidden;
+}
+
+.placement-bg-container::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: rgba(0,0,0,0.45); */
+    pointer-events: none;
+    z-index: 1;
+}
+/* All immediate child sections content above overlay */
+.impactvis-section,
+.research-innovation-section {
+    position: relative;
+    z-index: 2;
+    /* layout and spacing as per your design */
+    background: none !important; /* Remove individual bg if set previously */
+}
+
 
     </style>
 
@@ -1431,7 +3384,7 @@
 
 <body>
 
-    <div class="page-container content-above">
+<div class="page-container content-above">
         <div class="video-section">
             <video autoplay muted loop poster="">
                 <source src="draft-4.mp4" type="video/mp4">
@@ -1450,81 +3403,112 @@
         <div class="sidebar">
             <div class="sidebar-overlay"></div>
             <div class="sidebar-content">
-                <div class="logo-small"></div>
-
                 <div class="logo-area">
-                    <img src="Emblem@4x.webp" alt="Godolkin University Logo" class="logo-large" />
+                    <img src="Emblem@4x.webp" alt="TCET University Logo" class="logo-large" />
                 </div>
-
-                <div class="action-buttons">
-                    <!-- <a href="#">GET YOUR ID CARD</a> -->
-                    <a href="#">ENQUIRE NOW</a>
-                </div>
+                <form class="tcet-form">
+                    <input type="text" name="name" placeholder="Name*" required />
+                    <input type="email" name="email" placeholder="Email*" required />
+                    <input type="number" name="mobile" placeholder="+91* Mobile No*" required />
+                    <div class="input-split-row">
+                        <input type="text" name="state" placeholder="State*" required />
+                        <input type="text" name="city" placeholder="City*" required />
+                    </div>
+                    <div class="input-split-row">
+                        <input type="text" name="programme" placeholder="Programme*" required />
+                        <input type="text" name="course" placeholder="Course*" required />
+                    </div>
+                    <div class="captcha-row">
+                        <div class="captcha-box">a10284</div>
+                        <button type="button" class="refresh-btn">&#8635;</button>
+                        <input type="text" name="captcha" placeholder="Enter Captcha" required />
+                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox" required />
+                        I authorize TCET (Deemed to be University) & its representatives to contact me with updates and
+                        notifications via Email/SMS/WhatsApp/Call.
+                    </label>
+                    <button type="submit" class="submit-btn">ENQUIRE NOW</button>
+                </form>
             </div>
-
-            <div class="footer">
-                <a href="#" aria-label="Instagram">
-                    <img src="YOUR-INSTAGRAM-ICON-URL.png" class="social-icon" alt="Instagram" />
-                </a>
-                <a href="#" aria-label="Mail">
-                    <img src="YOUR-X-ICON-URL.png" class="social-icon" alt="X" />
-                </a>
-                <a href="#" aria-label="YouTube">
-                    <img src="YOUR-YOUTUBE-ICON-URL.png" class="social-icon" alt="YouTube" />
-                </a>
-                <a href="#" aria-label="whatsapp">
-                    <img src="YOUR-TIKTOK-ICON-URL.png" class="social-icon" alt="TikTok" />
-                </a>
-                <a href="#" aria-label="Vought International">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmaKEYrZoMYCLjBcjvTyTBQOQ4OpHUtQ9sE08MaboIx9LsoqQCeRqN7zbatdbYxTrRuGcwcz77m1b0bT82Cev7q5_UeDHhRbI7N_mN6DarYTA09Ad987HNv0B932WBDOcDcEwo9Ug--KfRA4Vv3Q6t36aQdDmJfm-Pj19K0qgSTy5FEt9WxqJPZiAvVzvW207ggEUXHqOFim_GVFQezdZff7cOn1qUhd_ddB5ATM05qPBmSvAmGYJIaP4fEQwkZ189kPNwXoQgflY"
-                        class="social-icon" alt="Vought logo" />
-                </a>
-            </div>
-
         </div>
+
+
+
 
     </div>
-    <section class="hero-section">
-        <div class="hero-container">
+    <section class="hero-section-new">
+        <!-- Cards Half In/Half Out -->
+        <div class="about-cards-row">
+            <div class="about-card">
+                <div class="about-card-title">Engineering</div>
+                <!-- <div class="about-card-count">(10)</div> -->
+                <div class="about-card-icon">🍴</div>
+            </div>
+            <div class="about-card">
+                <div class="about-card-title">Management</div>
+                <!-- <div class="about-card-count">(3)</div> -->
+                <div class="about-card-icon">🛍️</div>
+            </div>
+            <div class="about-card">
+                <div class="about-card-title">B. Voc</div>
+                <!-- <div class="about-card-count">(4)</div> -->
+                <div class="about-card-icon">🏨</div>
+            </div>
+            <div class="about-card">
+                <div class="about-card-title">Computer Applications </div>
+                <!-- <div class="about-card-count">(3)</div> -->
+                <div class="about-card-icon">🏛️</div>
+            </div>
+            <div class="about-card">
+                <div class="about-card-title">Research</div>
+                <!-- <div class="about-card-count">(2)</div> -->
+                <div class="about-card-icon">💪</div>
+            </div>
+        </div>
+
+
+        <div class="hero-content">
             <p class="hero-text">
                 We at TCET are a community built on knowledge, connection, and collaboration, where learning becomes a
-                lifelong journey of purpose. </p>
-        </div>
-    </section>
-
-    <section id="about-us-section" style="font-family: Arial, sans-serif; padding: 40px; background-color: #f9f9f9;">
-        <h2 class="section-title">About TCET,<br>Deemed to be university </h2>
-        <p class="about-text">
-            TCET is an autonomous and linguistic minority Institute. It was established in AY 2001-02 with a clear
-            objective of providing quality technical education in tune with international standards and contemporary
-            global requirements. TCET offers 21 U.G., 11 PG., and 5 Ph.D. (Tech.) Courses. TCET is an ISO 9001:2015, ISO
-            14001:2015 & ISO 50001:2018 certified and certification has helped Institute to develop a student centric
-            process driven system required for quality education in the 21st century.
-        </p>
-
-        <div class="vision-mission-container">
-            <div class="vision">
-                <h3>Our Vision</h3>
-                <p>
-                    TCET will excel in Technical, Professional and Research Education to become an internationally
-                    renowned multidisciplinary premier institute of engineering, technology, computer application,
-                    management studies and allied professional education.
-                </p>
-            </div>
-            <div class="mission">
-                <h3>Our Mission</h3>
-                <p>
-                    To provide state-of-the-art infrastructure and right academic ambience for UG, PG and Ph.D.
-                    programmes. To nurture technical competence and research aptitude amongst aspiring graduates by
-                    imparting agile, holistic and multidisciplinary education. To enhance career opportunities for
-                    students by collaborating with reputed industry, academic and research institutes. To make students
-                    ethical and responsible citizens, both locally and globally competent.
-                </p>
-            </div>
+                lifelong journey of purpose.
+            </p>
         </div>
     </section>
 
 
+    <section class="section-container">
+
+        <section class="about-header-section">
+            <div class="about-header-content">
+                <h1 class="about-header-title">
+                    About TCET<br />
+                    <span class="about-header-proposed">Deemed to be University</span>
+                </h1>
+
+                <p class="about-header-text">
+                    TCET is an autonomous and linguistic minority Institute. It was established in AY 2001-02 with a clear objective of providing quality technical education in tune with international standards and contemporary global requirements. TCET offers 21 U.G., 11 PG., and 5 Ph.D. (Tech.) Courses. TCET is an ISO 9001:2015, ISO 14001:2015 & ISO 50001:2018 certified and certification has helped Institute to develop a student centric process driven system required for quality education in the 21st century.
+                </p>
+            </div>
+     
+        </section>
+
+        <section class="vision-mission-section">
+            <div class="vision-container">
+                <h2 class="vision-title">Our Vision</h2>
+                <p class="vision-text">
+                    TCET will excel in Technical, Professional and Research Education to become an internationally renowned multidisciplinary premier institute of engineering, technology, computer application, management studies and allied professional education.
+                </p>
+            </div>
+            <div class="mission-container">
+                <h2 class="mission-title">Our Mission</h2>
+                <p class="mission-text">
+                    To provide state-of-the-art infrastructure and right academic ambience for UG, PG and Ph.D. programmes. To nurture technical competence and research aptitude amongst aspiring graduates by imparting agile, holistic and multidisciplinary education. To enhance career opportunities for students by collaborating with reputed industry, academic and research institutes. To make students ethical and responsible citizens, both locally and globally competent.
+            </div>
+        </section>
+
+        
+    </section>
 
     <section class="why-mba-section">
         <div class="why-mba-main-container">
@@ -1545,8 +3529,7 @@
                         <div class="why-mba-feature-icon-block">
                             <!-- groups icon SVG -->
                             <svg width="36" height="36" fill="#1e3a8a" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 12c2.21 0 4-1.79 4-4 0-2.21-1.79-4-4-4s-4 1.79-4 4c0 2.21 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                            <img src="./Why TCET (Blue)/Asset 35@4x.svg" alt="Why TCET Logo" class="why-tcet-logo">
                             </svg>
                         </div>
                         <div>
@@ -1664,10 +3647,10 @@
                         <a href="#" class="card-link" onclick="toggleCard('btech-card'); return false;">Learn More</a>
                     </article>
 
-                    <article id="pg-card" class="card card-secondary"
-                        style="width: 300px; transition: width 0.5s ease, opacity 0.5s ease; overflow: hidden;">
+                    <!-- MIDDLE CARD - PG (Postgraduate) - UNIQUE STYLING -->
+                    <article id="pg-card-middle" class="card card-middle-featured">
                         <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ISt8wLzTDWdHtMkWs2u5JhkxsEYeYJIan3QHLIwN6sM_3745JzKxwAqio4DqySyQyvcgU7Q8or0XK9B9smDM1qHL9dFwehcV_7m1HXv9QQPFILXGrTFL_RfcuseuGVs7iD9Jqq4PWs9YYLU79eYYj4scsoXCQ7JAi7nml9ZetUjg5b6-N14-uLyEShOJvig5epGaZ_qqbe0yzgqFgx9fcKWKbqBCb6GxRPoQ33T-RUwWfWSZi39qeHdFeY_5_NdFzforO9JG9Q8"
-                            alt="Ms. Vishakha Naik" class="card-img" />
+                            alt="Postgraduate Programme" class="card-img" />
                         <h3 class="card-name">Postgraduate Programme</h3>
                         <p class="card-text">
                             Our PG programme offers in-depth specialization with advanced curriculum designed to foster
@@ -1675,17 +3658,19 @@
                             With expert faculty guidance, state-of-the-art labs, and industry collaborations, students
                             gain comprehensive exposure for career advancement and academic excellence.
                         </p>
-                        <div id="pg-details" style="display: none; margin-top: 10px;">
+                        <div id="pg-details-middle" style="display: none; margin-top: 10px;">
                             <h4>Course Details:</h4>
-                            <ul>
+                            <ul style="text-align: left;">
                                 <li>Core subjects: Advanced Algorithms, Data Science, Machine Learning</li>
                                 <li>Electives: Cloud Computing, Artificial Intelligence, Cybersecurity</li>
                                 <li>Research project with faculty mentoring</li>
                                 <li>Industry internships and workshops</li>
                             </ul>
                         </div>
-                        <a href="#" class="card-link" onclick="toggleCard('pg-card'); return false;">Read More</a>
+                        <a href="#" class="card-link" onclick="toggleCard('pg-card-middle'); return false;">Read
+                            More</a>
                     </article>
+
 
                     <article id="phd-card" class="card card-accent"
                         style="width: 300px; transition: width 0.5s ease, opacity 0.5s ease; overflow: hidden;">
@@ -1712,40 +3697,142 @@
 
             </div>
         </div>
+        <!-- Carousel + Stats Section -->
+
+
+
+        <!-- Research & Innovation Section -->
 
     </section>
-
-
-<footer style="width:100%;">
-    <div class="tgb-contact-wrap">
-        <div class="tgb-contact-container">
-            <img src="Asset 1.svg" alt="TGBS Logo" />
-                        <div class="tgb-contact-row">
-                <i class="fas fa-map-marker-alt"></i>
-                Thakur College of Engineering & Technology,
-                A-Block, Thakur Educational Campus,
-                Shyamnarayan Thakur Marg, Thakur Village,
-                Kandivali(E), Mumbai – 400101.
+    <section class="placement-bg-container">
+    <section class="impactvis-section">
+        <div class="impactvis-img-col">
+            <div class="carousel-wrapper">
+                <div class="carousel-slider">
+                    <div class="carousel-slide active">
+                        <img src="./Events/image00040.jpeg"
+                            alt="Students 1" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="./Events/image00064.jpeg" alt="Students 2" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="./Events/image00002-2.jpeg" alt="Students 3" />
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="./Events/image00007-2.jpeg" alt="Students 4" />
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-prev" onclick="moveCarousel(-1)">&#10094;</button>
+                <button class="carousel-btn carousel-next" onclick="moveCarousel(1)">&#10095;</button>
+                <div class="carousel-dots"></div>
             </div>
-            <div class="tgb-contact-row">
-                <i class="fas fa-phone-alt"></i>
-                022 – 28461891 | 022 – 67308000
-            </div>
-            <div class="tgb-contact-row">
-                <i class="fas fa-envelope"></i>
-                <a class="tgb-contact-link" href="mailto:tgbs@thakureducation.org">tcet@thakureducation.org</a>
-            </div>
-
         </div>
-        <div class="tgb-map">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.7457230581335!2d72.8720306751122!3d19.206305347869158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b0e57647569d%3A0xc0aec329c82d3555!2sThakur%20College%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1761980191965!5m2!1sen!2sin"
-                style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="impactvis-stats-col">
+            <div class="impactvis-box-row">
+                <div class="impactvis-pinkbox">
+                    <div class="impactvis-pink-main">1 Million</div>
+                    <div class="impactvis-pink-label">Rural residents<br>benefited</div>
+                </div>
+                <div class="impactvis-yellowbox">
+                    <div class="impactvis-yellow-main">30+</div>
+                    <div class="impactvis-yellow-label">Institutional<br>Participation</div>
+                </div>
+            </div>
         </div>
-    </div>
-</footer>
+    </section>
+    <section class="research-innovation-section">
+        <div class="ri-container">
+            <div class="vertical-logo-marquees left-fixed">
+                <div class="vertical-marquee marquee-down">
+                    <div class="marquee-logos">
+                        <img src="./Placements/1.webp" alt="Logo 1" />
+                        <img src="./Placements/2.webp" alt="Logo 2" />
+                        <img src="./Placements/3.webp" alt="Logo 3" />
+                        <img src="./Placements/4.webp" alt="Logo 4" />
+                        <img src="./Placements/5.webp" alt="Logo 4" />
+                        <img src="./Placements/6.webp" alt="Logo 4" />
+                        <img src="./Placements/7.webp" alt="Logo 4" />
+                        <img src="./Placements/1.webp" alt="Logo 1" />
+                        <img src="./Placements/2.webp" alt="Logo 2" />
+                        <img src="./Placements/3.webp" alt="Logo 3" />
+                        <img src="./Placements/4.webp" alt="Logo 4" />
+                        <img src="./Placements/5.webp" alt="Logo 4" />
+                        <img src="./Placements/6.webp" alt="Logo 4" />
+                        <img src="./Placements/7.webp" alt="Logo 4" />
+                    </div>
+                </div>
+                <div class="vertical-marquee marquee-up">
+                    <div class="marquee-logos">
+                        <img src="./Placements/1.webp" alt="Logo 1" />
+                        <img src="./Placements/2.webp" alt="Logo 2" />
+                        <img src="./Placements/3.webp" alt="Logo 3" />
+                        <img src="./Placements/4.webp" alt="Logo 4" />
+                        <img src="./Placements/5.webp" alt="Logo 4" />
+                        <img src="./Placements/6.webp" alt="Logo 4" />
+                        <img src="./Placements/7.webp" alt="Logo 4" />
+                    </div>
+                </div>
+            </div>
 
+            <div class="ri-stats-panel">
+                <div class="ri-stats-block">
+                    <span>250+</span>
+                    <label>Recruiters</label>
+                </div>
+                <div class="ri-divider"></div>
+                <div class="ri-stats-block">
+                    <span>100+</span>
+                    <label>Career Opportunities</label>
+                </div>
+                <div class="ri-divider"></div>
+                <div class="ri-stats-block">
+                    <span>40+LPA</span>
+                    <label>Highest CTC
+
+                    </label>
+                </div>
+            </div>
+            <div class="ri-right-panel">
+                <div class="ri-overlap-content">
+                    <div class="ri-innovation-label">
+                        PLACEMENTS
+                    </div>
+                    <button class="ri-read-more-btn" onclick="window.location.href='#'">READ MORE</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+    <footer style="width:100%;">
+        <div class="tgb-contact-wrap">
+            <div class="tgb-contact-container">
+                <img src="Asset 1.svg" alt="TGBS Logo" />
+                <div class="tgb-contact-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    TCET (Deemed to be University),
+                    A-Block, Thakur Educational Campus,
+                    Shyamnarayan Thakur Marg, Thakur Village,
+                    Kandivali(E), Mumbai – 400101.
+                </div>
+                <div class="tgb-contact-row">
+                    <i class="fas fa-phone-alt"></i>
+                    022 – 28461891 | 022 – 67308000
+                </div>
+                <div class="tgb-contact-row">
+                    <i class="fas fa-envelope"></i>
+                    <a class="tgb-contact-link" href="mailto:tgbs@thakureducation.org">tcet@thakureducation.org</a>
+                </div>
+
+            </div>
+            <div class="tgb-map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.7457230581335!2d72.8720306751122!3d19.206305347869158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b0e57647569d%3A0xc0aec329c82d3555!2sThakur%20College%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1761992183002!5m2!1sen!2sin"
+                    width="600" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </footer>
 
 </body>
 
