@@ -51,7 +51,6 @@
 
 
     </script>
-
     <script>
         let currentSlide = 0;
         let autoplayInterval = null;
@@ -193,7 +192,7 @@
     </script>
     <!-- Tab JS -->
 
-    >
+    
     <style>
         body {
             margin: 0;
@@ -3800,6 +3799,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: rgba(255, 255, 255, 0.45);
+            /* semi-frosted white background */
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         }
 
         .upg2-card--media img {
@@ -3890,6 +3895,40 @@
 
         .about-card.research {
             background: #2BBFE8;
+        }
+
+        /* base panel state — panels are hidden by default with display:none */
+        .upg2-panel {
+            display: none;
+            opacity: 0;
+            transform: translateX(40px);
+            /* start slightly to the right */
+            transition: opacity 200ms ease, transform 200ms ease;
+            will-change: opacity, transform;
+        }
+
+        /* when visible */
+        .upg2-panel.upg2-panel--visible {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* animate out (slide slightly left) */
+        .upg2-panel.upg2-panel--exiting {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+
+        /* keep hidden class for script compatibility */
+        .upg2-panel--hidden {
+            display: none !important;
+        }
+
+        .upg2-tab:focus {
+            outline: 3px solid rgba(37, 99, 235, 0.2);
+            outline-offset: 3px;
+            border-radius: 8px;
         }
     </style>
 
@@ -4598,91 +4637,161 @@
     </footer>
 
 </body>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const tabs = Array.from(document.querySelectorAll('.upg2-tab'));
-            const panels = Array.from(document.querySelectorAll('.upg2-panel'));
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabs = Array.from(document.querySelectorAll('.upg2-tab'));
+        const panels = Array.from(document.querySelectorAll('.upg2-panel'));
 
-            if (!tabs.length) {
-                console.warn('Tabs script: no elements found with selector .upg2-tab. Check your markup.');
-                return;
-            }
-            if (!panels.length) {
-                console.warn('Tabs script: no elements found with selector .upg2-panel. Check your markup.');
-                return;
-            }
+        if (!tabs.length || !panels.length) return;
 
-            // Helper: show/hide panels and set aria states
-            function activateTab(tabEl) {
-                tabs.forEach(t => {
-                    t.classList.remove('upg2-tab--active');
-                    t.setAttribute('aria-selected', 'false');
-                    t.setAttribute('tabindex', '-1');
-                });
+        // find visible panel from active tab (or default to first tab/panel)
+        function getPanelForTab(tab) {
+            const pid = tab.getAttribute('aria-controls');
+            return pid ? document.getElementById(pid) : null;
+        }
 
-                panels.forEach(p => {
-                    p.hidden = true;
-                    p.classList.add('upg2-panel--hidden');
-                });
+        // helper to show panel with enter animation
+        function showPanel(panel) {
+            // make sure it's in the flow first
+            panel.classList.remove('upg2-panel--hidden', 'upg2-panel--exiting');
+            panel.style.display = 'block';
+            // force a reflow so transition will run
+            void panel.offsetWidth;
+            panel.classList.add('upg2-panel--visible');
+            panel.hidden = false;
+        }
 
-                tabEl.classList.add('upg2-tab--active');
-                tabEl.setAttribute('aria-selected', 'true');
-                tabEl.setAttribute('tabindex', '0');
-
-                const panelId = tabEl.getAttribute('aria-controls');
-                if (!panelId) {
-                    console.warn('Tab element missing aria-controls:', tabEl);
+        // helper to hide panel with exit animation, returns a Promise that resolves after animation finished
+        function hidePanel(panel) {
+            return new Promise(resolve => {
+                if (!panel || !panel.classList.contains('upg2-panel--visible')) {
+                    // already hidden — ensure it's not visible
+                    panel.classList.remove('upg2-panel--visible', 'upg2-panel--exiting');
+                    panel.style.display = 'none';
+                    panel.hidden = true;
+                    resolve();
                     return;
                 }
-                const panel = document.getElementById(panelId);
-                if (!panel) {
-                    console.warn('No panel found with id:', panelId);
-                    return;
-                }
-                panel.hidden = false;
-                panel.classList.remove('upg2-panel--hidden');
 
-                // optional: move keyboard focus inside panel to first focusable element
-                const focusable = panel.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
-                if (focusable) focusable.focus({ preventScroll: true });
-            }
+                // start exit animation
+                panel.classList.add('upg2-panel--exiting');
+                panel.classList.remove('upg2-panel--visible');
 
-            // Click and keyboard handling
-            tabs.forEach((tab, index) => {
-                // ensure ARIA attributes exist on each tab
-                if (!tab.hasAttribute('role')) tab.setAttribute('role', 'tab');
-                if (!tab.hasAttribute('tabindex')) tab.setAttribute('tabindex', '-1');
-                if (!tab.hasAttribute('aria-selected')) tab.setAttribute('aria-selected', 'false');
+                // listen for transition end (safeguard with timeout)
+                const onEnd = (e) => {
+                    if (e && e.target !== panel) return;
+                    panel.removeEventListener('transitionend', onEnd);
+                    panel.classList.remove('upg2-panel--exiting');
+                    panel.style.display = 'none';
+                    panel.hidden = true;
+                    resolve();
+                };
 
-                tab.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    activateTab(tab);
-                });
+                panel.addEventListener('transitionend', onEnd);
 
-                tab.addEventListener('keydown', (e) => {
-                    let newIndex = null;
-                    if (e.key === 'ArrowRight' || e.key === 'Right') newIndex = (index + 1) % tabs.length;
-                    if (e.key === 'ArrowLeft' || e.key === 'Left') newIndex = (index - 1 + tabs.length) % tabs.length;
-                    if (e.key === 'Home') newIndex = 0;
-                    if (e.key === 'End') newIndex = tabs.length - 1;
-                    if (newIndex !== null) {
-                        e.preventDefault();
-                        tabs[newIndex].focus();
-                    }
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        activateTab(tab);
-                    }
-                });
+                // fallback in case transitionend doesn't fire
+                setTimeout(() => {
+                    panel.removeEventListener('transitionend', onEnd);
+                    panel.classList.remove('upg2-panel--exiting');
+                    panel.style.display = 'none';
+                    panel.hidden = true;
+                    resolve();
+                }, 420);
+            });
+        }
+
+        // activate tab (with animated panel switch)
+        async function activateTab(tabEl) {
+            // deactivate all tabs states
+            tabs.forEach(t => {
+                t.classList.remove('upg2-tab--active');
+                t.setAttribute('aria-selected', 'false');
+                t.setAttribute('tabindex', '-1');
             });
 
-            // Initialize: ensure exactly one active tab/panel
-            let initial = tabs.find(t => t.classList.contains('upg2-tab--active')) || tabs[0];
-            if (!initial) {
-                console.error('Tabs script: no tab elements present.');
+            // set active tab states
+            tabEl.classList.add('upg2-tab--active');
+            tabEl.setAttribute('aria-selected', 'true');
+            tabEl.setAttribute('tabindex', '0');
+            tabEl.focus({ preventScroll: true });
+
+            // currently visible panel (if any)
+            const currentPanel = panels.find(p => p.classList.contains('upg2-panel--visible'));
+
+            // panel we want to show
+            const nextPanel = getPanelForTab(tabEl);
+            if (!nextPanel) {
+                console.warn('Tab targets missing panel:', tabEl);
                 return;
             }
-            activateTab(initial);
+
+            // if same panel, nothing to animate
+            if (currentPanel === nextPanel) {
+                // ensure it's visible
+                showPanel(nextPanel);
+                return;
+            }
+
+            // hide the current panel first (animate out), then show the next (animate in)
+            if (currentPanel) {
+                await hidePanel(currentPanel);
+            }
+
+            showPanel(nextPanel);
+
+            // optionally focus first focusable element inside the panel
+            const focusable = nextPanel.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
+            if (focusable) focusable.focus({ preventScroll: true });
+        }
+
+        // set up event handlers and accessibility attributes
+        tabs.forEach((tab, index) => {
+            if (!tab.hasAttribute('role')) tab.setAttribute('role', 'tab');
+            if (!tab.hasAttribute('tabindex')) tab.setAttribute('tabindex', '-1');
+            if (!tab.hasAttribute('aria-selected')) tab.setAttribute('aria-selected', 'false');
+
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                activateTab(tab);
+            });
+
+            tab.addEventListener('keydown', (e) => {
+                let newIndex = null;
+                if (e.key === 'ArrowRight' || e.key === 'Right') newIndex = (index + 1) % tabs.length;
+                if (e.key === 'ArrowLeft' || e.key === 'Left') newIndex = (index - 1 + tabs.length) % tabs.length;
+                if (e.key === 'Home') newIndex = 0;
+                if (e.key === 'End') newIndex = tabs.length - 1;
+                if (newIndex !== null) {
+                    e.preventDefault();
+                    tabs[newIndex].focus();
+                }
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    activateTab(tab);
+                }
+            });
         });
-    </script>
+
+        // initialize: show the panel for the tab that has .upg2-tab--active, otherwise first tab
+        const initialTab = tabs.find(t => t.classList.contains('upg2-tab--active')) || tabs[0];
+        // hide all panels quickly then show initial with no awkward transitions
+        panels.forEach(p => {
+            p.classList.remove('upg2-panel--visible', 'upg2-panel--exiting');
+            p.style.display = 'none';
+            p.hidden = true;
+        });
+        // show initial panel (no await needed)
+        const initialPanel = getPanelForTab(initialTab);
+        if (initialPanel) {
+            // ensure visible state applied (use small delay so CSS can pick it up cleanly)
+            initialPanel.style.display = 'block';
+            // force reflow
+            void initialPanel.offsetWidth;
+            initialPanel.classList.add('upg2-panel--visible');
+            initialPanel.hidden = false;
+        }
+
+    });
+</script>
+
 </html>
