@@ -191,62 +191,9 @@
 
 
     </script>
-  <!-- Tab JS -->
-  <script>
-    (function () {
-      const tabs = Array.from(document.querySelectorAll('.upg2-tab'));
-      const panels = Array.from(document.querySelectorAll('.upg2-panel'));
+    <!-- Tab JS -->
 
-      function activateTab(tab) {
-        // deactivate all tabs
-        tabs.forEach(t => {
-          t.classList.remove('upg2-tab--active');
-          t.setAttribute('aria-selected', 'false');
-          t.setAttribute('tabindex', '-1');
-        });
-
-        // hide all panels
-        panels.forEach(p => {
-          p.classList.add('upg2-panel--hidden');
-          p.hidden = true;
-        });
-
-        // activate chosen
-        tab.classList.add('upg2-tab--active');
-        tab.setAttribute('aria-selected', 'true');
-        tab.setAttribute('tabindex', '0');
-
-        const panelId = tab.getAttribute('aria-controls');
-        const panel = document.getElementById(panelId);
-        if (panel) {
-          panel.classList.remove('upg2-panel--hidden');
-          panel.hidden = false;
-          // focus first focusable element inside panel for keyboard users (optional)
-          const focusable = panel.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
-          if (focusable) focusable.focus({preventScroll:true});
-        }
-      }
-
-      // click handlers
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => activateTab(tab));
-        tab.addEventListener('keydown', (e) => {
-          const idx = tabs.indexOf(tab);
-          let next;
-          if (e.key === 'ArrowRight') next = tabs[(idx + 1) % tabs.length];
-          if (e.key === 'ArrowLeft') next = tabs[(idx - 1 + tabs.length) % tabs.length];
-          if (e.key === 'Home') next = tabs[0];
-          if (e.key === 'End') next = tabs[tabs.length - 1];
-          if (next) { next.focus(); e.preventDefault(); }
-          if (e.key === 'Enter' || e.key === ' ') { activateTab(tab); e.preventDefault(); }
-        });
-      });
-
-      // initial state (ensure correct)
-      const initial = document.querySelector('.upg2-tab--active') || tabs[0];
-      activateTab(initial);
-    })();
-  </script>
+    >
     <style>
         body {
             margin: 0;
@@ -752,21 +699,22 @@
         }
 
         /* Cards Grid */
-      .cards-grid {
-  flex: 2;
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 2.5rem;
-}
+        .cards-grid {
+            flex: 2;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 2.5rem;
+        }
 
-/* increase height of cards */
-.cards-grid .card {
-  min-height: 480px;  /* Adjust as needed (was ~320px default) */
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+        /* increase height of cards */
+        .cards-grid .card {
+            min-height: 480px;
+            /* Adjust as needed (was ~320px default) */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
         @media(min-width: 768px) {
             .cards-grid {
@@ -870,7 +818,7 @@
             width: 300px;
             transition: width 0.5s ease;
             overflow: hidden;
-                 height: 600px;
+            height: 600px;
         }
 
         .btech-card.expanded {
@@ -3865,53 +3813,84 @@
             z-index: 1;
             box-shadow: 0 10px 24px rgba(16, 24, 40, 0.08);
         }
-           .upg2-tabs { text-align:center; margin: 20px 0 12px; }
-    .upg2-tablist { display:inline-flex; gap:12px; border-radius:10px; padding:6px; background:transparent; }
-    .upg2-tab {
-      background:transparent;
-      border:0;
-      padding:10px 16px;
-      font-weight:700;
-      border-radius:8px;
-      cursor:pointer;
-      color:var(--upg2-muted, #6b7b86);
-      transition: background .12s ease, color .12s ease, box-shadow .12s;
-      font-size:14px;
-    }
-    .upg2-tab:focus { outline: 3px solid rgba(37,99,235,0.15); outline-offset:3px; }
-    .upg2-tab--active {
-      color: #0b1726;
-      background: linear-gradient(180deg, rgba(37,99,235,0.12), rgba(37,99,235,0.06));
-      box-shadow: 0 6px 18px rgba(16,24,40,0.04);
-    }
 
-    .upg2-panel { margin-top: 12px; }
-    .upg2-panel--hidden { display:none; }
+        .upg2-tabs {
+            text-align: center;
+            margin: 20px 0 12px;
+        }
 
-    /* small improvement: ensure images fit inside media card */
-    .upg2-card--media { overflow:hidden; border-radius:12px; }
-    .upg2-card--media img { width:100%; height:100%; object-fit:cover; display:block; }
-    /* 🎨 Unique gradients */
-.about-card.eng {
-  background: #223D77;
-}
+        .upg2-tablist {
+            display: inline-flex;
+            gap: 12px;
+            border-radius: 10px;
+            padding: 6px;
+            background: transparent;
+        }
 
-.about-card.mgmt {
-  background: #7E68C6;
-}
+        .upg2-tab {
+            background: transparent;
+            border: 0;
+            padding: 10px 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--upg2-muted, #6b7b86);
+            transition: background .12s ease, color .12s ease, box-shadow .12s;
+            font-size: 14px;
+        }
 
-.about-card.bvoc {
-  background:  #FA9F3C;
-}
+        .upg2-tab:focus {
+            outline: 3px solid rgba(37, 99, 235, 0.15);
+            outline-offset: 3px;
+        }
 
-.about-card.comp {
-  background: #D92329;
-}
+        .upg2-tab--active {
+            color: #0b1726;
+            background: linear-gradient(180deg, rgba(37, 99, 235, 0.12), rgba(37, 99, 235, 0.06));
+            box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
+        }
 
-.about-card.research {
-  background: #2BBFE8;
-}
+        .upg2-panel {
+            margin-top: 12px;
+        }
 
+        .upg2-panel--hidden {
+            display: none;
+        }
+
+        /* small improvement: ensure images fit inside media card */
+        .upg2-card--media {
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .upg2-card--media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 🎨 Unique gradients */
+        .about-card.eng {
+            background: #223D77;
+        }
+
+        .about-card.mgmt {
+            background: #7E68C6;
+        }
+
+        .about-card.bvoc {
+            background: #FA9F3C;
+        }
+
+        .about-card.comp {
+            background: #D92329;
+        }
+
+        .about-card.research {
+            background: #2BBFE8;
+        }
     </style>
 
 </head>
@@ -3973,32 +3952,32 @@
     </div>
     <section class="hero-section-new">
         <!-- Cards Half In/Half Out -->
-    <div class="about-cards-row">
-  <div class="about-card eng">
-    <div class="about-card-title">Engineering</div>
-    <div class="about-card-icon">⚙️</div>
-  </div>
+        <div class="about-cards-row">
+            <div class="about-card eng">
+                <div class="about-card-title">Engineering</div>
+                <div class="about-card-icon">⚙️</div>
+            </div>
 
-  <div class="about-card mgmt">
-    <div class="about-card-title">Management</div>
-    <div class="about-card-icon">📊</div>
-  </div>
+            <div class="about-card mgmt">
+                <div class="about-card-title">Management</div>
+                <div class="about-card-icon">📊</div>
+            </div>
 
-  <div class="about-card bvoc">
-    <div class="about-card-title">B. Voc</div>
-    <div class="about-card-icon">🎓</div>
-  </div>
+            <div class="about-card bvoc">
+                <div class="about-card-title">B. Voc</div>
+                <div class="about-card-icon">🎓</div>
+            </div>
 
-  <div class="about-card comp">
-    <div class="about-card-title">Computer Applications</div>
-    <div class="about-card-icon">💻</div>
-  </div>
+            <div class="about-card comp">
+                <div class="about-card-title">Computer Applications</div>
+                <div class="about-card-icon">💻</div>
+            </div>
 
-  <div class="about-card research">
-    <div class="about-card-title">Research</div>
-    <div class="about-card-icon">🔬</div>
-  </div>
-</div>
+            <div class="about-card research">
+                <div class="about-card-title">Research</div>
+                <div class="about-card-icon">🔬</div>
+            </div>
+        </div>
 
 
 
@@ -4169,300 +4148,326 @@
                 and leadership. Scroll down to discover the path that's right for you.
             </p>
 
-           <div class="upg2-tabs">
-    <div class="upg2-tablist" role="tablist" aria-label="Programme tabs">
-      <button id="tab-undergrad" class="upg2-tab upg2-tab--active" role="tab" aria-selected="true" aria-controls="panel-undergrad" tabindex="0">Undergraduate</button>
-      <button id="tab-postgrad" class="upg2-tab" role="tab" aria-selected="false" aria-controls="panel-postgrad" tabindex="-1">Postgraduate</button>
-      <button id="tab-phd" class="upg2-tab" role="tab" aria-selected="false" aria-controls="panel-phd" tabindex="-1">PhD</button>
-    </div>
-  </div>
+            <div class="upg2-tabs">
+                <div class="upg2-tablist" role="tablist" aria-label="Programme tabs">
+                    <button id="tab-undergrad" class="upg2-tab upg2-tab--active" role="tab" aria-selected="true"
+                        aria-controls="panel-undergrad" tabindex="0">Undergraduate</button>
+                    <button id="tab-postgrad" class="upg2-tab" role="tab" aria-selected="false"
+                        aria-controls="panel-postgrad" tabindex="-1">Postgraduate</button>
+                    <button id="tab-phd" class="upg2-tab" role="tab" aria-selected="false" aria-controls="panel-phd"
+                        tabindex="-1">PhD</button>
+                </div>
+            </div>
         </header>
 
         <!-- UNDERGRADUATE -->
         <section id="panel-undergrad" class="upg2-panel" role="tabpanel" aria-labelledby="tab-undergrad">
-    <!-- COPY your Undergraduate section content here (same markup you provided) -->
-    <section id="upg2-undergrad" class="upg2-block upg2-block--left" aria-labelledby="upg2-undergrad-title">
-      <div class="upg2-block-bg"
-           style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuD9g9fk5kIrs8yo8OPCQDvw8wr8M43QUO7KbsfdZ0-zz6IWjetwcIhgCim7AroaE5QC6noy3ZGNUhgnT4qLbHZz1YWaESbmoyTdaQ0ee2wrmGlAMvWnduX95_-2SsXHlVhgHM4vnRQO42dFFvxTvkljR3RUpGc3PBN9iJt-1yfFQw5DP25nBYGfeCp94Fio-_kqhyEtrRzd62JS9E6gNhDa8mVe-tgGLx9YiRjDaJREpZZb_ZXwxkmYuaPduKBskZdJ58J_Y1mw-aEO');">
-      </div>
+            <!-- COPY your Undergraduate section content here (same markup you provided) -->
+            <section id="upg2-undergrad" class="upg2-block upg2-block--left" aria-labelledby="upg2-undergrad-title">
+                <div class="upg2-block-bg"
+                    style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuD9g9fk5kIrs8yo8OPCQDvw8wr8M43QUO7KbsfdZ0-zz6IWjetwcIhgCim7AroaE5QC6noy3ZGNUhgnT4qLbHZz1YWaESbmoyTdaQ0ee2wrmGlAMvWnduX95_-2SsXHlVhgHM4vnRQO42dFFvxTvkljR3RUpGc3PBN9iJt-1yfFQw5DP25nBYGfeCp94Fio-_kqhyEtrRzd62JS9E6gNhDa8mVe-tgGLx9YiRjDaJREpZZb_ZXwxkmYuaPduKBskZdJ58J_Y1mw-aEO');">
+                </div>
 
-      <div class="upg2-inner">
-        <header class="upg2-head">
-          <h2 id="upg2-undergrad-title" class="upg2-title">Undergraduate Programme</h2>
-          <p class="upg2-lead">Start your academic journey with a strong foundation.</p>
-        </header>
+                <div class="upg2-inner">
+                    <header class="upg2-head">
+                        <h2 id="upg2-undergrad-title" class="upg2-title">Undergraduate Programme</h2>
+                        <p class="upg2-lead">Start your academic journey with a strong foundation.</p>
+                    </header>
 
-        <div class="upg2-grid">
-          <article class="upg2-card upg2-card--content" aria-labelledby="upg2-undergrad-title">
-            <p class="upg2-intro">
-              Our B.Tech programme offers a solid foundation in engineering principles, combining theoretical knowledge with practical application.
-              We aim to equip students with the skills needed to excel in a rapidly evolving technological landscape.
-            </p>
+                    <div class="upg2-grid">
+                        <article class="upg2-card upg2-card--content" aria-labelledby="upg2-undergrad-title">
+                            <p class="upg2-intro">
+                                Our B.Tech programme offers a solid foundation in engineering principles, combining
+                                theoretical knowledge with practical application.
+                                We aim to equip students with the skills needed to excel in a rapidly evolving
+                                technological landscape.
+                            </p>
 
-            <div class="upg2-programme-table">
-              <h3 class="upg2-feat-title">Undergraduate Programmes</h3>
-              <ol class="upg2-programme-list">
-                <li>Computer Engineering</li>
-                <li>Information Technology</li>
-                <li>Artificial Intelligence and Data Science</li>
-                <li>Artificial Intelligence and Machine Learning</li>
-                <li>Computer Science and Engineering (Cyber Security)</li>
-                <li>Electronics and Telecommunication Engg</li>
-                <li>Computer Science and Engineering (IoT)</li>
-                <li>Electronics and Computer Science</li>
-                <li>Mechanical Engineering</li>
-                <li>Civil Engineering</li>
-                <li>Mechanical and Mechatronics Engineering (Additive Manufacturing)</li>
-              </ol>
-            </div>
+                            <div class="upg2-programme-table">
+                                <h3 class="upg2-feat-title">Undergraduate Programmes</h3>
+                                <ol class="upg2-programme-list">
+                                    <li>Computer Engineering</li>
+                                    <li>Information Technology</li>
+                                    <li>Artificial Intelligence and Data Science</li>
+                                    <li>Artificial Intelligence and Machine Learning</li>
+                                    <li>Computer Science and Engineering (Cyber Security)</li>
+                                    <li>Electronics and Telecommunication Engg</li>
+                                    <li>Computer Science and Engineering (IoT)</li>
+                                    <li>Electronics and Computer Science</li>
+                                    <li>Mechanical Engineering</li>
+                                    <li>Civil Engineering</li>
+                                    <li>Mechanical and Mechatronics Engineering (Additive Manufacturing)</li>
+                                </ol>
+                            </div>
 
-            <div class="upg2-features">
-              <div>
-                <h3 class="upg2-feat-title">Eligibility</h3>
-                <ul class="upg2-list">
-                  <li>Praesent facilisis lorem nec odio dignissim, ac tristique velit malesuada.</li>
-                  <li>Integer cursus sapien sit amet urna viverra, ut egestas lorem placerat.</li>
-                  <li>Donec ac tellus sit amet sapien convallis cursus vitae nec lorem.</li>
-                  <li>Morbi fringilla justo vitae erat efficitur, nec pretium justo faucibus.</li>
-                </ul>
-              </div>
+                            <div class="upg2-features">
+                                <div>
+                                    <h3 class="upg2-feat-title">Eligibility</h3>
+                                    <ul class="upg2-list">
+                                        <li>Praesent facilisis lorem nec odio dignissim, ac tristique velit malesuada.
+                                        </li>
+                                        <li>Integer cursus sapien sit amet urna viverra, ut egestas lorem placerat.</li>
+                                        <li>Donec ac tellus sit amet sapien convallis cursus vitae nec lorem.</li>
+                                        <li>Morbi fringilla justo vitae erat efficitur, nec pretium justo faucibus.</li>
+                                    </ul>
+                                </div>
 
-              <div>
-                <h3 class="upg2-feat-title">Career Prospects</h3>
-                <p class="upg2-feat-text">
-                  Graduates are prepared for roles in software development, civil engineering, data science, and more,
-                  with strong connections to leading tech companies and startups.
-                </p>
-              </div>
-            </div>
+                                <div>
+                                    <h3 class="upg2-feat-title">Career Prospects</h3>
+                                    <p class="upg2-feat-text">
+                                        Graduates are prepared for roles in software development, civil engineering,
+                                        data science, and more,
+                                        with strong connections to leading tech companies and startups.
+                                    </p>
+                                </div>
+                            </div>
 
-            <a class="upg2-cta" href="#" role="button">Explore Undergraduate Studies</a>
-          </article>
+                            <a class="upg2-cta" href="#" role="button">Apply Now</a>
+                        </article>
 
-          <figure class="upg2-card upg2-card--media" aria-hidden="true">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkbNvHwmQLzNWWMmis0gKBhxLlb7IIP1Jy59yPaPWJeYdzq3kYIR-AytFeThS5bKT62bNqLWLl4Cf51Fec-VC9Ec-p-HZDutTTwnVvDjowwLcrJViVqMw8dMkpq7i4GQ8hn3tlD-eC5qRx5V73lhiICZsH_c3vN25Sedzn43o9OPZH0Y398fmxyd3K14ZUqeTbsFhCnaUE9olThbgLzBhhBUii98G9wGVPEOttQghuMSdbhKeKATqRS8n1icq3XOUm6Dan8PmEJqgl"
-                 alt="Students attending a lecture" />
-          </figure>
-        </div>
-      </div>
-    </section>
-  </section>
+                        <figure class="upg2-card upg2-card--media" aria-hidden="true">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkbNvHwmQLzNWWMmis0gKBhxLlb7IIP1Jy59yPaPWJeYdzq3kYIR-AytFeThS5bKT62bNqLWLl4Cf51Fec-VC9Ec-p-HZDutTTwnVvDjowwLcrJViVqMw8dMkpq7i4GQ8hn3tlD-eC5qRx5V73lhiICZsH_c3vN25Sedzn43o9OPZH0Y398fmxyd3K14ZUqeTbsFhCnaUE9olThbgLzBhhBUii98G9wGVPEOttQghuMSdbhKeKATqRS8n1icq3XOUm6Dan8PmEJqgl"
+                                alt="Students attending a lecture" />
+                        </figure>
+                    </div>
+                </div>
+            </section>
+        </section>
 
-  <section id="panel-postgrad" class="upg2-panel upg2-panel--hidden" role="tabpanel" aria-labelledby="tab-postgrad" hidden>
-    <!-- POSTGRADUATE panel content -->
-    <section id="upg2-postgrad" class="upg2-block upg2-block--right" aria-labelledby="upg2-postgrad-title">
-      <div class="upg2-block-bg"
-           style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAwV9lJ_8DQ5HjJ6iUO0rWSDiss5kL9Ui4Po2uS_2VSUCfc5Rqzo2LTdJ_rFly78dPFsBRU7MvH9mIiIFBaYNmQTwTh2viwAgjbPeY4za7-pip5ZCWXP8U23DCAu6SgiguyMQ_tQn-3mE_w9LYHiZwVwYUHh-S0U2gNjRtWMh5Sn6SoJeijUFr6hrgs9ib_qod-K_cWD-TUc3XDScKZBqf7ojQAoxIwYfl6tJPHlX3EEs3vVhkGoGpQgtUxGWd1i38KSw-TVijVHr4q');">
-      </div>
+        <section id="panel-postgrad" class="upg2-panel upg2-panel--hidden" role="tabpanel"
+            aria-labelledby="tab-postgrad" hidden>
+            <!-- POSTGRADUATE panel content -->
+            <section id="upg2-postgrad" class="upg2-block upg2-block--right" aria-labelledby="upg2-postgrad-title">
+                <div class="upg2-block-bg"
+                    style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAwV9lJ_8DQ5HjJ6iUO0rWSDiss5kL9Ui4Po2uS_2VSUCfc5Rqzo2LTdJ_rFly78dPFsBRU7MvH9mIiIFBaYNmQTwTh2viwAgjbPeY4za7-pip5ZCWXP8U23DCAu6SgiguyMQ_tQn-3mE_w9LYHiZwVwYUHh-S0U2gNjRtWMh5Sn6SoJeijUFr6hrgs9ib_qod-K_cWD-TUc3XDScKZBqf7ojQAoxIwYfl6tJPHlX3EEs3vVhkGoGpQgtUxGWd1i38KSw-TVijVHr4q');">
+                </div>
 
-      <div class="upg2-inner">
-        <header class="upg2-head">
-          <h2 id="upg2-postgrad-title" class="upg2-title">Postgraduate Programme</h2>
-          <p class="upg2-lead">Deepen your knowledge and specialize your career path.</p>
-        </header>
+                <div class="upg2-inner">
+                    <header class="upg2-head">
+                        <h2 id="upg2-postgrad-title" class="upg2-title">Postgraduate Programme</h2>
+                        <p class="upg2-lead">Deepen your knowledge and specialize your career path.</p>
+                    </header>
 
-        <div class="upg2-grid">
-          <figure class="upg2-card upg2-card--media" aria-hidden="true">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOfgWPFFiniQE_qTrp_oeO44uKeyzStNg0wiQC0EXvWNyhpXgcRvuqrDjJPiZ_T3mih-sj3AKxM_wvkUkLyYHR3ECyNblAPQEKwZKH9sUD9o9Kehs66ED7rrdzr9EyR1fNrGMyFY-R4V2nL7dc8dp2w1sz3pquRnlONnkmUQYJCtJqo219tDdu0tSNc7sbmtOvBS40Suoi5EJKfoUUu5ok1O3Ivp8oIasXWrrto-Tw14_ZfMHiSRJkKlxevXUAbSUXr4uEgVO2aQyE"
-                 alt="Postgraduate students collaborating">
-          </figure>
+                    <div class="upg2-grid">
+                        <figure class="upg2-card upg2-card--media" aria-hidden="true">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOfgWPFFiniQE_qTrp_oeO44uKeyzStNg0wiQC0EXvWNyhpXgcRvuqrDjJPiZ_T3mih-sj3AKxM_wvkUkLyYHR3ECyNblAPQEKwZKH9sUD9o9Kehs66ED7rrdzr9EyR1fNrGMyFY-R4V2nL7dc8dp2w1sz3pquRnlONnkmUQYJCtJqo219tDdu0tSNc7sbmtOvBS40Suoi5EJKfoUUu5ok1O3Ivp8oIasXWrrto-Tw14_ZfMHiSRJkKlxevXUAbSUXr4uEgVO2aQyE"
+                                alt="Postgraduate students collaborating">
+                        </figure>
 
-          <article class="upg2-card upg2-card--content">
-            <p class="upg2-intro">
-              Our Master's programmes offer in-depth specialization with an advanced curriculum designed to foster research,
-              innovation, and leadership skills. Elevate your expertise and advance your career with a postgraduate degree.
-            </p>
-            <div class="upg2-programme-table">
-              <h3 class="upg2-feat-title">Postgraduate Programmes</h3>
-              <ol class="upg2-programme-list">
-                <li>M.E. in Computer Engineering</li>
-                <li>M.E. in Information Technology</li>
-                <li>M.E. in Communication Technology and Management</li>
-                <li>M.E. in Mechanical Engineering</li>
-                <li>M.E. in Civil Engineering</li>
-                <li>M.E. in Artificial Intelligence and Data Science</li>
-              </ol>
-            </div>
+                        <article class="upg2-card upg2-card--content">
+                            <p class="upg2-intro">
+                                Our Master's programmes offer in-depth specialization with an advanced curriculum
+                                designed to foster research,
+                                innovation, and leadership skills. Elevate your expertise and advance your career with a
+                                postgraduate degree.
+                            </p>
+                            <div class="upg2-programme-table">
+                                <h3 class="upg2-feat-title">Postgraduate Programmes</h3>
+                                <ol class="upg2-programme-list">
+                                    <li>M.E. in Computer Engineering</li>
+                                    <li>M.E. in Information Technology</li>
+                                    <li>M.E. in Communication Technology and Management</li>
+                                    <li>M.E. in Mechanical Engineering</li>
+                                    <li>M.E. in Civil Engineering</li>
+                                    <li>M.E. in Artificial Intelligence and Data Science</li>
+                                </ol>
+                            </div>
 
-            <div class="upg2-features">
-              <div>
-                <h3 class="upg2-feat-title">Eligibility</h3>
-                <ul class="upg2-list">
-                  <li>Praesent facilisis lorem nec odio dignissim, ac tristique velit malesuada.</li>
-                  <li>Integer cursus sapien sit amet urna viverra, ut egestas lorem placerat.</li>
-                  <li>Donec ac tellus sit amet sapien convallis cursus vitae nec lorem.</li>
-                  <li>Morbi fringilla justo vitae erat efficitur, nec pretium justo faucibus.</li>
-                </ul>
-              </div>
+                            <div class="upg2-features">
+                                <div>
+                                    <h3 class="upg2-feat-title">Eligibility</h3>
+                                    <ul class="upg2-list">
+                                        <li>Praesent facilisis lorem nec odio dignissim, ac tristique velit malesuada.
+                                        </li>
+                                        <li>Integer cursus sapien sit amet urna viverra, ut egestas lorem placerat.</li>
+                                        <li>Donec ac tellus sit amet sapien convallis cursus vitae nec lorem.</li>
+                                        <li>Morbi fringilla justo vitae erat efficitur, nec pretium justo faucibus.</li>
+                                    </ul>
+                                </div>
 
-              <div>
-                <h3 class="upg2-feat-title">Career Prospects</h3>
-                <p class="upg2-feat-text">
-                  Graduates are prepared for roles in software development, civil engineering, data science, and more,
-                  with strong connections to leading tech companies and startups.
-                </p>
-              </div>
-            </div>
+                                <div>
+                                    <h3 class="upg2-feat-title">Career Prospects</h3>
+                                    <p class="upg2-feat-text">
+                                        Graduates are prepared for roles in software development, civil engineering,
+                                        data science, and more,
+                                        with strong connections to leading tech companies and startups.
+                                    </p>
+                                </div>
+                            </div>
 
-            <a class="upg2-cta" href="#">Discover Master's Degrees</a>
-          </article>
-        </div>
-      </div>
-    </section>
-  </section>
+                            <a class="upg2-cta" href="#">Discover Master's Degrees</a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </section>
 
-  <section id="panel-phd" class="upg2-panel upg2-panel--hidden" role="tabpanel" aria-labelledby="tab-phd" hidden>
-    <!-- PHD panel content -->
-    <section id="upg2-phd" class="upg2-block upg2-block--left" aria-labelledby="upg2-phd-title">
-      <div class="upg2-block-bg"
-           style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmak33fRAQX57-qkFr4iuUQEAoYR-5chL7rt6z6JKVUJG_BCJPWxWfhHyv9YBxQ1bx8Ak-myQVKeRDDEjgDOL2n4DQ1JCE-Xp8Z8keP1fbDjeYOLi3FEjAPS99JV2VPimmI5jcGhFQ6bmn4V0PU_mpYAXPcyTQIuoo2FuX4aAESWME6V8OmZY7F2w3nsp15KXlw3TxaCv5jfOPp7cNZkcMVbht6etH2FZFFweeqNno71OFWrZheThBOHz-VNjUEUg5jF-KgT1I5kMc');">
-      </div>
+        <section id="panel-phd" class="upg2-panel upg2-panel--hidden" role="tabpanel" aria-labelledby="tab-phd" hidden>
+            <!-- PHD panel content -->
+            <section id="upg2-phd" class="upg2-block upg2-block--left" aria-labelledby="upg2-phd-title">
+                <div class="upg2-block-bg"
+                    style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmak33fRAQX57-qkFr4iuUQEAoYR-5chL7rt6z6JKVUJG_BCJPWxWfhHyv9YBxQ1bx8Ak-myQVKeRDDEjgDOL2n4DQ1JCE-Xp8Z8keP1fbDjeYOLi3FEjAPS99JV2VPimmI5jcGhFQ6bmn4V0PU_mpYAXPcyTQIuoo2FuX4aAESWME6V8OmZY7F2w3nsp15KXlw3TxaCv5jfOPp7cNZkcMVbht6etH2FZFFweeqNno71OFWrZheThBOHz-VNjUEUg5jF-KgT1I5kMc');">
+                </div>
 
-      <div class="upg2-inner">
-        <header class="upg2-head">
-          <h2 id="upg2-phd-title" class="upg2-title">PhD Programme</h2>
-          <p class="upg2-lead">Contribute original research and become a leader in your field.</p>
-        </header>
+                <div class="upg2-inner">
+                    <header class="upg2-head">
+                        <h2 id="upg2-phd-title" class="upg2-title">PhD Programme</h2>
+                        <p class="upg2-lead">Contribute original research and become a leader in your field.</p>
+                    </header>
 
-        <div class="upg2-grid">
-          <article class="upg2-card upg2-card--content">
-            <p class="upg2-intro">
-              Our PhD programme fosters advanced research skills and critical thinking within a vibrant academic community.
-              We provide cutting-edge resources and dedicated mentorship to support you in making a significant contribution to your field.
-            </p>
-            <div class="upg2-programme-table">
-              <h3 class="upg2-feat-title">Ph.D. Programmes</h3>
-              <ol class="upg2-programme-list">
-                <li>Ph.D. in Computer Engineering</li>
-                <li>Ph.D. in Electronics and Telecommunication Engineering</li>
-                <li>Ph.D. in Information Technology</li>
-                <li>Ph.D. in Mechanical Engineering</li>
-                <li>Ph.D. in Civil Engineering</li>
-              </ol>
-            </div>
-            <div class="upg2-features">
-              <div>
-                <h3 class="upg2-feat-title">Eligibility</h3>
-                <ul class="upg2-list">
-                  <li>Praesent facilisis lorem nec odio dignissim, ac tristique velit malesuada.</li>
-                  <li>Integer cursus sapien sit amet urna viverra, ut egestas lorem placerat.</li>
-                  <li>Donec ac tellus sit amet sapien convallis cursus vitae nec lorem.</li>
-                  <li>Morbi fringilla justo vitae erat efficitur, nec pretium justo faucibus.</li>
-                </ul>
+                    <div class="upg2-grid">
+                        <article class="upg2-card upg2-card--content">
+                            <p class="upg2-intro">
+                                Our PhD programme fosters advanced research skills and critical thinking within a
+                                vibrant academic community.
+                                We provide cutting-edge resources and dedicated mentorship to support you in making a
+                                significant contribution to your field.
+                            </p>
+                            <div class="upg2-programme-table">
+                                <h3 class="upg2-feat-title">Ph.D. Programmes</h3>
+                                <ol class="upg2-programme-list">
+                                    <li>Ph.D. in Computer Engineering</li>
+                                    <li>Ph.D. in Electronics and Telecommunication Engineering</li>
+                                    <li>Ph.D. in Information Technology</li>
+                                    <li>Ph.D. in Mechanical Engineering</li>
+                                    <li>Ph.D. in Civil Engineering</li>
+                                </ol>
+                            </div>
+                            <div class="upg2-features">
+                                <div>
+                                    <h3 class="upg2-feat-title">Eligibility</h3>
+                                    <ul class="upg2-list">
+                                        <li>Praesent facilisis lorem nec odio dignissim, ac tristique velit malesuada.
+                                        </li>
+                                        <li>Integer cursus sapien sit amet urna viverra, ut egestas lorem placerat.</li>
+                                        <li>Donec ac tellus sit amet sapien convallis cursus vitae nec lorem.</li>
+                                        <li>Morbi fringilla justo vitae erat efficitur, nec pretium justo faucibus.</li>
+                                    </ul>
 
-              </div>
+                                </div>
 
-              <div>
-                <h3 class="upg2-feat-title">Career Prospects</h3>
-                <p class="upg2-feat-text">
-                  Graduates are prepared for roles in software development, civil engineering, data science, and more,
-                  with strong connections to leading tech companies and startups.
-                </p>
-              </div>
-            </div>
-            <a class="upg2-cta" href="#">Learn About PhD Research</a>
-          </article>
+                                <div>
+                                    <h3 class="upg2-feat-title">Career Prospects</h3>
+                                    <p class="upg2-feat-text">
+                                        Graduates are prepared for roles in software development, civil engineering,
+                                        data science, and more,
+                                        with strong connections to leading tech companies and startups.
+                                    </p>
+                                </div>
+                            </div>
+                            <a class="upg2-cta" href="#">Learn About PhD Research</a>
+                        </article>
 
-          <figure class="upg2-card upg2-card--media" aria-hidden="true">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu8e_z85oFE-SA4KiAI3xMYPUr9f3PHB8C5h3W6xdPZYBIjDZHjMA2ElQlLrJgCNA4G8b7PjiDHspwoyy6fcUrdRtjtpu0PzCjatr2agFCYnYjczWat9ZWb2DC9iAkpZEMHJ_sSWHgEuI3jwxbWCQ65usJBwbdUo4SJ7JQQTc-kyKl_UjdvZbiZuqskQnWKgFeE6YNxVJ9Es9D53xlkVmxhP1XuTP3qOhvOZbhtNnVD2Ac5LOfttn5yFgZ7oPgf1SCd-nxa85-W_8T"
-                 alt="PhD students presenting research">
-          </figure>
-        </div>
-      </div>
-    </section>
-  </section>
+                        <figure class="upg2-card upg2-card--media" aria-hidden="true">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu8e_z85oFE-SA4KiAI3xMYPUr9f3PHB8C5h3W6xdPZYBIjDZHjMA2ElQlLrJgCNA4G8b7PjiDHspwoyy6fcUrdRtjtpu0PzCjatr2agFCYnYjczWat9ZWb2DC9iAkpZEMHJ_sSWHgEuI3jwxbWCQ65usJBwbdUo4SJ7JQQTc-kyKl_UjdvZbiZuqskQnWKgFeE6YNxVJ9Es9D53xlkVmxhP1XuTP3qOhvOZbhtNnVD2Ac5LOfttn5yFgZ7oPgf1SCd-nxa85-W_8T"
+                                alt="PhD students presenting research">
+                        </figure>
+                    </div>
+                </div>
+            </section>
+        </section>
 
     </main>
-<section class="success-stories-section">
-  <div class="container">
-    <div class="content-wrapper">
-      <div class="text-column">
-        <!-- <h2 class="subtitle">University</h2> -->
-        <h1 class="title">Testimonials</h1>
+    <section class="success-stories-section">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="text-column">
+                    <!-- <h2 class="subtitle">University</h2> -->
+                    <h1 class="title">Testimonials</h1>
 
-        <p class="description">
-          Discover the inspiring journeys of our alumni and how their experiences at University shaped their
-          careers — honest stories from graduates across programs.
-        </p>
-      </div>
+                    <p class="description">
+                        Discover the inspiring journeys of our alumni and how their experiences at University shaped
+                        their
+                        careers — honest stories from graduates across programs.
+                    </p>
+                </div>
 
-      <div class="cards-grid">
-        <!-- Card 1: Testimonial -->
-        <article id="btech-card" class="card card-primary"
-                 style="width: 300px; transition: width 0.5s ease, opacity 0.5s ease;">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ISt8wLzTDWdHtMkWs2u5JhkxsEYeYJIan3QHLIwN6sM_3745JzKxwAqio4DqySyQyvcgU7Q8or0XK9B9smDM1qHL9dFwehcV_7m1HXv9QQPFILXGrTFL_RfcuseuGVs7iD9Jqq4PWs9YYLU79eYYj4scsoXCQ7JAi7nml9ZetUjg5b6-N14-uLyEShOJvig5epGaZ_qqbe0yzgqFgx9fcKWKbqBCb6GxRPoQ33T-RUwWfWSZi39qeHdFeY_5_NdFzforO9JG9Q8"
-               alt="Riddhi Santhalia" class="card-img" />
-          <h3 class="card-name">Riddhi Santhalia</h3>
+                <div class="cards-grid">
+                    <!-- Card 1: Testimonial -->
+                    <article id="btech-card" class="card card-primary"
+                        style="width: 300px; transition: width 0.5s ease, opacity 0.5s ease;">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ISt8wLzTDWdHtMkWs2u5JhkxsEYeYJIan3QHLIwN6sM_3745JzKxwAqio4DqySyQyvcgU7Q8or0XK9B9smDM1qHL9dFwehcV_7m1HXv9QQPFILXGrTFL_RfcuseuGVs7iD9Jqq4PWs9YYLU79eYYj4scsoXCQ7JAi7nml9ZetUjg5b6-N14-uLyEShOJvig5epGaZ_qqbe0yzgqFgx9fcKWKbqBCb6GxRPoQ33T-RUwWfWSZi39qeHdFeY_5_NdFzforO9JG9Q8"
+                            alt="Riddhi Santhalia" class="card-img" />
+                        <h3 class="card-name">Riddhi Santhalia</h3>
 
-          <p class="card-text">
-            “The mentorship I received at University changed the course of my career. Faculty pushed me to
-            think bigger, supported my startup idea and connected me with the right industry mentors — today
-            I lead product at a fast-growing firm.”
-          </p>
+                        <p class="card-text">
+                            “The mentorship I received at University changed the course of my career. Faculty pushed me
+                            to
+                            think bigger, supported my startup idea and connected me with the right industry mentors —
+                            today
+                            I lead product at a fast-growing firm.”
+                        </p>
 
-          <div id="btech-details" style="display:none; margin-top:10px; text-align:left;">
-            <strong>Role:</strong> Product Manager — TechScale<br/>
-            <strong>Graduation:</strong> MBA, 2019<br/>
-            <strong>Highlight:</strong> Placed first in university entrepreneurship pitch; secured seed funding.
-          </div>
+                        <div id="btech-details" style="display:none; margin-top:10px; text-align:left;">
+                            <strong>Role:</strong> Product Manager — TechScale<br />
+                            <strong>Graduation:</strong> MBA, 2019<br />
+                            <strong>Highlight:</strong> Placed first in university entrepreneurship pitch; secured seed
+                            funding.
+                        </div>
 
-          <a href="#" class="card-link" onclick="toggleCard('btech-card'); return false;">Read More</a>
-        </article>
+                        <a href="#" class="card-link" onclick="toggleCard('btech-card'); return false;">Read More</a>
+                    </article>
 
-        <!-- Card 2: Testimonial (middle featured) -->
-        <article id="pg-card-middle" class="card card-middle-featured"
-                 style="width: 300px; transition: width 0.5s ease, opacity 0.5s ease;">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ISt8wLzTDWdHtMkWs2u5JhkxsEYeYJIan3QHLIwN6sM_3745JzKxwAqio4DqySyQyvcgU7Q8or0XK9B9smDM1qHL9dFwehcV_7m1HXv9QQPFILXGrTFL_RfcuseuGVs7iD9Jqq4PWs9YYLU79eYYj4scsoXCQ7JAi7nml9ZetUjg5b6-N14-uLyEShOJvig5epGaZ_qqbe0yzgqFgx9fcKWKbqBCb6GxRPoQ33T-RUwWfWSZi39qeHdFeY_5_NdFzforO9JG9Q8"
-               alt="Vishakha Naik" class="card-img" />
-          <h3 class="card-name">Ms. Vishakha Naik</h3>
+                    <!-- Card 2: Testimonial (middle featured) -->
+                    <article id="pg-card-middle" class="card card-middle-featured"
+                        style="width: 300px; transition: width 0.5s ease, opacity 0.5s ease;">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ISt8wLzTDWdHtMkWs2u5JhkxsEYeYJIan3QHLIwN6sM_3745JzKxwAqio4DqySyQyvcgU7Q8or0XK9B9smDM1qHL9dFwehcV_7m1HXv9QQPFILXGrTFL_RfcuseuGVs7iD9Jqq4PWs9YYLU79eYYj4scsoXCQ7JAi7nml9ZetUjg5b6-N14-uLyEShOJvig5epGaZ_qqbe0yzgqFgx9fcKWKbqBCb6GxRPoQ33T-RUwWfWSZi39qeHdFeY_5_NdFzforO9JG9Q8"
+                            alt="Vishakha Naik" class="card-img" />
+                        <h3 class="card-name">Ms. Vishakha Naik</h3>
 
-          <p class="card-text">
-            “What stands out is the practical learning — labs, live projects and industry tie-ups. My transition
-            into a leadership role at a multinational was direct because of the hands-on exposure and the career
-            support I received here.”
-          </p>
+                        <p class="card-text">
+                            “What stands out is the practical learning — labs, live projects and industry tie-ups. My
+                            transition
+                            into a leadership role at a multinational was direct because of the hands-on exposure and
+                            the career
+                            support I received here.”
+                        </p>
 
-          <div id="pg-details-middle" style="display:none; margin-top:10px; text-align:left;">
-            <strong>Role:</strong> Senior Operations Lead — GlobalCorp<br/>
-            <strong>Graduation:</strong> M.E., 2017<br/>
-            <strong>Highlight:</strong> Led internship program partnerships with three Fortune 500 companies.
-          </div>
+                        <div id="pg-details-middle" style="display:none; margin-top:10px; text-align:left;">
+                            <strong>Role:</strong> Senior Operations Lead — GlobalCorp<br />
+                            <strong>Graduation:</strong> M.E., 2017<br />
+                            <strong>Highlight:</strong> Led internship program partnerships with three Fortune 500
+                            companies.
+                        </div>
 
-          <a href="#" class="card-link" onclick="toggleCard('pg-card-middle'); return false;">Read More</a>
-        </article>
+                        <a href="#" class="card-link" onclick="toggleCard('pg-card-middle'); return false;">Read
+                            More</a>
+                    </article>
 
-        <!-- Card 3: Testimonial -->
-        <article id="phd-card" class="card card-accent"
-                 style="width: 300px; transition: width 0.5s ease, opacity 0.5s ease; overflow: hidden;">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ISt8wLzTDWdHtMkWs2u5JhkxsEYeYJIan3QHLIwN6sM_3745JzKxwAqio4DqySyQyvcgU7Q8or0XK9B9smDM1qHL9dFwehcV_7m1HXv9QQPFILXGrTFL_RfcuseuGVs7iD9Jqq4PWs9YYLU79eYYj4scsoXCQ7JAi7nml9ZetUjg5b6-N14-uLyEShOJvig5epGaZ_qqbe0yzgqFgx9fcKWKbqBCb6GxRPoQ33T-RUwWfWSZi39qeHdFeY_5_NdFzforO9JG9Q8"
-               alt="Ritika" class="card-img" />
-          <h3 class="card-name">Ritika</h3>
+                    <!-- Card 3: Testimonial -->
+                    <article id="phd-card" class="card card-accent"
+                        style="width: 300px; transition: width 0.5s ease, opacity 0.5s ease; overflow: hidden;">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ISt8wLzTDWdHtMkWs2u5JhkxsEYeYJIan3QHLIwN6sM_3745JzKxwAqio4DqySyQyvcgU7Q8or0XK9B9smDM1qHL9dFwehcV_7m1HXv9QQPFILXGrTFL_RfcuseuGVs7iD9Jqq4PWs9YYLU79eYYj4scsoXCQ7JAi7nml9ZetUjg5b6-N14-uLyEShOJvig5epGaZ_qqbe0yzgqFgx9fcKWKbqBCb6GxRPoQ33T-RUwWfWSZi39qeHdFeY_5_NdFzforO9JG9Q8"
+                            alt="Ritika" class="card-img" />
+                        <h3 class="card-name">Ritika</h3>
 
-          <p class="card-text">
-            “My PhD journey gave me the confidence to publish and present internationally. The collaborative research
-            culture and dedicated supervisors made complex problems manageable — I now work on cross-border research
-            projects with industry partners.”
-          </p>
+                        <p class="card-text">
+                            “My PhD journey gave me the confidence to publish and present internationally. The
+                            collaborative research
+                            culture and dedicated supervisors made complex problems manageable — I now work on
+                            cross-border research
+                            projects with industry partners.”
+                        </p>
 
-          <div id="phd-details" style="display:none; margin-top:10px; text-align:left;">
-            <strong>Role:</strong> Research Scientist — Innovate Labs<br/>
-            <strong>Graduation:</strong> PhD, 2021<br/>
-            <strong>Highlight:</strong> 6 international publications; lead author on two patents.
-          </div>
+                        <div id="phd-details" style="display:none; margin-top:10px; text-align:left;">
+                            <strong>Role:</strong> Research Scientist — Innovate Labs<br />
+                            <strong>Graduation:</strong> PhD, 2021<br />
+                            <strong>Highlight:</strong> 6 international publications; lead author on two patents.
+                        </div>
 
-          <a href="#" class="card-link" onclick="toggleCard('phd-card'); return false;">Read More</a>
-        </article>
-      </div>
+                        <a href="#" class="card-link" onclick="toggleCard('phd-card'); return false;">Read More</a>
+                    </article>
+                </div>
 
-    </div>
-  </div>
-  <!-- Carousel + Stats Section -->
-  <!-- Research & Innovation Section -->
-</section>
-        <h1 class="about-header-title">
-                    Life @ TCET University<br />
-                    <!-- <span class="about-header-proposed">Deemed to be University</span> -->
-                </h1>
+            </div>
+        </div>
+        <!-- Carousel + Stats Section -->
+        <!-- Research & Innovation Section -->
+    </section>
+    <h1 class="about-header-title">
+        Life @ TCET University<br />
+        <!-- <span class="about-header-proposed">Deemed to be University</span> -->
+    </h1>
     <section class="placement-bg-container">
         <section class="impactvis-section">
             <div class="impactvis-img-col">
@@ -4593,5 +4598,91 @@
     </footer>
 
 </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = Array.from(document.querySelectorAll('.upg2-tab'));
+            const panels = Array.from(document.querySelectorAll('.upg2-panel'));
 
+            if (!tabs.length) {
+                console.warn('Tabs script: no elements found with selector .upg2-tab. Check your markup.');
+                return;
+            }
+            if (!panels.length) {
+                console.warn('Tabs script: no elements found with selector .upg2-panel. Check your markup.');
+                return;
+            }
+
+            // Helper: show/hide panels and set aria states
+            function activateTab(tabEl) {
+                tabs.forEach(t => {
+                    t.classList.remove('upg2-tab--active');
+                    t.setAttribute('aria-selected', 'false');
+                    t.setAttribute('tabindex', '-1');
+                });
+
+                panels.forEach(p => {
+                    p.hidden = true;
+                    p.classList.add('upg2-panel--hidden');
+                });
+
+                tabEl.classList.add('upg2-tab--active');
+                tabEl.setAttribute('aria-selected', 'true');
+                tabEl.setAttribute('tabindex', '0');
+
+                const panelId = tabEl.getAttribute('aria-controls');
+                if (!panelId) {
+                    console.warn('Tab element missing aria-controls:', tabEl);
+                    return;
+                }
+                const panel = document.getElementById(panelId);
+                if (!panel) {
+                    console.warn('No panel found with id:', panelId);
+                    return;
+                }
+                panel.hidden = false;
+                panel.classList.remove('upg2-panel--hidden');
+
+                // optional: move keyboard focus inside panel to first focusable element
+                const focusable = panel.querySelector('a, button, input, [tabindex]:not([tabindex="-1"])');
+                if (focusable) focusable.focus({ preventScroll: true });
+            }
+
+            // Click and keyboard handling
+            tabs.forEach((tab, index) => {
+                // ensure ARIA attributes exist on each tab
+                if (!tab.hasAttribute('role')) tab.setAttribute('role', 'tab');
+                if (!tab.hasAttribute('tabindex')) tab.setAttribute('tabindex', '-1');
+                if (!tab.hasAttribute('aria-selected')) tab.setAttribute('aria-selected', 'false');
+
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    activateTab(tab);
+                });
+
+                tab.addEventListener('keydown', (e) => {
+                    let newIndex = null;
+                    if (e.key === 'ArrowRight' || e.key === 'Right') newIndex = (index + 1) % tabs.length;
+                    if (e.key === 'ArrowLeft' || e.key === 'Left') newIndex = (index - 1 + tabs.length) % tabs.length;
+                    if (e.key === 'Home') newIndex = 0;
+                    if (e.key === 'End') newIndex = tabs.length - 1;
+                    if (newIndex !== null) {
+                        e.preventDefault();
+                        tabs[newIndex].focus();
+                    }
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        activateTab(tab);
+                    }
+                });
+            });
+
+            // Initialize: ensure exactly one active tab/panel
+            let initial = tabs.find(t => t.classList.contains('upg2-tab--active')) || tabs[0];
+            if (!initial) {
+                console.error('Tabs script: no tab elements present.');
+                return;
+            }
+            activateTab(initial);
+        });
+    </script>
 </html>
