@@ -224,9 +224,9 @@
         }
 
         .page-container.content-above {
-            position: sticky;
+            position: relative;
             top: 0;
-            z-index: -1;
+            /* z-index: -1; */
 
         }
 
@@ -244,6 +244,7 @@
             position: absolute;
             inset: 0;
             z-index: 1;
+            pointer-events: none;
         }
 
         .menu-button {
@@ -485,7 +486,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 0, 0, 0.6);
             /* semi-transparent black */
             pointer-events: none;
             /* allow clicks through overlay */
@@ -496,7 +497,7 @@
 
         .why-mba-main-container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1300px;
         }
 
         .why-mba-grid {
@@ -3686,6 +3687,7 @@
 
             .upg2-grid {
                 grid-template-columns: 1fr;
+
             }
 
             .upg2-card--media {
@@ -3932,6 +3934,872 @@
             outline-offset: 3px;
             border-radius: 8px;
         }
+
+        :root {
+            --gv-bg: #1a1a2e;
+            --gv-card-bg: #ffffff;
+
+            --gv-primary: #373A40;
+            --gv-text: #111827;
+            --gv-muted: #6B7280;
+            --gv-border: #D1D5DB;
+            --gv-radius: 1.5rem;
+            --gv-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Page layout */
+
+        .gv-page {
+            /* min-height: 10vh; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            box-sizing: border-box;
+        }
+
+        .gv-card {
+            width: 100%;
+            max-width: 1120px;
+            background: var(--gv-card-bg);
+            border-radius: var(--gv-radius);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .gv-header {
+            text-align: center;
+        }
+
+        .gv-kicker {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--gv-muted);
+            text-transform: uppercase;
+        }
+
+        .gv-title {
+            font-size: 2.25rem;
+            margin: 10px 0 6px 0;
+            line-height: 1.05;
+            font-weight: 700;
+        }
+
+        .gv-sub {
+            color: var(--gv-muted);
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        /* Filter chips row (horizontal scroll) */
+        .gv-chips-wrap {
+            margin-top: 28px;
+            overflow-x: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            padding-bottom: 28px;
+        }
+
+        .gv-chips-wrap::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gv-chips {
+            display: flex;
+            gap: 10px;
+            padding: 0 8px;
+        }
+
+        .gv-chip {
+            flex: 0 0 auto;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 1px solid var(--gv-border);
+            color: var(--gv-muted);
+            background: transparent;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+        }
+
+        .gv-chip--active {
+            background: var(--gv-primary);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .gv-chips-wrap {
+            margin-top: 28px;
+            overflow-x: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            text-align: center;
+            /* helps center if not overflowing */
+        }
+
+        .gv-chips-wrap::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gv-chips {
+            display: inline-flex;
+            /* inline-flex allows text-align:center to work */
+            gap: 10px;
+            padding: 0 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        /* Carousel container */
+        .gv-carousel-outer {
+            margin-top: 52px;
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+
+
+
+
+        .gv-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Five visual positions */
+
+
+        /* Play overlay for video tile */
+        .gv-play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.20);
+            pointer-events: none;
+        }
+
+        .gv-play-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.28);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Nav buttons */
+        .gv-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            /* added spacing below the carousel */
+        }
+
+        .gv-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            border: 1px solid var(--gv-border);
+            background: transparent;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--gv-muted);
+        }
+
+        .gv-btn:active {
+            transform: scale(.98);
+        }
+
+        /* Responsive tweaks */
+        @media (max-width:900px) {
+            .gv-item {
+                width: 220px;
+                height: 340px;
+            }
+
+            .gv-pos-1 {
+                transform: translateX(-180px) scale(.7);
+            }
+
+            .gv-pos-5 {
+                transform: translateX(180px) scale(.7);
+            }
+
+            .gv-card {
+                padding: 28px;
+            }
+        }
+
+        @media (max-width:520px) {
+            .gv-title {
+                font-size: 1.6rem;
+            }
+
+            .gv-item {
+                width: 180px;
+                height: 280px;
+            }
+
+            .gv-pos-1 {
+                transform: translateX(-140px) scale(.65);
+            }
+
+            .gv-pos-5 {
+                transform: translateX(140px) scale(.65);
+            }
+        }
+
+        /* Carousel container - ultra wide stage */
+
+
+        /* Adjusted translations for wider spacing */
+        .gv-pos-1 {
+            transform: translateX(-400px) scale(.78);
+            opacity: .45;
+            filter: blur(4px);
+            z-index: 1;
+        }
+
+        .gv-pos-2 {
+            transform: translateX(-200px) scale(.92);
+            opacity: .75;
+            filter: blur(2px);
+            z-index: 2;
+        }
+
+        .gv-pos-3 {
+            transform: translateX(0) scale(1.08);
+            opacity: 1;
+            filter: none;
+            z-index: 3;
+            box-shadow: var(--gv-shadow);
+        }
+
+        .gv-pos-4 {
+            transform: translateX(200px) scale(.92);
+            opacity: .75;
+            filter: blur(2px);
+            z-index: 2;
+        }
+
+        .gv-pos-5 {
+            transform: translateX(400px) scale(.78);
+            opacity: .45;
+            filter: blur(4px);
+            z-index: 1;
+        }
+
+        /* Carousel container - ultra wide stage */
+        .gv-carousel {
+            position: relative;
+            width: 100%;
+            height: 580px;
+            /* slightly taller to match larger cards */
+            max-width: 1600px;
+            perspective: 1600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        /* Bigger card dimensions */
+        .gv-item {
+            position: absolute;
+            width: 340px;
+            /* increased from 280px */
+            height: 500px;
+            /* increased from 420px */
+            border-radius: var(--gv-radius);
+            overflow: hidden;
+            transition: transform 450ms cubic-bezier(.2, .9, .2, 1), opacity 450ms, filter 450ms;
+            will-change: transform, opacity, filter;
+            box-sizing: border-box;
+            background: #eee;
+        }
+
+        /* Adjusted translations to maintain balance */
+        .gv-pos-1 {
+            transform: translateX(-460px) scale(.78);
+            opacity: .45;
+            filter: blur(4px);
+            z-index: 1;
+        }
+
+        .gv-pos-2 {
+            transform: translateX(-230px) scale(.92);
+            opacity: .75;
+            filter: blur(2px);
+            z-index: 2;
+        }
+
+        .gv-pos-3 {
+            transform: translateX(0) scale(1.1);
+            opacity: 1;
+            filter: none;
+            z-index: 3;
+            box-shadow: var(--gv-shadow);
+        }
+
+        .gv-pos-4 {
+            transform: translateX(230px) scale(.92);
+            opacity: .75;
+            filter: blur(2px);
+            z-index: 2;
+        }
+
+        .gv-pos-5 {
+            transform: translateX(460px) scale(.78);
+            opacity: .45;
+            filter: blur(4px);
+            z-index: 1;
+        }
+
+        /* Carousel container - ultra wide stage */
+
+        /* Bigger card dimensions */
+        .gv-item {
+            position: absolute;
+            width: 340px;
+            /* increased from 280px */
+            height: 500px;
+            /* increased from 420px */
+            border-radius: var(--gv-radius);
+            overflow: hidden;
+            transition: transform 450ms cubic-bezier(.2, .9, .2, 1), opacity 450ms, filter 450ms;
+            will-change: transform, opacity, filter;
+            box-sizing: border-box;
+            background: #eee;
+        }
+
+        /* Adjusted translations to maintain balance */
+        /* Carousel container - expanded for larger cards */
+        .gv-carousel {
+            position: relative;
+            width: 100%;
+            height: 640px;
+            /* taller stage to fit bigger cards */
+            max-width: 1800px;
+            /* wider stage to give space for large cards */
+            perspective: 1800px;
+            /* deeper 3D depth to match scale */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+
+
+        /* Adjusted translations for wider spacing — almost no blur */
+        /* Adjusted translations for wider spacing — zero blur, clean gallery look */
+        /* Replace existing gv-pos-* rules with this: no opacity changes, depth via shadows */
+        /* --- Cinematic, directional shadows for visual depth --- */
+        /* Larger, landscape-style cards */
+        .gv-item {
+            position: absolute;
+            width: 600px;
+            /* increased width */
+            height: 500px;
+            /* reduced height */
+            border-radius: var(--gv-radius);
+            overflow: hidden;
+            transition: transform 320ms cubic-bezier(.25, .9, .25, 1), box-shadow 320ms;
+            will-change: transform, box-shadow;
+            box-sizing: border-box;
+            background: #eee;
+        }
+
+        /* Carousel adjusted slightly to fit proportions */
+        .gv-carousel {
+            position: relative;
+            width: 100%;
+            height: 520px;
+            /* lowered to fit shorter cards */
+            max-width: 1900px;
+            /* slightly wider overall stage */
+            perspective: 1800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            overflow: visible;
+        }
+
+        /* --- Cinematic, directional shadows for visual depth --- */
+        .gv-pos-1 {
+            transform: translateX(-600px) scale(.82);
+            z-index: 1;
+            filter: none;
+            opacity: 1;
+            box-shadow:
+                -20px 18px 40px rgba(0, 0, 0, 0.25),
+                0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .gv-pos-2 {
+            transform: translateX(-300px) scale(.94);
+            z-index: 2;
+            filter: none;
+            opacity: 1;
+            box-shadow:
+                -12px 16px 35px rgba(0, 0, 0, 0.25),
+                0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .gv-pos-3 {
+            transform: translateX(0) scale(1.1);
+            z-index: 3;
+            filter: none;
+            opacity: 1;
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.32),
+                0 10px 25px rgba(0, 0, 0, 0.18);
+        }
+
+        .gv-pos-4 {
+            transform: translateX(300px) scale(.94);
+            z-index: 2;
+            filter: none;
+            opacity: 1;
+            box-shadow:
+                12px 16px 35px rgba(0, 0, 0, 0.25),
+                0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .gv-pos-5 {
+            transform: translateX(600px) scale(.82);
+            z-index: 1;
+            filter: none;
+            opacity: 1;
+            box-shadow:
+                20px 18px 40px rgba(0, 0, 0, 0.25),
+                0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        /* hide all carousels except active one */
+        .gv-carousel {
+            display: none;
+            position: relative;
+            width: 100%;
+            height: 500px;
+            max-width: 1900px;
+            perspective: 1800px;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .gv-carousel.active {
+            display: flex;
+        }
+
+        /* responsive nav */
+        .gv-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 600px) {
+            .gv-nav {
+                gap: 8px;
+                margin-top: 24px;
+            }
+
+            .gv-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+        /* navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 3000;
+            /* Keep this high! */
+            background: linear-gradient(90deg,
+                    rgba(34, 61, 119, 0.86) 60%,
+                    /* Main blue with strong opacity */
+                    rgba(34, 61, 119, 0.55) 90%,
+                    /* Softer blue, more transparent */
+                    rgba(255, 255, 255, 0.13) 100%);
+            /* Gentle fade to white for end */
+            box-shadow: 0 1.5px 12px rgba(0, 0, 0, 0.10);
+            border-bottom: 1px solid rgba(35, 55, 87, 0.18);
+            padding: 0;
+            backdrop-filter: blur(10px);
+            /* No need for pointer-events here */
+        }
+
+
+        .gv-item {
+            position: absolute;
+            width: 500px;
+            /* reduced from 600px */
+            height: 400px;
+            /* reduced from 500px */
+            border-radius: var(--gv-radius);
+            overflow: hidden;
+            transition: transform 300ms cubic-bezier(.25, .9, .25, 1), box-shadow 300ms;
+            will-change: transform, box-shadow;
+            box-sizing: border-box;
+            background: #eee;
+        }
+
+        /* Carousel adjusted for new proportions */
+        .gv-carousel {
+            display: none;
+            position: relative;
+            width: 100%;
+            height: 420px;
+            /* reduced from 520px */
+            max-width: 1500px;
+            /* reduced from 1900px */
+            perspective: 1500px;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            overflow: visible;
+        }
+
+        .gv-carousel.active {
+            display: flex;
+        }
+
+        /* --- Cinematic shadows with reduced spread --- */
+        .gv-pos-1 {
+            transform: translateX(-460px) scale(.82);
+            z-index: 1;
+            box-shadow:
+                -16px 12px 32px rgba(0, 0, 0, 0.22),
+                0 6px 14px rgba(0, 0, 0, 0.10);
+        }
+
+        .gv-pos-2 {
+            transform: translateX(-230px) scale(.93);
+            z-index: 2;
+            box-shadow:
+                -10px 10px 28px rgba(0, 0, 0, 0.22),
+                0 6px 14px rgba(0, 0, 0, 0.10);
+        }
+
+        .gv-pos-3 {
+            transform: translateX(0) scale(1.08);
+            z-index: 3;
+            box-shadow:
+                0 18px 50px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .gv-pos-4 {
+            transform: translateX(230px) scale(.93);
+            z-index: 2;
+            box-shadow:
+                10px 10px 28px rgba(0, 0, 0, 0.22),
+                0 6px 14px rgba(0, 0, 0, 0.10);
+        }
+
+        .gv-pos-5 {
+            transform: translateX(460px) scale(.82);
+            z-index: 1;
+            box-shadow:
+                16px 12px 32px rgba(0, 0, 0, 0.22),
+                0 6px 14px rgba(0, 0, 0, 0.10);
+        }
+
+        /* Responsive Nav */
+        .gv-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .gv-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            border: 1px solid var(--gv-border);
+            background: transparent;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--gv-muted);
+            transition: background 0.2s;
+        }
+
+        .gv-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .gv-btn:active {
+            transform: scale(.98);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .gv-item {
+                width: 340px;
+                height: 270px;
+            }
+
+            .gv-carousel {
+                height: 360px;
+                max-width: 100%;
+            }
+
+            .gv-pos-1 {
+                transform: translateX(-300px) scale(.8);
+            }
+
+            .gv-pos-2 {
+                transform: translateX(-150px) scale(.9);
+            }
+
+            .gv-pos-4 {
+                transform: translateX(150px) scale(.9);
+            }
+
+            .gv-pos-5 {
+                transform: translateX(300px) scale(.8);
+            }
+
+            .gv-nav {
+                margin-top: 20px;
+            }
+
+            .gv-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+        /* Carousel container - expanded for larger cards */
+        .gv-carousel {
+            position: relative;
+            width: 100%;
+            height: 520px;
+            /* keep consistent height */
+            max-width: 1900px;
+            /* overall stage */
+            perspective: 1800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            overflow: visible;
+        }
+
+        /* Larger, landscape-style cards */
+        .gv-item {
+            position: absolute;
+            width: 600px;
+            /* keep width */
+            height: 500px;
+            /* keep height */
+            border-radius: var(--gv-radius);
+            overflow: hidden;
+            transition: transform 320ms cubic-bezier(.25, .9, .25, 1), box-shadow 320ms;
+            will-change: transform, box-shadow;
+            box-sizing: border-box;
+            background: #eee;
+        }
+
+        /* --- Cinematic, directional shadows for visual depth --- */
+        /* Increased translateX values for more spacing */
+        .gv-pos-1 {
+            transform: translateX(-720px) scale(.82);
+            /* was -600px */
+            z-index: 1;
+            box-shadow:
+                -22px 20px 45px rgba(0, 0, 0, 0.25),
+                0 10px 22px rgba(0, 0, 0, 0.12);
+        }
+
+        .gv-pos-2 {
+            transform: translateX(-360px) scale(.94);
+            /* was -300px */
+            z-index: 2;
+            box-shadow:
+                -14px 16px 38px rgba(0, 0, 0, 0.25),
+                0 8px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        .gv-pos-3 {
+            transform: translateX(0) scale(1.1);
+            z-index: 3;
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.32),
+                0 10px 25px rgba(0, 0, 0, 0.18);
+        }
+
+        .gv-pos-4 {
+            transform: translateX(360px) scale(.94);
+            /* was 300px */
+            z-index: 2;
+            box-shadow:
+                14px 16px 38px rgba(0, 0, 0, 0.25),
+                0 8px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        .gv-pos-5 {
+            transform: translateX(720px) scale(.82);
+            /* was 600px */
+            z-index: 1;
+            box-shadow:
+                22px 20px 45px rgba(0, 0, 0, 0.25),
+                0 10px 22px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Hide all carousels except active one */
+        .gv-carousel {
+            display: none;
+        }
+
+        .gv-carousel.active {
+            display: flex;
+        }
+
+        /* Responsive nav */
+        .gv-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        /* Smaller screen tweaks */
+        @media (max-width: 600px) {
+            .gv-item {
+                width: 360px;
+                height: 320px;
+            }
+
+            .gv-pos-1 {
+                transform: translateX(-420px) scale(.8);
+            }
+
+            .gv-pos-2 {
+                transform: translateX(-210px) scale(.9);
+            }
+
+            .gv-pos-3 {
+                transform: translateX(0) scale(1);
+            }
+
+            .gv-pos-4 {
+                transform: translateX(210px) scale(.9);
+            }
+
+            .gv-pos-5 {
+                transform: translateX(420px) scale(.8);
+            }
+
+            .gv-nav {
+                gap: 8px;
+                margin-top: 24px;
+            }
+
+            .gv-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+
+        .navbar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 36px;
+            height: 60px;
+        }
+
+        .navbar-logo img {
+            height: 46px;
+            width: auto;
+            margin-right: 32px;
+            /* optional: border-radius, drop shadow */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li a {
+            color: #fff;
+            font-size: 1.05rem;
+            font-family: 'Roboto';
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 0.4px;
+            transition: color 0.22s, background 0.2s;
+            padding: 8px 14px;
+
+            /* background: rgba(255,255,255,0.04); */
+
+        }
+
+        .nav-links li a:hover {
+            color: #ffe466;
+            background: rgba(255, 255, 255, 0.11);
+        }
+
+        .page-container.content-above {
+
+            padding-top: 60px;
+            /* ensure content is below navbar */
+        }
+  
     </style>
 
 </head>
@@ -3939,6 +4807,23 @@
 <body>
 
     <div class="page-container content-above">
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="navbar-logo">
+                    <img src="#" alt="TCET Logo" />
+                </div>
+                <ul class="nav-links">
+                    <!-- <li><a href="https://thakureducation.org/">TEG</a></li> -->
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#why">Why TCET?</a></li>
+                    <li><a href="#programmes">Programmes</a></li>
+                    <li><a href="#life">Life @TCET</a></li>
+                    <li><a href="#placements">Placements</a></li>
+                    <li><a href="#test">Testimonials</a></li>
+                    <li><a href="#events">Events</a></li>
+
+                </ul>
+        </nav>
         <div class="video-section">
             <video autoplay muted loop poster="">
                 <source src="draft-4.mp4" type="video/mp4">
@@ -4005,12 +4890,12 @@
             </div>
 
             <div class="about-card bvoc">
-                <div class="about-card-title">B. Voc</div>
+                <div class="about-card-title">Vocational</div>
                 <div class="about-card-icon">🎓</div>
             </div>
 
             <div class="about-card comp">
-                <div class="about-card-title">Computer Applications</div>
+                <div class="about-card-title"> Computer Applications</div>
                 <div class="about-card-icon">💻</div>
             </div>
 
@@ -4024,14 +4909,14 @@
 
         <div class="hero-content">
             <p class="hero-text">
-                We at TCET are a community built on knowledge, connection, and collaboration, where learning becomes a
-                lifelong journey of purpose.
+                TCET is a community rooted in knowledge and aspiration, nurturing minds for growth and a lifelong
+                pursuit of learning.
             </p>
         </div>
     </section>
 
 
-    <section class="section-container">
+    <section id="about" class="section-container">
 
         <section class="about-header-section">
             <div class="about-header-content">
@@ -4041,12 +4926,14 @@
                 </h1>
 
                 <p class="about-header-text">
-                    TCET is an autonomous and linguistic minority Institute. It was established in AY 2001-02 with a
-                    clear objective of providing quality technical education in tune with international standards and
-                    contemporary global requirements. TCET offers 21 U.G., 11 PG., and 5 Ph.D. (Tech.) Courses. TCET is
-                    an ISO 9001:2015, ISO 14001:2015 & ISO 50001:2018 certified and certification has helped Institute
-                    to develop a student centric process driven system required for quality education in the 21st
-                    century.
+                    Thakur College of Engineering & Technology (TCET) is a deemed to be University established in AY
+                    2001 02, committed to providing quality technical education aligned with international standards and
+                    global requirements. The institute is ISO 9001 2015, ISO 14001 2015, and ISO 50001 2018 certified,
+                    NAAC accredited with an A grade, and offers multiple NBA accredited programmes. TCET has been
+                    recognised with the Asia Pacific Quality Award for Best in Class and as an Excellent Performing and
+                    Innovative Engineering Institute in Maharashtra. With strong academics, state of the art
+                    infrastructure, and a focus on innovation and research, TCET develops engineers and leaders ready
+                    for the modern world.
                 </p>
             </div>
 
@@ -4075,28 +4962,22 @@
 
     </section>
 
-    <section class="why-mba-section">
+    <section id="why" class="why-mba-section">
         <div class="why-mba-main-container">
             <div class="why-mba-grid">
                 <div class="why-mba-left">
                     <h1 class="why-mba-title">Why TCET</h1>
                     <p class="why-mba-lead">
-                       Life at TCET University embodies holistic excellence, fostering academic, professional, and personal growth in every student. With a 25-year legacy, TCET is a deemed-to-be university recognised for delivering world-class education aligned with global standards.
+                        Life at TCET University embodies holistic excellence, fostering academic, professional, and
+                        personal growth in every student. With a 25-year legacy, TCET is a deemed to be university
+                        recognised for delivering world-class education aligned with global standards. The university’s
+                        diverse and inclusive community welcomes students from across India and abroad, creating a
+                        vibrant multicultural learning environment. Innovation thrives through state-of-the-art
+                        laboratories and advanced research centres, while student life is enriched with dynamic clubs,
+                        experiential workshops, and international exposure programmes that inspire leadership,
+                        creativity, and global competence within a supportive and engaging academic ecosystem.
                     </p>
 
-                    <p class="why-mba-lead">
-                        The university is empowered by a global alumni network of over 100,000 accomplished
-                        professionals and a strong industry connect with more than 1,600 recruiters visiting the campus
-                        each year. Its diverse and inclusive community welcomes students from across India and abroad,
-                        creating a vibrant multicultural learning environment.
-                    </p>
-
-                    <p class="why-mba-lead">
-                        Innovation thrives through state-of-the-art laboratories and advanced research centres, while
-                        student life is enriched with dynamic clubs, experiential workshops, and international exposure
-                        programmes that inspire leadership, creativity, and global competence within a supportive and
-                        engaging academic ecosystem.
-                    </p>
 
                 </div>
                 <div class="why-mba-features-grid">
@@ -4188,7 +5069,7 @@
         </div>
     </section>
 
-    <main class="upg2-root">
+    <main id="programmes" class="upg2-root">
 
         <!-- HERO -->
         <header class="upg2-hero" role="banner" aria-label="University programmes hero">
@@ -4417,7 +5298,7 @@
         </section>
 
     </main>
-    <section class="success-stories-section">
+    <section id="test" class="success-stories-section">
         <div class="container">
             <div class="content-wrapper">
                 <div class="text-column">
@@ -4513,7 +5394,7 @@
         <!-- Carousel + Stats Section -->
         <!-- Research & Innovation Section -->
     </section>
-    <h1 class="about-header-title">
+    <h1 id="life" class="about-header-title">
         Life @ TCET University<br />
         <!-- <span class="about-header-proposed">Deemed to be University</span> -->
     </h1>
@@ -4553,7 +5434,7 @@
                 </div>
             </div>
         </section>
-        <section class="research-innovation-section">
+        <section id="placements" class="research-innovation-section">
             <div class="ri-container">
                 <div class="vertical-logo-marquees left-fixed">
                     <div class="vertical-marquee marquee-down">
@@ -4617,7 +5498,77 @@
         </section>
     </section>
 
-    <section style="background-color: #fffff; color: #333;; padding: 5rem 8rem; max-width: 90%; margin: auto;">
+
+    <!-- user requested: gallery inside a section tag -->
+<section id="events" aria-label="Photo gallery" class="gv-gallery-section">
+
+  <!-- Header -->
+  <header class="gv-header">
+    <h2 class="gv-title">Campus Events Gallery</h2>
+    <p class="gv-sub">Explore highlights from our major events and student activities throughout the year.</p>
+  </header>
+
+  <!-- chips -->
+  <div class="gv-chips-wrap">
+    <nav class="gv-chips" aria-label="Filters">
+      <a class="gv-chip gv-chip--active" data-gallery="event1" href="#">Event 1</a>
+      <a class="gv-chip" data-gallery="event2" href="#">Event 2</a>
+      <a class="gv-chip" data-gallery="event3" href="#">Event 3</a>
+      <a class="gv-chip" data-gallery="event4" href="#">Event 4</a>
+      <a class="gv-chip" data-gallery="event5" href="#">Event 5</a>
+      <a class="gv-chip" data-gallery="event6" href="#">Event 6</a>
+    </nav>
+  </div>
+
+  <!-- event galleries -->
+  <div class="gv-carousel-outer">
+
+    <!-- EVENT 1 -->
+    <div class="gv-carousel" id="event1">
+      <article class="gv-item gv-pos-1"><img src="./Events/image00002-2.jpeg" alt=""></article>
+      <article class="gv-item gv-pos-2"><img src="./Events/image00038.jpeg" alt=""></article>
+      <article class="gv-item gv-pos-3"><img src="Events/image00064.jpeg" alt=""></article>
+      <article class="gv-item gv-pos-4"><img src="Events/IMG_0649.jpeg" alt=""></article>
+      <article class="gv-item gv-pos-5"><img src="Events/image00077.jpeg" alt=""></article>
+    </div>
+
+    <!-- EVENT 2 -->
+    <div class="gv-carousel" id="event2">
+      <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
+      <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
+      <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
+      <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
+      <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
+    </div>
+
+    <!-- EVENT 3 -->
+    <div class="gv-carousel" id="event3">
+      <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
+      <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
+      <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
+      <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
+      <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
+    </div>
+
+    <!-- EVENT 4 -->
+    <div class="gv-carousel" id="event4">
+      <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
+      <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
+      <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
+      <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
+      <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
+    </div>
+
+    <!-- nav -->
+    <div class="gv-nav" role="group" aria-label="Carousel controls">
+      <button class="gv-btn" id="gv-prev" aria-label="Previous">‹</button>
+      <button class="gv-btn" id="gv-next" aria-label="Next">›</button>
+    </div>
+  </div>
+</section>
+
+
+    <section style="background-color: #fffff; color: #333; padding: 5rem 8rem; max-width: 90%; margin: auto;">
         <h1 style="font-weight: 700; font-size: 3.5rem; margin-bottom: 7rem; color: #555;">
             Frequently Asked Questions ?
             <span style="font-weight: 700; color: #111;">(FAQs)</span>
@@ -4765,6 +5716,7 @@
         </div>
     </section>
 
+
     <footer style="width:100%;">
         <div class="tgb-contact-wrap">
             <div class="tgb-contact-container">
@@ -4796,6 +5748,30 @@
     </footer>
 
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var navbar = document.querySelector('.navbar');
+        var navbarHeight = navbar ? navbar.offsetHeight : 0;
+        document.querySelectorAll('.nav-links a').forEach(function (anchor) {
+            anchor.addEventListener('click', function (e) {
+                var hash = this.getAttribute('href');
+                if (hash.startsWith('#')) {
+                    e.preventDefault();
+                    var section = document.querySelector(hash);
+                    if (section) {
+                        var sectionToScroll = section.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                        window.scrollTo({
+                            top: sectionToScroll,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const tabs = Array.from(document.querySelectorAll('.upg2-tab'));
@@ -4952,5 +5928,105 @@
 
     });
 </script>
+<script>
+    (function () {
+        const orderTemplate = ['gv-pos-1', 'gv-pos-2', 'gv-pos-3', 'gv-pos-4', 'gv-pos-5'];
+        const btnPrev = document.getElementById('gv-prev');
+        const btnNext = document.getElementById('gv-next');
+        const chips = document.querySelectorAll('.gv-chip[data-gallery]');
+        const carousels = document.querySelectorAll('.gv-carousel');
+
+        const orders = {};
+
+        // Initialize all carousels
+        carousels.forEach(carousel => {
+            const id = carousel.id;
+            const items = Array.from(carousel.querySelectorAll('.gv-item'));
+            orders[id] = [...orderTemplate];
+            applyPositions(items, orders[id]);
+        });
+
+        // Helper to apply updated classes
+        function applyPositions(items, posArray) {
+            items.forEach((item, i) => {
+                orderTemplate.forEach(cls => item.classList.remove(cls));
+                item.classList.add(posArray[i]);
+            });
+        }
+
+        // Get active carousel info
+        function getActiveCarousel() {
+            const active = document.querySelector('.gv-carousel.active');
+            if (!active) return null;
+            return {
+                id: active.id,
+                items: Array.from(active.querySelectorAll('.gv-item')),
+                order: orders[active.id],
+            };
+        }
+
+        // Handle chip click: switch active gallery
+        chips.forEach(chip => {
+            chip.addEventListener('click', e => {
+                e.preventDefault();
+
+                // reset chip highlight
+                chips.forEach(c => c.classList.remove('gv-chip--active'));
+                chip.classList.add('gv-chip--active');
+
+                // show relevant gallery
+                const targetId = chip.dataset.gallery;
+                carousels.forEach(c => c.classList.remove('active'));
+                document.getElementById(targetId)?.classList.add('active');
+            });
+        });
+
+        // Rotate helpers
+        function rotateRight(order) { order.unshift(order.pop()); }
+        function rotateLeft(order) { order.push(order.shift()); }
+
+        // Navigation buttons
+        btnNext.addEventListener('click', () => {
+            const active = getActiveCarousel();
+            if (!active) return;
+            rotateRight(active.order);
+            applyPositions(active.items, active.order);
+        });
+
+        btnPrev.addEventListener('click', () => {
+            const active = getActiveCarousel();
+            if (!active) return;
+            rotateLeft(active.order);
+            applyPositions(active.items, active.order);
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft') btnPrev.click();
+            if (e.key === 'ArrowRight') btnNext.click();
+        });
+
+        // ✅ Default open first event (Event 1)
+       const firstChip = document.querySelector('.gv-chip[data-gallery]');
+    const firstCarousel = document.querySelector('.gv-carousel');
+    if (firstChip && firstCarousel) {
+        chips.forEach(c => c.classList.remove('gv-chip--active'));
+        carousels.forEach(c => c.classList.remove('active'));
+
+        firstChip.classList.add('gv-chip--active');
+        firstCarousel.classList.add('active');
+    }
+
+    // 🕒 Add this for automatic switching every 3 seconds!
+    setInterval(function() {
+        const active = getActiveCarousel();
+        if (active) {
+            rotateRight(active.order);
+            applyPositions(active.items, active.order);
+        }
+    }, 2000);
+    })();
+</script>
+
 
 </html>
