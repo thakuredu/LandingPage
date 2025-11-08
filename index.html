@@ -221,6 +221,7 @@
             flex: 6;
             overflow: hidden;
             box-shadow: 0 12px 48px 8px rgba(32, 35, 60, 0.7), 0 4px 16px 0 rgba(0, 0, 0, 0.25);
+            z-index: -1;
         }
 
         .page-container.content-above {
@@ -305,17 +306,6 @@
             background-color: rgba(0, 0, 0, 0.2);
             box-shadow: 0 12px 48px 8px rgba(32, 35, 60, 0.7), 0 4px 16px 0 rgba(0, 0, 0, 0.25);
         }
-
-        .sidebar-content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 60px;
-        }
-
-
 
         .logo-large {
             width: 100%;
@@ -581,8 +571,9 @@
         .why-mba-feature-stat {
             font-size: 2.1em;
             font-weight: bold;
-            color: #ffffff;
+            color: #FA9F3C;
             margin-bottom: 0.15em;
+            filter: drop-shadow(1px 2px 2px rgb(0, 0, 0));
         }
 
         .why-mba-feature-desc {
@@ -2151,7 +2142,7 @@
 
         .hero-section-new {
             width: 100%;
-            background-color: #E6E6E5;
+            background-color: #b6b6b6d3;
             padding: 0;
             position: relative;
             overflow: visible;
@@ -2221,7 +2212,7 @@
         .hero-content {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 140px 20px 0 20px;
+            padding: 100px 20px 0 20px;
             text-align: center;
             position: relative;
             z-index: 1;
@@ -2233,7 +2224,7 @@
             color: #223D77;
             line-height: 1.6;
             margin: 0;
-            font-family: Merriweather, serif;
+
         }
 
         /* Responsive */
@@ -2322,21 +2313,21 @@
             width: 100%;
             transform: translateY(-25%);
             display: flex;
-            gap: 125px;
+            gap: 80px;
             z-index: 2;
             justify-content: center;
         }
 
         .about-card {
             background: #fff;
-            border-radius: 6px;
+            /* border-radius: 6px; */
             /* or use 0 for sharp corners */
             box-shadow: 0 8px 32px rgba(4, 8, 231, 0.12);
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 5px 13px 0px 9px;
-            width: 200px;
+            width: 242px;
             text-align: center;
         }
 
@@ -2356,8 +2347,8 @@
 
         .about-card-title {
             font-size: 1.15rem;
-            font-weight: bold;
-            color: #ffffff;
+            font-weight: 500;
+            color: white;
             margin-bottom: 6px;
         }
 
@@ -3236,18 +3227,7 @@
         }
 
 
-        .sidebar-content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 340px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-right: 20px;
-            margin-top: 30px;
-            gap: 18px;
-        }
+  
 
         .logo-large {
             width: 190px;
@@ -3337,7 +3317,7 @@
             align-items: flex-start;
             gap: 10px;
             color: #d4af37;
-            font-size: 14px;
+            font-size: 16px;
             /* margin-bottom: 12px; */
             margin-top: 8px;
         }
@@ -4615,81 +4595,72 @@
         }
 
         /* Carousel container - expanded for larger cards */
-        .gv-carousel {
-            position: relative;
-            width: 100%;
-            height: 520px;
-            /* keep consistent height */
-            max-width: 1900px;
-            /* overall stage */
-            perspective: 1800px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            overflow: visible;
-        }
+      .gv-carousel {
+  position: relative;
+  width: 100%;
+  height: 400px; /* reduced from 500px */
+  max-width: 1900px;
+  perspective: 1800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: visible;
+}
 
-        /* Larger, landscape-style cards */
-        .gv-item {
-            position: absolute;
-            width: 600px;
-            /* keep width */
-            height: 500px;
-            /* keep height */
-            border-radius: var(--gv-radius);
-            overflow: hidden;
-            transition: transform 320ms cubic-bezier(.25, .9, .25, 1), box-shadow 320ms;
-            will-change: transform, box-shadow;
-            box-sizing: border-box;
-            background: #eee;
-        }
+/* Shorter cards */
+.gv-item {
+  position: absolute;
+  width: 500px; /* optional slight reduction for better proportion */
+  height: 400px; /* reduced from 500px */
+  border-radius: var(--gv-radius);
+  overflow: hidden;
+  transition: transform 320ms cubic-bezier(.25, .9, .25, 1), box-shadow 320ms;
+  will-change: transform, box-shadow;
+  box-sizing: border-box;
+  background: #eee;
+}
 
-        /* --- Cinematic, directional shadows for visual depth --- */
-        /* Increased translateX values for more spacing */
-        .gv-pos-1 {
-            transform: translateX(-720px) scale(.82);
-            /* was -600px */
-            z-index: 1;
-            box-shadow:
-                -22px 20px 45px rgba(0, 0, 0, 0.25),
-                0 10px 22px rgba(0, 0, 0, 0.12);
-        }
+/* Adjusted translateX for balanced spacing with smaller cards */
+.gv-pos-1 {
+  transform: translateX(-600px) scale(.82);
+  z-index: 1;
+  box-shadow:
+    -18px 16px 38px rgba(0, 0, 0, 0.25),
+    0 8px 18px rgba(0, 0, 0, 0.12);
+}
 
-        .gv-pos-2 {
-            transform: translateX(-360px) scale(.94);
-            /* was -300px */
-            z-index: 2;
-            box-shadow:
-                -14px 16px 38px rgba(0, 0, 0, 0.25),
-                0 8px 18px rgba(0, 0, 0, 0.12);
-        }
+.gv-pos-2 {
+  transform: translateX(-300px) scale(.94);
+  z-index: 2;
+  box-shadow:
+    -10px 12px 30px rgba(0, 0, 0, 0.25),
+    0 6px 15px rgba(0, 0, 0, 0.12);
+}
 
-        .gv-pos-3 {
-            transform: translateX(0) scale(1.1);
-            z-index: 3;
-            box-shadow:
-                0 25px 60px rgba(0, 0, 0, 0.32),
-                0 10px 25px rgba(0, 0, 0, 0.18);
-        }
+.gv-pos-3 {
+  transform: translateX(0) scale(1.08);
+  z-index: 3;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    0 8px 20px rgba(0, 0, 0, 0.15);
+}
 
-        .gv-pos-4 {
-            transform: translateX(360px) scale(.94);
-            /* was 300px */
-            z-index: 2;
-            box-shadow:
-                14px 16px 38px rgba(0, 0, 0, 0.25),
-                0 8px 18px rgba(0, 0, 0, 0.12);
-        }
+.gv-pos-4 {
+  transform: translateX(300px) scale(.94);
+  z-index: 2;
+  box-shadow:
+    10px 12px 30px rgba(0, 0, 0, 0.25),
+    0 6px 15px rgba(0, 0, 0, 0.12);
+}
 
-        .gv-pos-5 {
-            transform: translateX(720px) scale(.82);
-            /* was 600px */
-            z-index: 1;
-            box-shadow:
-                22px 20px 45px rgba(0, 0, 0, 0.25),
-                0 10px 22px rgba(0, 0, 0, 0.12);
-        }
+.gv-pos-5 {
+  transform: translateX(600px) scale(.82);
+  z-index: 1;
+  box-shadow:
+    18px 16px 38px rgba(0, 0, 0, 0.25),
+    0 8px 18px rgba(0, 0, 0, 0.12);
+}
 
         /* Hide all carousels except active one */
         .gv-carousel {
@@ -4754,7 +4725,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: 1440px;
+            /* max-width: 1440px; */
             margin: 0 auto;
             padding: 0 36px;
             height: 60px;
@@ -4794,12 +4765,67 @@
             background: rgba(255, 255, 255, 0.11);
         }
 
-        .page-container.content-above {
+        /* .page-container.content-above {
 
             padding-top: 60px;
-            /* ensure content is below navbar */
-        }
-  
+           
+        } */
+.sidebar-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  margin-top: 80px;  /* was 20px — pushes the form down */
+  gap: 10px;
+}
+
+/* reduce inner form spacing */
+.tcet-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;             /* less gap between form elements */
+  padding: 10px 15px;   /* lighter padding */
+}
+
+/* make inputs slightly smaller */
+.tcet-form input,
+.tcet-form button {
+
+  font-size: 14px;      /* slightly smaller text */
+  padding: 6px 10px;    /* less padding inside inputs */
+}
+
+/* reduce spacing in split rows */
+.input-split-row {
+  display: flex;
+  gap: 8px;             /* smaller horizontal gap */
+}
+
+/* shrink checkbox and captcha spacing */
+.captcha-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkbox-label {
+  font-size: 14px;
+  line-height: 1.3;
+  margin-top: 6px;
+}
+
+/* slightly smaller submit button */
+.submit-btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
     </style>
 
 </head>
@@ -5073,8 +5099,8 @@
 
         <!-- HERO -->
         <header class="upg2-hero" role="banner" aria-label="University programmes hero">
-            <div class="upg2-hero-small">University</div>
-            <h1 class="upg2-hero-title">PROGRAMMES</h1>
+            <!-- <div class="upg2-hero-small">University</div> -->
+            <h1 class="upg2-hero-title">Programmes</h1>
             <p class="upg2-hero-desc">
                 Explore our comprehensive range of academic programmes designed to foster innovation, critical thinking,
                 and leadership. Scroll down to discover the path that's right for you.
@@ -5096,7 +5122,7 @@
         <section id="panel-undergrad" class="upg2-panel" role="tabpanel" aria-labelledby="tab-undergrad">
             <!-- COPY your Undergraduate section content here (same markup you provided) -->
             <section id="upg2-undergrad" class="upg2-block upg2-block--left" aria-labelledby="upg2-undergrad-title">
-                <div class="upg2-block-bg" style="background-image:url('./programming-technical-school.jpg');">
+                <div class="upg2-block-bg" style="background-image:url('./#');">
                 </div>
 
                 <div class="upg2-inner">
@@ -5117,17 +5143,18 @@
                             <div class="upg2-programme-table">
                                 <h3 class="upg2-feat-title">Undergraduate Programmes</h3>
                                 <ol class="upg2-programme-list">
-                                    <li>Computer Engineering</li>
-                                    <li>Information Technology</li>
-                                    <li>Artificial Intelligence and Data Science</li>
-                                    <li>Artificial Intelligence and Machine Learning</li>
-                                    <li>Computer Science and Engineering (Cyber Security)</li>
-                                    <li>Electronics and Telecommunication Engg</li>
-                                    <li>Computer Science and Engineering (IoT)</li>
-                                    <li>Electronics and Computer Science</li>
-                                    <li>Mechanical Engineering</li>
-                                    <li>Civil Engineering</li>
-                                    <li>Mechanical and Mechatronics Engineering (Additive Manufacturing)</li>
+                                    <li>Bachelor of Computer Applications</li>
+                                    <li>B.E Computer Engineering</li>
+                                    <li>B.E Information Technology</li>
+                                    <li>B.E Artificial Intelligence and Data Science</li>
+                                    <li>B.E Artificial Intelligence and Machine Learning</li>
+                                    <li>B.E Computer Science and Engineering (Cyber Security)</li>
+                                    <li>B.E Electronics and Telecommunication Engg</li>
+                                    <li>B.E Computer Science and Engineering (IoT)</li>
+                                    <li>B.E Electronics and Computer Science</li>
+                                    <li>B.E Mechanical Engineering</li>
+                                    <li>B.E Civil Engineering</li>
+                                    <li>B.E Mechanical and Mechatronics Engineering (Additive Manufacturing)</li>
                                 </ol>
                             </div>
 
@@ -5153,7 +5180,7 @@
                                 </div>
                             </div>
 
-                            <a class="upg2-cta" href="#" role="button">Apply Now</a>
+                            <a class="upg2-cta" href="#" role="button">Contact Us</a>
                         </article>
 
                         <figure class="upg2-card upg2-card--media" aria-hidden="true">
@@ -5169,7 +5196,7 @@
             aria-labelledby="tab-postgrad" hidden>
             <!-- POSTGRADUATE panel content -->
             <section id="upg2-postgrad" class="upg2-block upg2-block--right" aria-labelledby="upg2-postgrad-title">
-                <div class="upg2-block-bg" style="background-image:url('./educated-student-classroom.jpg');">
+                <div class="upg2-block-bg" style="background-image:url('./');">
                 </div>
 
                 <div class="upg2-inner">
@@ -5225,7 +5252,7 @@
                                 </div>
                             </div>
 
-                            <a class="upg2-cta" href="#">Discover Master's Degrees</a>
+                            <a class="upg2-cta" href="#">Contact Us</a>
                         </article>
                     </div>
                 </div>
@@ -5235,8 +5262,7 @@
         <section id="panel-phd" class="upg2-panel upg2-panel--hidden" role="tabpanel" aria-labelledby="tab-phd" hidden>
             <!-- PHD panel content -->
             <section id="upg2-phd" class="upg2-block upg2-block--left" aria-labelledby="upg2-phd-title">
-                <div class="upg2-block-bg"
-                    style="background-image:url('./WhatsApp\ Image\ 2025-10-25\ at\ 5.26.34\ PM.jpeg');">
+                <div class="upg2-block-bg" style="background-image:url('./');">
                 </div>
 
                 <div class="upg2-inner">
@@ -5285,7 +5311,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <a class="upg2-cta" href="#">Learn About PhD Research</a>
+                            <a class="upg2-cta" href="#">Contact Us</a>
                         </article>
 
                         <figure class="upg2-card upg2-card--media" aria-hidden="true">
@@ -5303,7 +5329,8 @@
             <div class="content-wrapper">
                 <div class="text-column">
                     <!-- <h2 class="subtitle">University</h2> -->
-                    <h1 class="title">Testimonials</h1>
+                  
+                     <h1 class="upg2-hero-title">Testimonials</h1>
 
                     <p class="description">
                         Discover the inspiring journeys of our alumni and how their experiences at University shaped
@@ -5394,7 +5421,7 @@
         <!-- Carousel + Stats Section -->
         <!-- Research & Innovation Section -->
     </section>
-    <h1 id="life" class="about-header-title">
+    <h1 id="life" class="upg2-hero-title">
         Life @ TCET University<br />
         <!-- <span class="about-header-proposed">Deemed to be University</span> -->
     </h1>
@@ -5470,17 +5497,17 @@
 
                 <div class="ri-stats-panel">
                     <div class="ri-stats-block">
-                        <span>250+</span>
+                     <span id="recruiterCount">0</span>
                         <label>Recruiters</label>
                     </div>
                     <div class="ri-divider"></div>
                     <div class="ri-stats-block">
-                        <span>100+</span>
+                      <span id="careerCount">100</span>
                         <label>Career Opportunities</label>
                     </div>
                     <div class="ri-divider"></div>
                     <div class="ri-stats-block">
-                        <span>40+LPA</span>
+                        <span id="ctcCount">0+</span>
                         <label>Highest CTC
 
                         </label>
@@ -5500,72 +5527,72 @@
 
 
     <!-- user requested: gallery inside a section tag -->
-<section id="events" aria-label="Photo gallery" class="gv-gallery-section">
+    <section id="events" aria-label="Photo gallery" class="gv-gallery-section">
 
-  <!-- Header -->
-  <header class="gv-header">
-    <h2 class="gv-title">Campus Events Gallery</h2>
-    <p class="gv-sub">Explore highlights from our major events and student activities throughout the year.</p>
-  </header>
+        <!-- Header -->
+        <header class="gv-header">
+            <h2 class="gv-title">Campus Events Gallery</h2>
+            <p class="gv-sub">Explore highlights from our major events and student activities throughout the year.</p>
+        </header>
 
-  <!-- chips -->
-  <div class="gv-chips-wrap">
-    <nav class="gv-chips" aria-label="Filters">
-      <a class="gv-chip gv-chip--active" data-gallery="event1" href="#">Event 1</a>
-      <a class="gv-chip" data-gallery="event2" href="#">Event 2</a>
-      <a class="gv-chip" data-gallery="event3" href="#">Event 3</a>
-      <a class="gv-chip" data-gallery="event4" href="#">Event 4</a>
-      <a class="gv-chip" data-gallery="event5" href="#">Event 5</a>
-      <a class="gv-chip" data-gallery="event6" href="#">Event 6</a>
-    </nav>
-  </div>
+        <!-- chips -->
+        <div class="gv-chips-wrap">
+            <nav class="gv-chips" aria-label="Filters">
+                <a class="gv-chip gv-chip--active" data-gallery="event1" href="#">Event 1</a>
+                <a class="gv-chip" data-gallery="event2" href="#">Event 2</a>
+                <a class="gv-chip" data-gallery="event3" href="#">Event 3</a>
+                <a class="gv-chip" data-gallery="event4" href="#">Event 4</a>
+                <a class="gv-chip" data-gallery="event5" href="#">Event 5</a>
+                <a class="gv-chip" data-gallery="event6" href="#">Event 6</a>
+            </nav>
+        </div>
 
-  <!-- event galleries -->
-  <div class="gv-carousel-outer">
+        <!-- event galleries -->
+        <div class="gv-carousel-outer">
 
-    <!-- EVENT 1 -->
-    <div class="gv-carousel" id="event1">
-      <article class="gv-item gv-pos-1"><img src="./Events/image00002-2.jpeg" alt=""></article>
-      <article class="gv-item gv-pos-2"><img src="./Events/image00038.jpeg" alt=""></article>
-      <article class="gv-item gv-pos-3"><img src="Events/image00064.jpeg" alt=""></article>
-      <article class="gv-item gv-pos-4"><img src="Events/IMG_0649.jpeg" alt=""></article>
-      <article class="gv-item gv-pos-5"><img src="Events/image00077.jpeg" alt=""></article>
-    </div>
+            <!-- EVENT 1 -->
+            <div class="gv-carousel" id="event1">
+                <article class="gv-item gv-pos-1"><img src="./Events/image00002-2.jpeg" alt=""></article>
+                <article class="gv-item gv-pos-2"><img src="./Events/image00038.jpeg" alt=""></article>
+                <article class="gv-item gv-pos-3"><img src="Events/image00064.jpeg" alt=""></article>
+                <article class="gv-item gv-pos-4"><img src="Events/IMG_0649.jpeg" alt=""></article>
+                <article class="gv-item gv-pos-5"><img src="Events/image00077.jpeg" alt=""></article>
+            </div>
 
-    <!-- EVENT 2 -->
-    <div class="gv-carousel" id="event2">
-      <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
-      <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
-      <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
-      <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
-      <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
-    </div>
+            <!-- EVENT 2 -->
+            <div class="gv-carousel" id="event2">
+                <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
+                <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
+                <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
+                <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
+                <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
+            </div>
 
-    <!-- EVENT 3 -->
-    <div class="gv-carousel" id="event3">
-      <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
-      <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
-      <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
-      <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
-      <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
-    </div>
+            <!-- EVENT 3 -->
+            <div class="gv-carousel" id="event3">
+                <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
+                <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
+                <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
+                <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
+                <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
+            </div>
 
-    <!-- EVENT 4 -->
-    <div class="gv-carousel" id="event4">
-      <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
-      <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
-      <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
-      <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
-      <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
-    </div>
+            <!-- EVENT 4 -->
+            <div class="gv-carousel" id="event4">
+                <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
+                <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
+                <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
+                <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
+                <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
+            </div>
 
-    <!-- nav -->
-    <div class="gv-nav" role="group" aria-label="Carousel controls">
-      <button class="gv-btn" id="gv-prev" aria-label="Previous">‹</button>
-      <button class="gv-btn" id="gv-next" aria-label="Next">›</button>
-    </div>
-  </div>
-</section>
+            <!-- nav -->
+            <div class="gv-nav" role="group" aria-label="Carousel controls">
+                <button class="gv-btn" id="gv-prev" aria-label="Previous">‹</button>
+                <button class="gv-btn" id="gv-next" aria-label="Next">›</button>
+            </div>
+        </div>
+    </section>
 
 
     <section style="background-color: #fffff; color: #333; padding: 5rem 8rem; max-width: 90%; margin: auto;">
@@ -6007,26 +6034,66 @@
         });
 
         // ✅ Default open first event (Event 1)
-       const firstChip = document.querySelector('.gv-chip[data-gallery]');
-    const firstCarousel = document.querySelector('.gv-carousel');
-    if (firstChip && firstCarousel) {
-        chips.forEach(c => c.classList.remove('gv-chip--active'));
-        carousels.forEach(c => c.classList.remove('active'));
+        const firstChip = document.querySelector('.gv-chip[data-gallery]');
+        const firstCarousel = document.querySelector('.gv-carousel');
+        if (firstChip && firstCarousel) {
+            chips.forEach(c => c.classList.remove('gv-chip--active'));
+            carousels.forEach(c => c.classList.remove('active'));
 
-        firstChip.classList.add('gv-chip--active');
-        firstCarousel.classList.add('active');
-    }
-
-    // 🕒 Add this for automatic switching every 3 seconds!
-    setInterval(function() {
-        const active = getActiveCarousel();
-        if (active) {
-            rotateRight(active.order);
-            applyPositions(active.items, active.order);
+            firstChip.classList.add('gv-chip--active');
+            firstCarousel.classList.add('active');
         }
-    }, 2000);
+
+        // 🕒 Add this for automatic switching every 3 seconds!
+        setInterval(function () {
+            const active = getActiveCarousel();
+            if (active) {
+                rotateRight(active.order);
+                applyPositions(active.items, active.order);
+            }
+        }, 2000);
     })();
 </script>
 
+<script>
+function animateCounter(element, endValue, duration = 1500) {
+  let start = 0;
+  const increment = endValue / (duration / 10);
+  const step = () => {
+    start += increment;
+    if (start < endValue) {
+      element.textContent = Math.floor(start);
+      requestAnimationFrame(step);
+    } else {
+      element.textContent = endValue;
+    }
+  };
+  requestAnimationFrame(step);
+}
+document.addEventListener('DOMContentLoaded', function () {
+  const stats = [
+    { id: 'recruiterCount', value: 250 },
+    { id: 'careerCount', value: 100 },
+    { id: 'ctcCount', value: 40 }
+  ];
 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        let value = entry.target.dataset.value;
+        animateCounter(entry.target, parseInt(value));
+        entry.target.dataset.animated = "true";
+      }
+    });
+  }, { threshold: 0.5 });
+
+  stats.forEach(stat => {
+    const el = document.getElementById(stat.id);
+    el.dataset.value = stat.value;
+    observer.observe(el);
+  });
+});
+
+
+</script>
 </html>
