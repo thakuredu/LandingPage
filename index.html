@@ -5,9 +5,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>University</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script> <!-- Tailwind CDN -->
     <script>
@@ -196,7 +202,7 @@
     <style>
         body {
             margin: 0;
-            font-family: "Roboto", sans-serif !important;
+            font-family: "Montserrat", sans-serif !important;
             background-color: #f0f0f0;
             color: #333;
             transition: box-shadow 0.3s ease;
@@ -451,23 +457,31 @@
             }
         }
 
-        .why-mba-section {
-            position: relative;
-            /* needed for overlay positioning */
-            min-height: 100vh;
-            background: #fff;
-            /* fallback color */
-            background-image: url('./WhatsApp Image 2025-10-25 at 3.46.12 PM.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            padding: 3em 2em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 0;
-        }
+.why-mba-section {
+  position: relative;
+  width: 100vw;                     /* full viewport width */
+  left: 50%;                        /* center alignment trick */
+  right: 50%;
+  margin-left: -50vw;               /* remove parent container’s width limit */
+  margin-right: -50vw;
+
+  min-height: 100vh;
+  background: #fff;                 /* fallback */
+  background-image: url('./WhatsApp Image 2025-10-25 at 3.46.12 PM.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  padding: 3em 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  z-index: 0;
+}
+
 
         /* Black overlay */
         .why-mba-section::before {
@@ -477,7 +491,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.4);
             /* semi-transparent black */
             pointer-events: none;
             /* allow clicks through overlay */
@@ -510,10 +524,10 @@
         }
 
         .why-mba-title {
-            font-size: 4.5rem;
+            font-size: 4rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
-            color: #FA9F3C;
+            color: #FF6B17;
             filter: drop-shadow(1px 2px 2px rgb(0, 0, 0));
         }
 
@@ -540,18 +554,7 @@
             }
         }
 
-        .why-mba-feature {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.2em;
-            padding: 1.2em;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(3px);
-            box-shadow: 0 4px 16px rgba(32, 35, 60, 0.11);
-            width: 100%;
-            /* or width: 800px; */
-        }
+
 
         .why-mba-feature-icon-block {
             background: #fff;
@@ -572,7 +575,7 @@
         .why-mba-feature-stat {
             font-size: 2.1em;
             font-weight: bold;
-            color: #FA9F3C;
+            color: #FF6B17;
             margin-bottom: 0.15em;
             filter: drop-shadow(1px 2px 2px rgb(0, 0, 0));
         }
@@ -1299,6 +1302,12 @@
         }
 
         .ri-container {
+            background-image: url('./Landing_Placement_01.webp');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            padding: 2rem;
+            min-height: 400px;
             display: flex;
             min-height: 600px;
         }
@@ -2350,7 +2359,7 @@
 
         .about-card-title {
             font-size: 1.15rem;
-            font-weight: 500;
+            font-weight: 600;
             color: white;
             margin-bottom: 6px;
         }
@@ -3042,7 +3051,7 @@
         .section-container {
             max-width: 100%;
             margin: 0 auto;
-            padding: 60px 170px;
+            padding: 45px 170px;
             display: flex;
             flex-direction: column;
             gap: 60px;
@@ -3069,19 +3078,22 @@
 
         .about-header-title {
             font-size: 2.75rem;
-            font-weight: 900;
+            font-weight: 600;
             letter-spacing: -1px;
             color: #232f53;
             text-align: center;
+            font-family: "Outfit", sans-serif;
         }
 
         .about-header-proposed {
             font-size: 1.5rem;
-            font-weight: 700;
+            font-weight: 400;
             color: #222a42;
-            margin-left: 10px;
-            vertical-align: middle;
+            /* margin-left: 10px; */
+            vertical-align: top;
             display: inline-block;
+            text-align: center;
+            font-family: "Outfit", sans-serif;
         }
 
         .about-header-subheader {
@@ -3100,6 +3112,7 @@
             max-width: 1000px;
             /* limits the width */
             margin: 0 auto;
+            margin-top: 15px;
             /* centers the block */
         }
 
@@ -3154,11 +3167,13 @@
         .vision-title,
         .mission-title {
             font-size: 2rem;
-            font-weight: bold;
+            font-weight: 600;
             color: #232f53;
             letter-spacing: -0.5px;
             cursor: pointer;
             transition: filter 0.2s ease;
+              font-family: "Outfit", sans-serif;
+
         }
 
         .vision-title:hover,
@@ -3393,7 +3408,7 @@
             min-height: 500px;
             background: #fff;
             /* fallback */
-            background-image: url('./Landing_Placement_01.webp');
+            background-image: url('./#');
             /* update path if needed */
             background-size: cover;
             background-position: 80% bottom;
@@ -3453,13 +3468,14 @@
         }
 
         /* container */
-        .upg2-root {
-            padding: 56px 20px 120px;
-            /* max-width: 1200px; */
-            margin: 0 auto;
-            z-index: 100;
-            background-color: #f9fafb
-        }
+.upg2-root {
+  padding: 45px 20px;       /* 45px top & bottom, 20px left & right */
+  margin: 0 auto;
+  z-index: 100;
+  background-color: #f9fafb;
+  width: 100%;
+}
+
 
         /* HERO */
         .upg2-hero {
@@ -3476,11 +3492,13 @@
 
         .upg2-hero-title {
             font-size: 64px;
-            padding: 8px 0 12px;
-            font-weight: 800;
+            padding: 8px 0 15px;
+            font-weight: 700;
             letter-spacing: -1px;
             color: #0b1726;
             background-color: #f9fafb;
+            font-size: 2.75rem;
+            text-align: center;
         }
 
         .upg2-hero-desc {
@@ -3543,7 +3561,7 @@
         .upg2-inner {
             position: relative;
             z-index: 2;
-            padding: 42px 18px;
+            padding: 35px 18px;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -3846,7 +3864,7 @@
 
         .upg2-tablist {
             display: inline-flex;
-            gap: 12px;
+            gap: 15px;
             border-radius: 10px;
             padding: 6px;
             background: transparent;
@@ -3871,7 +3889,7 @@
 
         .upg2-tab--active {
             color: #0b1726;
-            background: linear-gradient(180deg, rgba(37, 99, 235, 0.12), rgba(37, 99, 235, 0.06));
+            background:rgba(0, 0, 0, 0.10);
             box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
         }
 
@@ -4788,8 +4806,8 @@
         .nav-links li a {
             color: #fff;
             font-size: 1.05rem;
-            font-family: 'Roboto';
-            font-weight: 600;
+
+            font-weight: 500;
             text-decoration: none;
             letter-spacing: 0.4px;
             transition: color 0.22s, background 0.2s;
@@ -4832,7 +4850,7 @@
             flex-direction: column;
             gap: 10px;
             /* slightly more breathing space */
-            padding: 0px 25px;
+            /* padding: 0px 25px; */
             /* more inner padding for a larger look */
             min-height: 500px;
             /* taller form */
@@ -4892,102 +4910,219 @@
             gap: 18px;
             width: 100vw;
         }
-/* ---------- SIDEBAR OVERLAY + ANIMATION ---------- */
 
-/* Base sidebar overlay (under content) */
-.sidebar::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0); /* transparent at start */
-  transition: background 420ms cubic-bezier(.2,.9,.25,1);
-  pointer-events: none;
-  z-index: 0;
-}
+        /* ---------- SIDEBAR OVERLAY + ANIMATION ---------- */
 
-/* Shared animation style */
-.sidebar .logo-area,
-.sidebar .tcet-form {
-  position: relative;
-  z-index: 1;
-  --anim-duration: 420ms;
-  --anim-ease: cubic-bezier(.2,.9,.25,1);
-  --stagger-step: 60ms;
-  transition:
-    transform var(--anim-duration) var(--anim-ease),
-    opacity var(--anim-duration) var(--anim-ease),
-    filter var(--anim-duration) var(--anim-ease),
-    visibility var(--anim-duration) linear;
-  will-change: transform, opacity;
-}
+        /* Base sidebar overlay (under content) */
+        .sidebar::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            /* transparent at start */
+            transition: background 420ms cubic-bezier(.2, .9, .25, 1);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-/* Visible state */
-.sidebar .logo-area,
-.sidebar .tcet-form {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  visibility: visible;
-  pointer-events: auto;
-  filter: none;
-}
+        /* Shared animation style */
+        .sidebar .logo-area,
+        .sidebar .tcet-form {
+            position: relative;
+            z-index: 1;
+            --anim-duration: 420ms;
+            --anim-ease: cubic-bezier(.2, .9, .25, 1);
+            --stagger-step: 60ms;
+            transition:
+                transform var(--anim-duration) var(--anim-ease),
+                opacity var(--anim-duration) var(--anim-ease),
+                filter var(--anim-duration) var(--anim-ease),
+                visibility var(--anim-duration) linear;
+            will-change: transform, opacity;
+        }
 
-/* Hidden / scrolled state */
-.sidebar.scrolled::before {
-  background:rgba(0, 0, 0, 0.3);; /* 🔧 opacity control — was 0.65 */
-}
+        /* Visible state */
+        .sidebar .logo-area,
+        .sidebar .tcet-form {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            visibility: visible;
+            pointer-events: auto;
+            filter: none;
+        }
 
-.sidebar.scrolled .logo-area,
-.sidebar.scrolled .tcet-form {
-  opacity: 0;
-  transform: translateY(18px) scale(0.98);
-  filter: blur(1px) contrast(0.95);
-  pointer-events: none;
-  visibility: hidden;
-}
+        /* Hidden / scrolled state */
+        .sidebar.scrolled::before {
+            background: rgba(0, 0, 0, 0.4);
+            /* 🔧 opacity control — was 0.65 */
+        }
 
-/* Stagger children for smoother hide animation */
-.sidebar.scrolled .tcet-form > * {
-  opacity: 0;
-  transform: translateY(20px) scale(0.985);
-  pointer-events: none;
-}
+        .sidebar.scrolled .logo-area,
+        .sidebar.scrolled .tcet-form {
+            opacity: 0;
+            transform: translateY(18px) scale(0.98);
+            filter: blur(1px) contrast(0.95);
+            pointer-events: none;
+            visibility: hidden;
+        }
 
-/* Exclude .no-hide elements from animation */
-.sidebar .no-hide {
-  opacity: 1 !important;
-  transform: none !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
+        /* Stagger children for smoother hide animation */
+        .sidebar.scrolled .tcet-form>* {
+            opacity: 0;
+            transform: translateY(20px) scale(0.985);
+            pointer-events: none;
+        }
 
-/* Responsive tweak */
-@media (max-width: 767px) {
-  .sidebar.scrolled .tcet-form,
-  .sidebar.scrolled .logo-area {
-    transform: translateY(8px) scale(.997);
-  }
-}
+        /* Exclude .no-hide elements from animation */
+        .sidebar .no-hide {
+            opacity: 1 !important;
+            transform: none !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+
+        /* Responsive tweak */
+        @media (max-width: 767px) {
+
+            .sidebar.scrolled .tcet-form,
+            .sidebar.scrolled .logo-area {
+                transform: translateY(8px) scale(.997);
+            }
+        }
 
 
-/* ---------- VIDEO SECTION OVERLAY ---------- */
+        /* ---------- VIDEO SECTION OVERLAY ---------- */
 
-/* Default state (no overlay visible) */
-.video-section .video-overlay {
-  background: rgba(0, 0, 0, 0); /* fully transparent */
-  transition: background 520ms cubic-bezier(.22,.9,.3,1);
-  pointer-events: none;
-}
+        /* Default state (no overlay visible) */
+        .video-section .video-overlay {
+            background: rgba(0, 0, 0, 0);
+            /* fully transparent */
+            transition: background 520ms cubic-bezier(.22, .9, .3, 1);
+            pointer-events: none;
+        }
 
-/* Scrolled state — overlay fades in */
-.video-section.scrolled .video-overlay {
-  background: rgba(0, 0, 0, 0.3); /* 🔧 opacity control — was 0.55 */
-}
+        /* Scrolled state — overlay fades in */
+        .video-section.scrolled .video-overlay {
+            background: rgba(0, 0, 0, 0.4);
+            /* 🔧 opacity control — was 0.55 */
+        }
 
-/* Reduced motion fallback */
-@media (prefers-reduced-motion: reduce) {
-  .video-section .video-overlay { transition: none; }
-}
+        /* Reduced motion fallback */
+        @media (prefers-reduced-motion: reduce) {
+            .video-section .video-overlay {
+                transition: none;
+            }
+        }
 
+        /* Card container */
+
+        /* hover effect */
+        .why-mba-feature:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+        }
+
+        /* top row: icon + title */
+        .why-mba-feature-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* icon */
+
+        /* title beside icon */
+        .why-feature-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* stat number (e.g., 25+) */
+        .why-feature-stat {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f97316;
+            /* bright orange accent */
+            /* margin: 4px 0 0; */
+        }
+
+        /* description text */
+        .why-feature-desc {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #ddd;
+            margin: 0;
+        }
+
+        /* Card container */
+        .why-mba-feature {
+            background: rgba(0, 0, 0, 0.55);
+            /* dark glass background */
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            padding: 20px;
+            color: #fff;
+            /* width: 230px; */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hover effect */
+        .why-mba-feature:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Icon block */
+        .why-feature-icon-block {
+
+            /* border-radius: 8px; */
+            /* padding: 8px; */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .why-feature-icon {
+            width: 40px;
+            height: 28px;
+            object-fit: contain;
+            background: transparent;
+        }
+
+
+
+        /* Orange stat number */
+        .why-feature-stat {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #f97316;
+            /* bright orange */
+            margin: 8px 0 0;
+        }
+
+        /* Title */
+        .why-feature-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+        }
+
+        /* Description */
+        .why-feature-desc {
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: #ddd;
+            margin: 4px 0 0;
+        }
     </style>
 
 </head>
@@ -4998,7 +5133,7 @@
         <nav class="navbar">
             <div class="navbar-content">
                 <div class="navbar-logo">
-                    <img src="#" alt="TCET Logo" />
+                    <img src="./Text Logo White.svg" alt="TCET Logo" />
                 </div>
                 <ul class="nav-links">
                     <!-- <li><a href="https://thakureducation.org/">TEG</a></li> -->
@@ -5057,6 +5192,23 @@
                     </label>
                     <button type="submit" class="submit-btn">ENQUIRE NOW</button>
                 </form>
+                <!-- NoPaperForms Widget Embed -->
+<div class="tcet-form-wrapper">
+  <div
+    class="npf_wgts"
+    data-height="450px"
+    data-w="3161dad8e26b7ac51061b90c16309269"
+  ></div>
+</div>
+
+<script type="text/javascript">
+  var s = document.createElement("script");
+  s.type = "text/javascript";
+  s.async = true;
+  s.src = "https://widgets.in8.nopaperforms.com/emwgts.js";
+  document.body.appendChild(s);
+</script>
+
             </div>
         </div>
 
@@ -5069,28 +5221,43 @@
         <div class="about-cards-row">
             <div class="about-card eng">
                 <div class="about-card-title">Engineering</div>
-                <div class="about-card-icon">⚙️</div>
+                <div class="about-card-icon">
+                    <img src="./Programmes/Engineering.svg" alt="Engineering Icon" />
+                </div>
             </div>
 
-            <div class="about-card mgmt">
+
+            <div class="about-card mgmt ">
                 <div class="about-card-title">Management</div>
-                <div class="about-card-icon">📊</div>
+                <div class="about-card-icon">
+                    <img src="./Programmes/Management.svg" alt="Engineering Icon" />
+                </div>
             </div>
+
 
             <div class="about-card bvoc">
                 <div class="about-card-title">Vocational</div>
-                <div class="about-card-icon">🎓</div>
+                <div class="about-card-icon">
+                    <img src="./Programmes/Vocational.svg" alt="Engineering Icon" />
+                </div>
             </div>
 
+
             <div class="about-card comp">
-                <div class="about-card-title"> Computer Applications</div>
-                <div class="about-card-icon">💻</div>
+                <div class="about-card-title">Computer Applications</div>
+                <div class="about-card-icon">
+                    <img src="./Programmes/Computer Application.svg" alt="Engineering Icon" />
+                </div>
             </div>
 
             <div class="about-card research">
                 <div class="about-card-title">Research</div>
-                <div class="about-card-icon">🔬</div>
+                <div class="about-card-icon">
+                    <img src="./Programmes/Research.svg" alt="Engineering Icon" />
+                </div>
             </div>
+
+
         </div>
 
 
@@ -5109,8 +5276,8 @@
         <section class="about-header-section">
             <div class="about-header-content">
                 <h1 class="about-header-title">
-                    About TCET<br />
-                    <span class="about-header-proposed">Deemed to be University</span>
+                    About Us<br />
+                    <!-- <span class="about-header-proposed">Deemed to be University</span> -->
                 </h1>
 
                 <p class="about-header-text">
@@ -5170,90 +5337,79 @@
                 </div>
                 <div class="why-mba-features-grid">
                     <div class="why-mba-feature">
-                        <div class="why-mba-feature-icon-block">
-                            <!-- groups icon SVG -->
-                            <svg width="36" height="36" fill="#1e3a8a" viewBox="0 0 24 24">
-                                <img src="./Why TCET (Blue)/Asset 35@4x.svg" alt="Why TCET Logo" class="why-tcet-logo">
-                            </svg>
+                        <div class="why-feature-icon-block">
+                            <img src="./Why TCET Icons (1)/Legacy.svg" alt="Legacy Icon" class="why-feature-icon">
                         </div>
-                        <div>
-                            <h3 class="why-mba-feature-title">Years of Legacy</h3>
-                            <p class="why-mba-feature-stat">25+</p>
-                            <p class="why-mba-feature-desc"> Two decades of excellence and innovation </p>
-                        </div>
+
+                        <p class="why-feature-stat">25+</p>
+                        <h3 class="why-feature-title">Years of Legacy</h3>
+                        <p class="why-feature-desc">Two decades of excellence and innovation</p>
                     </div>
+
+
+
                     <div class="why-mba-feature">
-                        <div class="why-mba-feature-icon-block">
-                            <!-- business_center icon SVG -->
-                            <svg width="36" height="36" fill="#1e3a8a" viewBox="0 0 24 24">
-                                <path
-                                    d="M20 6h-4V4c0-1.1-.9-2-2-2s-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2h4v2h-4V4z" />
-                            </svg>
+                        <div class="why-feature-icon-block">
+                            <img src="./Why TCET Icons (1)/Global Netwrok.svg" alt="Legacy Icon"
+                                class="why-feature-icon">
                         </div>
-                        <div>
-                            <h3 class="why-mba-feature-title">A global network of impact</h3>
-                            <p class="why-mba-feature-stat">100,000+</p>
-                            <p class="why-mba-feature-desc"> Alumni Worldwide</p>
-                        </div>
+
+                        <p class="why-feature-stat">100,000+</p>
+                        <h3 class="why-feature-title">A global network of impact</h3>
+                        <p class="why-feature-desc">Alumni Worldwide</p>
                     </div>
+
                     <div class="why-mba-feature">
-                        <div class="why-mba-feature-icon-block">
-                            <!-- location_on icon SVG -->
-                            <svg width="36" height="36" fill="#1e3a8a" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
-                            </svg>
+                        <div class="why-feature-icon-block">
+                            <img src="./Why TCET Icons (1)/Industry Requiters.svg" alt="Legacy Icon"
+                                class="why-feature-icon">
                         </div>
-                        <div>
-                            <h3 class="why-mba-feature-title"> Industry Recruiters</h3>
-                            <p class="why-mba-feature-stat">1,600+</p>
-                            <p class="why-mba-feature-desc"> Connecting talent with opportunity</p>
-                        </div>
+
+                        <p class="why-feature-stat">1,600+</p>
+                        <h3 class="why-feature-title">Industry Recruiters</h3>
+                        <p class="why-feature-desc">Connecting talent with opportunity</p>
                     </div>
+
+
                     <div class="why-mba-feature">
-                        <div class="why-mba-feature-icon-block">
-                            <!-- public icon SVG -->
-                            <svg width="36" height="36" fill="#1e3a8a" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.9 6.35C17.64 8.53 16.66 9.3 15.37 9.66c-.34-.54-.67-1.1-.98-1.69C15 6.77 16.37 5.97 17.9 6.35z" />
-                            </svg>
+                        <div class="why-feature-icon-block">
+                            <img src="./Why TCET Icons (1)/Students Across Globe.svg" alt="Legacy Icon"
+                                class="why-feature-icon">
                         </div>
-                        <div>
-                            <h3 class="why-mba-feature-title">Students Across the Globe</h3>
-                            <p class="why-mba-feature-stat">5,000+ </p>
-                            <p class="why-mba-feature-desc">Learners from 25+ states and 10+ countries</p>
-                        </div>
+
+                        <p class="why-feature-stat">5,000+</p>
+                        <h3 class="why-feature-title">Students Across the Globe</h3>
+                        <p class="why-feature-desc">Learners from 25+ states and 10+ countries</p>
                     </div>
+
+
                     <div class="why-mba-feature">
-                        <div class="why-mba-feature-icon-block">
-                            <!-- lightbulb icon SVG -->
-                            <svg width="36" height="36" fill="#1e3a8a" viewBox="0 0 24 24">
-                                <path
-                                    d="M9 21h6v-1H9v1zm6.62-4.37C16.15 15.92 17 14.06 17 12a7 7 0 1 0-14 0c0 2.06.85 3.91 1.38 4.63.31.41.5.81.62 1.24.1.41.45.64.92.64.36 0 .68-.2.85-.52C7.17 18.56 7.81 18 9 18c1.19 0 1.83.56 2.23 1.12.17.32.49.52.85.52.47 0 .82-.23.92-.64.12-.43.31-.83.62-1.24z" />
-                            </svg>
+                        <div class="why-feature-icon-block">
+                            <img src="./Why TCET Icons (1)/Placement Success.svg" alt="Legacy Icon"
+                                class="why-feature-icon">
                         </div>
-                        <div>
-                            <h3 class="why-mba-feature-title"> Placement Success Rate</h3>
-                            <p class="why-mba-feature-stat">95%+</p>
-                            <p class="why-mba-feature-desc"> Careers empowered, futures secured</p>
-                        </div>
+
+                        <p class="why-feature-stat">95%+</p>
+                        <h3 class="why-feature-title">Placement Success Rate</h3>
+                        <p class="why-feature-desc">Careers empowered, futures secured</p>
                     </div>
+
+
                     <div class="why-mba-feature">
-                        <div class="why-mba-feature-icon-block">
-                            <!-- science icon SVG -->
-                            <svg width="36" height="36" fill="#1e3a8a" viewBox="0 0 24 24">
-                                <path
-                                    d="M13 9V2h-2v7H6.84c-.55 0-1 .45-1 1s.45 1 1 1H11v7H8.84c-.55 0-1 .45-1 1s.45 1 1 1H11v2c1.1 0 2-.9 2-2v-2h2.16c.55 0 1-.45 1-1s-.45-1-1-1H13V11h2.16c.55 0 1-.45 1-1s-.45-1-1-1H13z" />
-                            </svg>
+                        <div class="why-feature-icon-block">
+                            <img src="./Why TCET Icons (1)/Leadership.svg" alt="Legacy Icon" class="why-feature-icon">
                         </div>
-                        <div>
-                            <h3 class="why-mba-feature-title">Leadership and creativity in action</h3>
-                            <p class="why-mba-feature-stat">100+</p>
-                            <p class="why-mba-feature-desc"> Student-Led Events and Initiatives </p>
-                        </div>
+
+                        <p class="why-feature-stat">100+</p>
+                        <h3 class="why-feature-title">Leadership and creativity in action</h3>
+                        <p class="why-feature-desc">Student-Led Events and Initiatives</p>
                     </div>
+
+
+
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
@@ -5486,6 +5642,71 @@
         </section>
 
     </main>
+
+    <section id="placements" class="research-innovation-section">
+        <div class="ri-container">
+            <div class="vertical-logo-marquees left-fixed">
+                <div class="vertical-marquee marquee-down">
+                    <div class="marquee-logos">
+                        <img src="./Placements/1.webp" alt="Logo 1" />
+                        <img src="./Placements/2.webp" alt="Logo 2" />
+                        <img src="./Placements/3.webp" alt="Logo 3" />
+                        <img src="./Placements/4.webp" alt="Logo 4" />
+                        <img src="./Placements/5.webp" alt="Logo 4" />
+                        <img src="./Placements/6.webp" alt="Logo 4" />
+                        <img src="./Placements/7.webp" alt="Logo 4" />
+                        <img src="./Placements/1.webp" alt="Logo 1" />
+                        <img src="./Placements/2.webp" alt="Logo 2" />
+                        <img src="./Placements/3.webp" alt="Logo 3" />
+                        <img src="./Placements/4.webp" alt="Logo 4" />
+                        <img src="./Placements/5.webp" alt="Logo 4" />
+                        <img src="./Placements/6.webp" alt="Logo 4" />
+                        <img src="./Placements/7.webp" alt="Logo 4" />
+                    </div>
+                </div>
+                <div class="vertical-marquee marquee-up">
+                    <div class="marquee-logos">
+                        <img src="./Placements/1.webp" alt="Logo 1" />
+                        <img src="./Placements/2.webp" alt="Logo 2" />
+                        <img src="./Placements/3.webp" alt="Logo 3" />
+                        <img src="./Placements/4.webp" alt="Logo 4" />
+                        <img src="./Placements/5.webp" alt="Logo 4" />
+                        <img src="./Placements/6.webp" alt="Logo 4" />
+                        <img src="./Placements/7.webp" alt="Logo 4" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="ri-stats-panel">
+                <div class="ri-stats-block">
+                    <span id="recruiterCount">0</span>
+                    <label>Recruiters</label>
+                </div>
+                <div class="ri-divider"></div>
+                <div class="ri-stats-block">
+                    <span id="careerCount">100</span>
+                    <label>Career Opportunities</label>
+                </div>
+                <div class="ri-divider"></div>
+                <div class="ri-stats-block">
+                    <span id="ctcCount">0+</span>
+                    <label>Highest CTC
+
+                    </label>
+                </div>
+            </div>
+            <div class="ri-right-panel">
+                <div class="ri-overlap-content">
+                    <div class="ri-innovation-label">
+                        PLACEMENTS
+                    </div>
+                    <button class="ri-read-more-btn" onclick="window.location.href='#'">READ MORE</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    </section>
+
     <section id="test" class="success-stories-section">
         <div class="container">
             <div class="content-wrapper">
@@ -5623,375 +5844,461 @@
                 </div>
             </div>
         </section>
-        <section id="placements" class="research-innovation-section">
-            <div class="ri-container">
-                <div class="vertical-logo-marquees left-fixed">
-                    <div class="vertical-marquee marquee-down">
-                        <div class="marquee-logos">
-                            <img src="./Placements/1.webp" alt="Logo 1" />
-                            <img src="./Placements/2.webp" alt="Logo 2" />
-                            <img src="./Placements/3.webp" alt="Logo 3" />
-                            <img src="./Placements/4.webp" alt="Logo 4" />
-                            <img src="./Placements/5.webp" alt="Logo 4" />
-                            <img src="./Placements/6.webp" alt="Logo 4" />
-                            <img src="./Placements/7.webp" alt="Logo 4" />
-                            <img src="./Placements/1.webp" alt="Logo 1" />
-                            <img src="./Placements/2.webp" alt="Logo 2" />
-                            <img src="./Placements/3.webp" alt="Logo 3" />
-                            <img src="./Placements/4.webp" alt="Logo 4" />
-                            <img src="./Placements/5.webp" alt="Logo 4" />
-                            <img src="./Placements/6.webp" alt="Logo 4" />
-                            <img src="./Placements/7.webp" alt="Logo 4" />
-                        </div>
-                    </div>
-                    <div class="vertical-marquee marquee-up">
-                        <div class="marquee-logos">
-                            <img src="./Placements/1.webp" alt="Logo 1" />
-                            <img src="./Placements/2.webp" alt="Logo 2" />
-                            <img src="./Placements/3.webp" alt="Logo 3" />
-                            <img src="./Placements/4.webp" alt="Logo 4" />
-                            <img src="./Placements/5.webp" alt="Logo 4" />
-                            <img src="./Placements/6.webp" alt="Logo 4" />
-                            <img src="./Placements/7.webp" alt="Logo 4" />
-                        </div>
-                    </div>
+
+
+
+        <!-- user requested: gallery inside a section tag -->
+        <section id="events" aria-label="Photo gallery" class="gv-gallery-section">
+
+            <!-- Header -->
+            <header class="gv-header">
+
+                <h2 class="upg2-hero-title">Campus Events Gallery</h2>
+                <p class="gv-sub">Explore highlights from our major events and student activities throughout the year.
+                </p>
+            </header>
+
+            <!-- chips -->
+            <div class="gv-chips-wrap">
+                <nav class="gv-chips" aria-label="Filters">
+                    <a class="gv-chip gv-chip--active" data-gallery="event1" href="#">Event 1</a>
+                    <a class="gv-chip" data-gallery="event2" href="#">Event 2</a>
+                    <a class="gv-chip" data-gallery="event3" href="#">Event 3</a>
+                    <a class="gv-chip" data-gallery="event4" href="#">Event 4</a>
+                    <a class="gv-chip" data-gallery="event5" href="#">Event 5</a>
+                    <a class="gv-chip" data-gallery="event6" href="#">Event 6</a>
+                </nav>
+            </div>
+
+            <!-- event galleries -->
+            <div class="gv-carousel-outer">
+
+                <!-- EVENT 1 -->
+                <div class="gv-carousel" id="event1">
+                    <article class="gv-item gv-pos-1"><img src="./Events/image00002-2.jpeg" alt=""></article>
+                    <article class="gv-item gv-pos-2"><img src="./Events/image00038.jpeg" alt=""></article>
+                    <article class="gv-item gv-pos-3"><img src="Events/image00064.jpeg" alt=""></article>
+                    <article class="gv-item gv-pos-4"><img src="Events/IMG_0649.jpeg" alt=""></article>
+                    <article class="gv-item gv-pos-5"><img src="Events/image00077.jpeg" alt=""></article>
                 </div>
 
-                <div class="ri-stats-panel">
-                    <div class="ri-stats-block">
-                        <span id="recruiterCount">0</span>
-                        <label>Recruiters</label>
-                    </div>
-                    <div class="ri-divider"></div>
-                    <div class="ri-stats-block">
-                        <span id="careerCount">100</span>
-                        <label>Career Opportunities</label>
-                    </div>
-                    <div class="ri-divider"></div>
-                    <div class="ri-stats-block">
-                        <span id="ctcCount">0+</span>
-                        <label>Highest CTC
-
-                        </label>
-                    </div>
+                <!-- EVENT 2 -->
+                <div class="gv-carousel" id="event2">
+                    <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
                 </div>
-                <div class="ri-right-panel">
-                    <div class="ri-overlap-content">
-                        <div class="ri-innovation-label">
-                            PLACEMENTS
-                        </div>
-                        <button class="ri-read-more-btn" onclick="window.location.href='#'">READ MORE</button>
-                    </div>
+
+                <!-- EVENT 3 -->
+                <div class="gv-carousel" id="event3">
+                    <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
+                </div>
+
+                <!-- EVENT 4 -->
+                <div class="gv-carousel" id="event4">
+                    <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
+                    <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
+                </div>
+
+                <!-- nav -->
+                <div class="gv-nav" role="group" aria-label="Carousel controls">
+                    <button class="gv-btn" id="gv-prev" aria-label="Previous">‹</button>
+                    <button class="gv-btn" id="gv-next" aria-label="Next">›</button>
                 </div>
             </div>
         </section>
-    </section>
 
 
-    <!-- user requested: gallery inside a section tag -->
-    <section id="events" aria-label="Photo gallery" class="gv-gallery-section">
+        <section class="faq-section">
+            <h1 class="faq-heading">
+                Frequently Asked Questions ? <span>(FAQs)</span>
+            </h1>
 
-        <!-- Header -->
-        <header class="gv-header">
-            <h2 class="gv-title">Campus Events Gallery</h2>
-            <p class="gv-sub">Explore highlights from our major events and student activities throughout the year.</p>
-        </header>
-
-        <!-- chips -->
-        <div class="gv-chips-wrap">
-            <nav class="gv-chips" aria-label="Filters">
-                <a class="gv-chip gv-chip--active" data-gallery="event1" href="#">Event 1</a>
-                <a class="gv-chip" data-gallery="event2" href="#">Event 2</a>
-                <a class="gv-chip" data-gallery="event3" href="#">Event 3</a>
-                <a class="gv-chip" data-gallery="event4" href="#">Event 4</a>
-                <a class="gv-chip" data-gallery="event5" href="#">Event 5</a>
-                <a class="gv-chip" data-gallery="event6" href="#">Event 6</a>
-            </nav>
-        </div>
-
-        <!-- event galleries -->
-        <div class="gv-carousel-outer">
-
-            <!-- EVENT 1 -->
-            <div class="gv-carousel" id="event1">
-                <article class="gv-item gv-pos-1"><img src="./Events/image00002-2.jpeg" alt=""></article>
-                <article class="gv-item gv-pos-2"><img src="./Events/image00038.jpeg" alt=""></article>
-                <article class="gv-item gv-pos-3"><img src="Events/image00064.jpeg" alt=""></article>
-                <article class="gv-item gv-pos-4"><img src="Events/IMG_0649.jpeg" alt=""></article>
-                <article class="gv-item gv-pos-5"><img src="Events/image00077.jpeg" alt=""></article>
-            </div>
-
-            <!-- EVENT 2 -->
-            <div class="gv-carousel" id="event2">
-                <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
-                <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
-                <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
-                <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
-                <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
-            </div>
-
-            <!-- EVENT 3 -->
-            <div class="gv-carousel" id="event3">
-                <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
-                <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
-                <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
-                <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
-                <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
-            </div>
-
-            <!-- EVENT 4 -->
-            <div class="gv-carousel" id="event4">
-                <article class="gv-item gv-pos-1"><img src="https://picsum.photos/id/1085/800/500" alt=""></article>
-                <article class="gv-item gv-pos-2"><img src="https://picsum.photos/id/1090/800/500" alt=""></article>
-                <article class="gv-item gv-pos-3"><img src="https://picsum.photos/id/1091/800/500" alt=""></article>
-                <article class="gv-item gv-pos-4"><img src="https://picsum.photos/id/1093/800/500" alt=""></article>
-                <article class="gv-item gv-pos-5"><img src="https://picsum.photos/id/1094/800/500" alt=""></article>
-            </div>
-
-            <!-- nav -->
-            <div class="gv-nav" role="group" aria-label="Carousel controls">
-                <button class="gv-btn" id="gv-prev" aria-label="Previous">‹</button>
-                <button class="gv-btn" id="gv-next" aria-label="Next">›</button>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="gv-gallery-section"
-        style="background-color: #fffff; color: #333; padding: 5rem 8rem; margin: auto;">
-        <h1 style="font-weight: 700; font-size: 3.5rem; margin-bottom: 7rem; color: #555;">
-            Frequently Asked Questions ?
-            <span style="font-weight: 700; color: #111;">(FAQs)</span>
-        </h1>
-
-        <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 4rem;">
-            <div style="flex: 1 1 45%; display: flex; gap: 2rem; align-items: flex-start;">
-                <span
-                    style="font-size: 5rem; font-weight: 700; color: #ddd; user-select: none; line-height: 1;">01</span>
-                <div>
-                    <h2 style="font-weight: 600; color: #111; margin-bottom: 0.5rem;">What undergraduate, postgraduate
-                        and doctoral programmes does TCET offer?</h2>
-                    <div style="width: 40px; height: 4px; background-color: #ccc; margin-bottom: 1rem;"></div>
-                    <p style="color: #666; line-height: 1.5; font-size: 0.875rem;">
-                        Answer outline: Cover UG courses like B.E. in Computer Engineering, B.Tech AI & Data Science,
-                        etc., PG courses like M.E./MBA/MCA, and Ph.D.-Technology programmes. (See full list on the
-                        “Programmes” page.)
-                    </p>
-                </div>
-            </div>
-
-        </div>
-
-        <div style="border-top: 1px solid #ddd; color: #444;">
-            <!-- Expandable boxes from point 2 to 8 -->
-            <div class="expandable-box" style="border-bottom: 1px solid #ddd; padding: 1.5rem 0; cursor: pointer;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; gap: 1.5rem; align-items: center;">
-                        <span style="font-size: 2.5rem; font-weight: 700; color: #ddd; user-select: none;">02</span>
-                        <h3 style="font-weight: 600; margin: 0;">How can I apply for the engineering programme?
-                        </h3>
+            <!-- First question - starts expanded by default -->
+            <div class="faq-items">
+                <div class="faq-item faq-expanded">
+                    <span class="faq-number">01</span>
+                    <div class="faq-body">
+                        <div class="faq-title-arrow">
+                            <h2>What undergraduate, postgraduate and doctoral programmes does TCET offer?</h2>
+                            <span class="faq-arrow">&#9654;</span>
+                        </div>
+                        <div class="faq-content">
+                            <p>
+                                Answer outline: Cover UG courses like B.E. in Computer Engineering, B.Tech AI & Data
+                                Science, etc.,
+                                PG courses like M.E./MBA/MCA, and Ph.D.-Technology programmes. (See full list on the
+                                "Programmes"
+                                page.)
+                            </p>
+                        </div>
                     </div>
-                    <span class="arrow" style="font-size: 1.5rem; color: #999; user-select: none;">&#9654;</span>
                 </div>
-                <div class="expandable-content"
-                    style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; padding: 0 2rem 0 0; color: #666; font-size: 0.875rem; line-height: 1.5;">
-                    <p style="margin: 0.75rem 0 0;">
-                        Experience modern learning environments enhanced by technology that encourage collaboration,
-                        creativity, and fluid knowledge sharing.
-                    </p>
-                </div>
-            </div>
 
-            <div class="expandable-box" style="border-bottom: 1px solid #ddd; padding: 1.5rem 0; cursor: pointer;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; gap: 1.5rem; align-items: center;">
-                        <span style="font-size: 2.5rem; font-weight: 700; color: #ddd; user-select: none;">03</span>
-                        <h3 style="font-weight: 600; margin: 0;">What are the entrance exams required for admission to
-                            the UG Engineering Programme?</h3>
+                <!-- Other questions -->
+                <div class="faq-item">
+                    <span class="faq-number">02</span>
+                    <div class="faq-body">
+                        <div class="faq-title-arrow">
+                            <h3>How can I apply for the engineering programme?</h3>
+                            <span class="faq-arrow">&#9654;</span>
+                        </div>
+                        <div class="faq-content">
+                            <p>
+                                Experience modern learning environments enhanced by technology that encourage
+                                collaboration, creativity,
+                                and fluid knowledge sharing.
+                            </p>
+                        </div>
                     </div>
-                    <span class="arrow" style="font-size: 1.5rem; color: #999; user-select: none;">&#9654;</span>
                 </div>
-                <div class="expandable-content"
-                    style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; padding: 0 2rem 0 0; color: #666; font-size: 0.875rem; line-height: 1.5;">
-                    <p style="margin: 0.75rem 0 0;">
-                        Guidance and resources to help enhance your personal brand to stand out in competitive job
-                        markets.
-                    </p>
-                </div>
-            </div>
 
-            <!-- Repeat similar blocks for points 4 to 8 with their respective details -->
-            <div class="expandable-box" style="border-bottom: 1px solid #ddd; padding: 1.5rem 0; cursor: pointer;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; gap: 1.5rem; align-items: center;">
-                        <span style="font-size: 2.5rem; font-weight: 700; color: #ddd; user-select: none;">04</span>
-                        <h3 style="font-weight: 600; margin: 0;">Is there an entrance exam required for admission?</h3>
+                <div class="faq-item">
+                    <span class="faq-number">03</span>
+                    <div class="faq-body">
+                        <div class="faq-title-arrow">
+                            <h3>What are the entrance exams required for admission to the UG Engineering Programme?</h3>
+                            <span class="faq-arrow">&#9654;</span>
+                        </div>
+                        <div class="faq-content">
+                            <p>
+                                Guidance and resources to help enhance your personal brand to stand out in competitive
+                                job markets.
+                            </p>
+                        </div>
                     </div>
-                    <span class="arrow" style="font-size: 1.5rem; color: #999; user-select: none;">&#9654;</span>
                 </div>
-                <div class="expandable-content"
-                    style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; padding: 0 2rem 0 0; color: #666; font-size: 0.875rem; line-height: 1.5;">
-                    <p style="margin: 0.75rem 0 0;">
-                        Offering diverse programs across fields to foster interdisciplinary learning and innovation.
-                    </p>
-                </div>
-            </div>
 
-            <div class="expandable-box" style="border-bottom: 1px solid #ddd; padding: 1.5rem 0; cursor: pointer;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; gap: 1.5rem; align-items: center;">
-                        <span style="font-size: 2.5rem; font-weight: 700; color: #ddd; user-select: none;">05</span>
-                        <h3 style="font-weight: 600; margin: 0;">What is the admission process and required documents?
-                        </h3>
+                <!-- Repeat similarly for FAQs 04 to 08 -->
+                <!-- ... -->
+
+            </div>
+        </section>
+
+        <style>
+            .faq-section {
+                background-color: #ffffff;
+                color: #333;
+                padding: 5rem 2rem;
+                width: 90%;
+                margin: 0 auto;
+            }
+
+            .faq-heading {
+                font-weight: 700;
+                font-size: 3.5rem;
+                color: #555;
+                margin-bottom: 7rem;
+            }
+
+            .faq-heading span {
+                color: #111;
+            }
+
+            .faq-items {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .faq-item {
+                border-bottom: 1px solid #ddd;
+                cursor: pointer;
+                padding: 1.5rem 0;
+                display: flex;
+                gap: 1.5rem;
+                align-items: center;
+            }
+
+            .faq-number {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #ddd;
+                user-select: none;
+                min-width: 60px;
+                line-height: 1;
+            }
+
+            .faq-body {
+                flex: 1;
+            }
+
+            .faq-title-arrow {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .faq-title-arrow h2,
+            .faq-title-arrow h3 {
+                font-weight: 600;
+                color: #111;
+                margin: 0 0 0.5rem 0;
+            }
+
+            .faq-arrow {
+                font-size: 1.5rem;
+                color: #999;
+                user-select: none;
+                margin-left: 1rem;
+                transition: transform 0.3s;
+            }
+
+            .faq-content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease, padding 0.4s ease;
+                padding: 0 2rem 0 0;
+                color: #666;
+                font-size: 0.875rem;
+                line-height: 1.5;
+            }
+
+            /* Expanded FAQ styling like question 1 */
+            .faq-item.faq-expanded {
+                display: flex;
+                gap: 2rem;
+                align-items: flex-start;
+                cursor: pointer;
+            }
+
+            .faq-item.faq-expanded>.faq-number {
+                font-size: 5rem;
+                font-weight: 700;
+                color: #ddd;
+                user-select: none;
+                line-height: 1;
+                min-width: fit-content;
+            }
+
+            .faq-item.faq-expanded .faq-title-arrow h2,
+            .faq-item.faq-expanded .faq-title-arrow h3 {
+                font-weight: 600;
+                color: #111;
+                margin-bottom: 0.5rem;
+            }
+
+            .faq-item.faq-expanded .faq-arrow {
+                font-size: 1.5rem;
+                color: #999;
+                margin-left: 1rem;
+                transform: rotate(90deg);
+            }
+
+            .faq-item.faq-expanded .faq-content {
+                max-height: none;
+                overflow: visible;
+                padding-top: 0.5rem;
+                color: #666;
+                line-height: 1.5;
+                font-size: 0.875rem;
+            }
+
+            /* Responsive */
+
+            @media (max-width: 768px) {
+                .faq-section {
+                    padding: 3rem 1rem;
+                }
+
+                .faq-heading {
+                    font-size: 2rem;
+                    margin-bottom: 3rem;
+                }
+
+                .faq-item {
+                    padding: 1rem 0;
+                    gap: 1rem;
+                }
+
+                .faq-number {
+                    font-size: 2rem;
+                    min-width: 50px;
+                }
+
+                .faq-title-arrow h2,
+                .faq-title-arrow h3 {
+                    font-size: 1rem;
+                }
+
+                .faq-arrow {
+                    font-size: 1.2rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .faq-heading {
+                    font-size: 1.5rem;
+                }
+
+                .faq-number {
+                    font-size: 1.5rem;
+                    min-width: 40px;
+                }
+            }
+        </style>
+
+
+        <script>
+            // FAQ Toggle Functionality — ensures fully auto-expand to fit content
+            document.addEventListener('DOMContentLoaded', function () {
+                const faqItems = document.querySelectorAll('.faq-item');
+
+                faqItems.forEach(function (item) {
+                    item.addEventListener('click', function () {
+                        const content = this.querySelector('.faq-content');
+                        const arrow = this.querySelector('.faq-arrow');
+                        const isExpanded = this.classList.contains('faq-expanded');
+
+                        // Close all other FAQs
+                        faqItems.forEach(function (otherItem) {
+                            if (otherItem !== item) {
+                                const otherContent = otherItem.querySelector('.faq-content');
+                                const otherArrow = otherItem.querySelector('.faq-arrow');
+                                otherItem.classList.remove('faq-expanded');
+                                otherContent.style.maxHeight = '0';
+                                otherContent.style.paddingTop = '0';
+                                otherContent.style.overflow = 'hidden';
+                                otherArrow.style.transform = 'rotate(0deg)';
+                            }
+                        });
+
+                        // Toggle current FAQ
+                        if (isExpanded) {
+                            this.classList.remove('faq-expanded');
+                            content.style.maxHeight = '0';
+                            content.style.paddingTop = '0';
+                            content.style.overflow = 'hidden';
+                            arrow.style.transform = 'rotate(0deg)';
+                        } else {
+                            this.classList.add('faq-expanded');
+                            content.style.overflow = 'hidden';           // Ensures smooth transition
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            content.style.paddingTop = '0.75rem';
+                            arrow.style.transform = 'rotate(90deg)';
+                            // After transition, remove max-height constraint for auto-grow/shrink
+                            content.addEventListener('transitionend', function handler(e) {
+                                if (e.propertyName === 'max-height' && item.classList.contains('faq-expanded')) {
+                                    content.style.maxHeight = 'none';
+                                    content.style.overflow = 'visible';
+                                    content.removeEventListener('transitionend', handler);
+                                }
+                            });
+                        }
+                    });
+                });
+                // On page load: ensure the initially open FAQ auto-fits its content
+                const openItem = document.querySelector('.faq-item.faq-expanded');
+                if (openItem) {
+                    const openContent = openItem.querySelector('.faq-content');
+                    openContent.style.maxHeight = openContent.scrollHeight + 'px';
+                    // After transition, unlock the height so it adapts on content change
+                    openContent.addEventListener('transitionend', function handler(e) {
+                        if (e.propertyName === 'max-height' && openItem.classList.contains('faq-expanded')) {
+                            openContent.style.maxHeight = 'none';
+                            openContent.style.overflow = 'visible';
+                            openContent.removeEventListener('transitionend', handler);
+                        }
+                    });
+                }
+            });
+        </script>
+
+
+        <footer style="width:100%;">
+            <div class="tgb-contact-wrap">
+                <div class="tgb-contact-container">
+                    <img src="Asset 1.svg" alt="TGBS Logo" />
+                    <div class="tgb-contact-row">
+                        <i class="fas fa-map-marker-alt"></i>
+                        TCET (Deemed to be University),
+                        A-Block, Thakur Educational Campus,
+                        Shyamnarayan Thakur Marg, Thakur Village,
+                        Kandivali(E), Mumbai – 400101.
                     </div>
-                    <span class="arrow" style="font-size: 1.5rem; color: #999; user-select: none;">&#9654;</span>
-                </div>
-                <div class="expandable-content"
-                    style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; padding: 0 2rem 0 0; color: #666; font-size: 0.875rem; line-height: 1.5;">
-                    <p style="margin: 0.75rem 0 0;">
-                        A commitment to developing students with a broad, global perspective.
-                    </p>
-                </div>
-            </div>
-
-            <div class="expandable-box" style="border-bottom: 1px solid #ddd; padding: 1.5rem 0; cursor: pointer;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; gap: 1.5rem; align-items: center;">
-                        <span style="font-size: 2.5rem; font-weight: 700; color: #ddd; user-select: none;">06</span>
-                        <h3 style="font-weight: 600; margin: 0;">Does the University provide hostel facilities?</h3>
+                    <div class="tgb-contact-row">
+                        <i class="fas fa-phone-alt"></i>
+                        022 – 28461891 | 022 – 67308000
                     </div>
-                    <span class="arrow" style="font-size: 1.5rem; color: #999; user-select: none;">&#9654;</span>
-                </div>
-                <div class="expandable-content"
-                    style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; padding: 0 2rem 0 0; color: #666; font-size: 0.875rem; line-height: 1.5;">
-                    <p style="margin: 0.75rem 0 0;">
-                        Active engagement in pioneering research and innovation collaborations globally.
-                    </p>
-                </div>
-            </div>
-
-            <div class="expandable-box" style="border-bottom: 1px solid #ddd; padding: 1.5rem 0; cursor: pointer;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; gap: 1.5rem; align-items: center;">
-                        <span style="font-size: 2.5rem; font-weight: 700; color: #ddd; user-select: none;">07</span>
-                        <h3 style="font-weight: 600; margin: 0;">What are the key advantages or additional benefits of
-                            studying at TCET deemed to be university?</h3>
+                    <div class="tgb-contact-row">
+                        <i class="fas fa-envelope"></i>
+                        <a class="tgb-contact-link" href="mailto:tgbs@thakureducation.org">tcet@thakureducation.org</a>
                     </div>
-                    <span class="arrow" style="font-size: 1.5rem; color: #999; user-select: none;">&#9654;</span>
-                </div>
-                <div class="expandable-content"
-                    style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; padding: 0 2rem 0 0; color: #666; font-size: 0.875rem; line-height: 1.5;">
-                    <p style="margin: 0.75rem 0 0;">
-                        Support and resources aimed at your professional growth and success.
-                    </p>
-                </div>
-            </div>
 
-            <div class="expandable-box" style="padding: 1.5rem 0; cursor: pointer;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="display: flex; gap: 1.5rem; align-items: center;">
-                        <span style="font-size: 2.5rem; font-weight: 700; color: #ddd; user-select: none;">08</span>
-                        <h3 style="font-weight: 600; margin: 0;">Do I need to appear for any entrance test (CAT, CMAT,
-                            MAT, etc.)?</h3>
-                    </div>
-                    <span class="arrow" style="font-size: 1.5rem; color: #999; user-select: none;">&#9654;</span>
                 </div>
-                <div class="expandable-content"
-                    style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; padding: 0 2rem 0 0; color: #666; font-size: 0.875rem; line-height: 1.5;">
-                    <p style="margin: 0.75rem 0 0;">
-                        A worldwide community of graduates supporting each other professionally and socially.
-                    </p>
+                <div class="tgb-map">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.7457230581335!2d72.8720306751122!3d19.206305347869158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b0e57647569d%3A0xc0aec329c82d3555!2sThakur%20College%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1761992183002!5m2!1sen!2sin"
+                        width="600" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
-        </div>
-    </section>
+        </footer>
+        <script>
+            (function () {
+                // Wait until DOM is ready
+                function ready(fn) {
+                    if (document.readyState !== 'loading') return fn();
+                    document.addEventListener('DOMContentLoaded', fn);
+                }
 
+                ready(function () {
+                    const sidebar = document.querySelector('.sidebar');
+                    const form = sidebar?.querySelector('.tcet-form');
+                    const videoSection = document.querySelector('.video-section');
 
-    <footer style="width:100%;">
-        <div class="tgb-contact-wrap">
-            <div class="tgb-contact-container">
-                <img src="Asset 1.svg" alt="TGBS Logo" />
-                <div class="tgb-contact-row">
-                    <i class="fas fa-map-marker-alt"></i>
-                    TCET (Deemed to be University),
-                    A-Block, Thakur Educational Campus,
-                    Shyamnarayan Thakur Marg, Thakur Village,
-                    Kandivali(E), Mumbai – 400101.
-                </div>
-                <div class="tgb-contact-row">
-                    <i class="fas fa-phone-alt"></i>
-                    022 – 28461891 | 022 – 67308000
-                </div>
-                <div class="tgb-contact-row">
-                    <i class="fas fa-envelope"></i>
-                    <a class="tgb-contact-link" href="mailto:tgbs@thakureducation.org">tcet@thakureducation.org</a>
-                </div>
+                    if (!sidebar || !form || !videoSection) {
+                        console.warn('Missing .sidebar, .tcet-form, or .video-section');
+                        return;
+                    }
 
-            </div>
-            <div class="tgb-map">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.7457230581335!2d72.8720306751122!3d19.206305347869158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b0e57647569d%3A0xc0aec329c82d3555!2sThakur%20College%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1761992183002!5m2!1sen!2sin"
-                    width="600" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
-    </footer>
-<script>
-(function () {
-  // Wait until DOM is ready
-  function ready(fn) {
-    if (document.readyState !== 'loading') return fn();
-    document.addEventListener('DOMContentLoaded', fn);
-  }
+                    console.log('Unified Scroll Overlay Init ✅');
 
-  ready(function () {
-    const sidebar = document.querySelector('.sidebar');
-    const form = sidebar?.querySelector('.tcet-form');
-    const videoSection = document.querySelector('.video-section');
+                    const THRESHOLD = 120; // scroll distance before overlays show
+                    let isScrolled = false;
+                    let ticking = false;
 
-    if (!sidebar || !form || !videoSection) {
-      console.warn('Missing .sidebar, .tcet-form, or .video-section');
-      return;
-    }
+                    function applyScrolledState(active) {
+                        if (active && !isScrolled) {
+                            sidebar.classList.add('scrolled');
+                            videoSection.classList.add('scrolled');
+                            isScrolled = true;
+                            console.log('→ Overlays ON');
+                        } else if (!active && isScrolled) {
+                            sidebar.classList.remove('scrolled');
+                            videoSection.classList.remove('scrolled');
+                            isScrolled = false;
+                            console.log('→ Overlays OFF');
+                        }
+                    }
 
-    console.log('Unified Scroll Overlay Init ✅');
+                    function updateScroll() {
+                        const y = window.scrollY || document.documentElement.scrollTop;
+                        applyScrolledState(y > THRESHOLD);
+                        ticking = false;
+                    }
 
-    const THRESHOLD = 120; // scroll distance before overlays show
-    let isScrolled = false;
-    let ticking = false;
+                    window.addEventListener('scroll', () => {
+                        if (!ticking) {
+                            requestAnimationFrame(updateScroll);
+                            ticking = true;
+                        }
+                    }, { passive: true });
 
-    function applyScrolledState(active) {
-      if (active && !isScrolled) {
-        sidebar.classList.add('scrolled');
-        videoSection.classList.add('scrolled');
-        isScrolled = true;
-        console.log('→ Overlays ON');
-      } else if (!active && isScrolled) {
-        sidebar.classList.remove('scrolled');
-        videoSection.classList.remove('scrolled');
-        isScrolled = false;
-        console.log('→ Overlays OFF');
-      }
-    }
-
-    function updateScroll() {
-      const y = window.scrollY || document.documentElement.scrollTop;
-      applyScrolledState(y > THRESHOLD);
-      ticking = false;
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(updateScroll);
-        ticking = true;
-      }
-    }, { passive: true });
-
-    // Initial check
-    updateScroll();
-  });
-})();
-</script>
+                    // Initial check
+                    updateScroll();
+                });
+            })();
+        </script>
 
 
 </body>
