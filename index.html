@@ -233,12 +233,13 @@
 
 
         .video-section video {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 80%;
             height: 100%;
             object-fit: cover;
+            z-index: -1;
         }
 
         .video-overlay {
@@ -590,7 +591,7 @@
             padding: 3rem 4rem;
             /* min-height: 100vh; */
             position: relative;
-            margin-bottom: 70px;
+            /* margin-bottom: 70px; */
         }
 
         .container {
@@ -2142,12 +2143,14 @@
 
         .hero-section-new {
             width: 100%;
-            background-color: #b6b6b6d3;
+            background-color: #e7dfdf;
+            /* solid grey, no transparency */
             padding: 0;
             position: relative;
             overflow: visible;
             padding-top: 40px;
             padding-bottom: 60px;
+            z-index: 100;
         }
 
         /* Cards Container - Positioned Exactly Half In/Half Out */
@@ -2320,7 +2323,7 @@
 
         .about-card {
             background: #fff;
-            border-radius: 5px; 
+            border-radius: 5px;
             /* or use 0 for sharp corners */
             box-shadow: 0 8px 32px rgba(4, 8, 231, 0.12);
             display: flex;
@@ -3044,7 +3047,7 @@
             flex-direction: column;
             gap: 60px;
             min-height: 80vh;
-            background: #fff;
+            background: #f9fafb
         }
 
 
@@ -3195,7 +3198,8 @@
             opacity: 1;
         }
 
-        .sidebar {
+        /* .sidebar {
+            
             position: relative;
             width: 420px;
             min-width: 350px;
@@ -3214,7 +3218,36 @@
             box-shadow: 0 12px 48px 8px rgba(32, 35, 60, 0.7), 0 4px 16px 0 rgba(0, 0, 0, 0.25);
             overflow-y: auto;
             box-sizing: border-box;
+        } */
+
+        .sidebar {
+            position: fixed;
+            /* keep it anchored to the viewport */
+            top: 0;
+            right: 0;
+            width: 420px;
+            min-width: 350px;
+            max-width: 100vw;
+            height: 100vh;
+            /* full viewport height */
+            background-image: url('./WhatsApp Image 2025-10-31 at 11.26.45 AM.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #d4af37;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-end;
+            padding: 0;
+            box-shadow: 0 12px 48px 8px rgba(32, 35, 60, 0.7),
+                0 4px 16px 0 rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            /* removes scrollbars */
+            box-sizing: border-box;
+            z-index: -1;
         }
+
 
         .sidebar-overlay {
             position: absolute;
@@ -3227,10 +3260,10 @@
         }
 
 
-  
+
 
         .logo-large {
-            width: 190px;
+            /* width: 190px; */
             object-fit: contain;
             margin-bottom: 32px;
         }
@@ -3424,6 +3457,8 @@
             padding: 56px 20px 120px;
             /* max-width: 1200px; */
             margin: 0 auto;
+            z-index: 100;
+            background-color: #f9fafb
         }
 
         /* HERO */
@@ -3441,10 +3476,11 @@
 
         .upg2-hero-title {
             font-size: 64px;
-            margin: 8px 0 12px;
+            padding: 8px 0 12px;
             font-weight: 800;
             letter-spacing: -1px;
             color: #0b1726;
+            background-color: #f9fafb;
         }
 
         .upg2-hero-desc {
@@ -4595,72 +4631,75 @@
         }
 
         /* Carousel container - expanded for larger cards */
-      .gv-carousel {
-  position: relative;
-  width: 100%;
-  height: 400px; /* reduced from 500px */
-  max-width: 1900px;
-  perspective: 1800px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  overflow: visible;
-}
+        .gv-carousel {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            /* reduced from 500px */
+            max-width: 1900px;
+            perspective: 1800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            overflow: visible;
+        }
 
-/* Shorter cards */
-.gv-item {
-  position: absolute;
-  width: 500px; /* optional slight reduction for better proportion */
-  height: 400px; /* reduced from 500px */
-  border-radius: var(--gv-radius);
-  overflow: hidden;
-  transition: transform 320ms cubic-bezier(.25, .9, .25, 1), box-shadow 320ms;
-  will-change: transform, box-shadow;
-  box-sizing: border-box;
-  background: #eee;
-}
+        /* Shorter cards */
+        .gv-item {
+            position: absolute;
+            width: 500px;
+            /* optional slight reduction for better proportion */
+            height: 400px;
+            /* reduced from 500px */
+            border-radius: var(--gv-radius);
+            overflow: hidden;
+            transition: transform 320ms cubic-bezier(.25, .9, .25, 1), box-shadow 320ms;
+            will-change: transform, box-shadow;
+            box-sizing: border-box;
+            background: #eee;
+        }
 
-/* Adjusted translateX for balanced spacing with smaller cards */
-.gv-pos-1 {
-  transform: translateX(-600px) scale(.82);
-  z-index: 1;
-  box-shadow:
-    -18px 16px 38px rgba(0, 0, 0, 0.25),
-    0 8px 18px rgba(0, 0, 0, 0.12);
-}
+        /* Adjusted translateX for balanced spacing with smaller cards */
+        .gv-pos-1 {
+            transform: translateX(-600px) scale(.82);
+            z-index: 1;
+            box-shadow:
+                -18px 16px 38px rgba(0, 0, 0, 0.25),
+                0 8px 18px rgba(0, 0, 0, 0.12);
+        }
 
-.gv-pos-2 {
-  transform: translateX(-300px) scale(.94);
-  z-index: 2;
-  box-shadow:
-    -10px 12px 30px rgba(0, 0, 0, 0.25),
-    0 6px 15px rgba(0, 0, 0, 0.12);
-}
+        .gv-pos-2 {
+            transform: translateX(-300px) scale(.94);
+            z-index: 2;
+            box-shadow:
+                -10px 12px 30px rgba(0, 0, 0, 0.25),
+                0 6px 15px rgba(0, 0, 0, 0.12);
+        }
 
-.gv-pos-3 {
-  transform: translateX(0) scale(1.08);
-  z-index: 3;
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.3),
-    0 8px 20px rgba(0, 0, 0, 0.15);
-}
+        .gv-pos-3 {
+            transform: translateX(0) scale(1.08);
+            z-index: 3;
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.15);
+        }
 
-.gv-pos-4 {
-  transform: translateX(300px) scale(.94);
-  z-index: 2;
-  box-shadow:
-    10px 12px 30px rgba(0, 0, 0, 0.25),
-    0 6px 15px rgba(0, 0, 0, 0.12);
-}
+        .gv-pos-4 {
+            transform: translateX(300px) scale(.94);
+            z-index: 2;
+            box-shadow:
+                10px 12px 30px rgba(0, 0, 0, 0.25),
+                0 6px 15px rgba(0, 0, 0, 0.12);
+        }
 
-.gv-pos-5 {
-  transform: translateX(600px) scale(.82);
-  z-index: 1;
-  box-shadow:
-    18px 16px 38px rgba(0, 0, 0, 0.25),
-    0 8px 18px rgba(0, 0, 0, 0.12);
-}
+        .gv-pos-5 {
+            transform: translateX(600px) scale(.82);
+            z-index: 1;
+            box-shadow:
+                18px 16px 38px rgba(0, 0, 0, 0.25),
+                0 8px 18px rgba(0, 0, 0, 0.12);
+        }
 
         /* Hide all carousels except active one */
         .gv-carousel {
@@ -4770,60 +4809,183 @@
             padding-top: 60px;
            
         } */
-.sidebar-content {
+        .sidebar-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 20px;
+            margin-top: 80px;
+            /* was 20px — pushes the form down */
+            gap: 10px;
+        }
+
+        /* reduce inner form spacing */
+        .tcet-form {
+            width: 100%;
+            max-width: 520px;
+            /* increased width from default ~340px */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            /* slightly more breathing space */
+            padding: 0px 25px;
+            /* more inner padding for a larger look */
+            min-height: 500px;
+            /* taller form */
+
+            border-radius: 8px;
+            /* optional, makes it look polished */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            /* subtle depth */
+        }
+
+
+        /* make inputs slightly smaller */
+        .tcet-form input,
+        .tcet-form button {
+
+            font-size: 14px;
+            /* slightly smaller text */
+            padding: 6px 10px;
+            /* less padding inside inputs */
+        }
+
+        /* reduce spacing in split rows */
+        .input-split-row {
+            display: flex;
+            gap: 8px;
+            /* smaller horizontal gap */
+        }
+
+        /* shrink checkbox and captcha spacing */
+        .captcha-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .checkbox-label {
+            font-size: 14px;
+            line-height: 1.3;
+            margin-top: 6px;
+        }
+
+        /* slightly smaller submit button */
+        .submit-btn {
+            padding: 8px 12px;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        .gv-gallery-section {
+            background-color: #f9fafb;
+            z-index: 100;
+            padding-top: 52px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            width: 100vw;
+        }
+/* ---------- SIDEBAR OVERLAY + ANIMATION ---------- */
+
+/* Base sidebar overlay (under content) */
+.sidebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0); /* transparent at start */
+  transition: background 420ms cubic-bezier(.2,.9,.25,1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Shared animation style */
+.sidebar .logo-area,
+.sidebar .tcet-form {
   position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 340px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 20px;
-  margin-top: 80px;  /* was 20px — pushes the form down */
-  gap: 10px;
+  z-index: 1;
+  --anim-duration: 420ms;
+  --anim-ease: cubic-bezier(.2,.9,.25,1);
+  --stagger-step: 60ms;
+  transition:
+    transform var(--anim-duration) var(--anim-ease),
+    opacity var(--anim-duration) var(--anim-ease),
+    filter var(--anim-duration) var(--anim-ease),
+    visibility var(--anim-duration) linear;
+  will-change: transform, opacity;
 }
 
-/* reduce inner form spacing */
-.tcet-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;             /* less gap between form elements */
-  padding: 10px 15px;   /* lighter padding */
+/* Visible state */
+.sidebar .logo-area,
+.sidebar .tcet-form {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  visibility: visible;
+  pointer-events: auto;
+  filter: none;
 }
 
-/* make inputs slightly smaller */
-.tcet-form input,
-.tcet-form button {
-
-  font-size: 14px;      /* slightly smaller text */
-  padding: 6px 10px;    /* less padding inside inputs */
+/* Hidden / scrolled state */
+.sidebar.scrolled::before {
+  background:rgba(0, 0, 0, 0.3);; /* 🔧 opacity control — was 0.65 */
 }
 
-/* reduce spacing in split rows */
-.input-split-row {
-  display: flex;
-  gap: 8px;             /* smaller horizontal gap */
+.sidebar.scrolled .logo-area,
+.sidebar.scrolled .tcet-form {
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+  filter: blur(1px) contrast(0.95);
+  pointer-events: none;
+  visibility: hidden;
 }
 
-/* shrink checkbox and captcha spacing */
-.captcha-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+/* Stagger children for smoother hide animation */
+.sidebar.scrolled .tcet-form > * {
+  opacity: 0;
+  transform: translateY(20px) scale(0.985);
+  pointer-events: none;
 }
 
-.checkbox-label {
-  font-size: 14px;
-  line-height: 1.3;
-  margin-top: 6px;
+/* Exclude .no-hide elements from animation */
+.sidebar .no-hide {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 
-/* slightly smaller submit button */
-.submit-btn {
-  padding: 8px 12px;
-  font-size: 14px;
-  margin-top: 6px;
+/* Responsive tweak */
+@media (max-width: 767px) {
+  .sidebar.scrolled .tcet-form,
+  .sidebar.scrolled .logo-area {
+    transform: translateY(8px) scale(.997);
+  }
+}
+
+
+/* ---------- VIDEO SECTION OVERLAY ---------- */
+
+/* Default state (no overlay visible) */
+.video-section .video-overlay {
+  background: rgba(0, 0, 0, 0); /* fully transparent */
+  transition: background 520ms cubic-bezier(.22,.9,.3,1);
+  pointer-events: none;
+}
+
+/* Scrolled state — overlay fades in */
+.video-section.scrolled .video-overlay {
+  background: rgba(0, 0, 0, 0.3); /* 🔧 opacity control — was 0.55 */
+}
+
+/* Reduced motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  .video-section .video-overlay { transition: none; }
 }
 
     </style>
@@ -5329,8 +5491,8 @@
             <div class="content-wrapper">
                 <div class="text-column">
                     <!-- <h2 class="subtitle">University</h2> -->
-                  
-                     <h1 class="upg2-hero-title">Testimonials</h1>
+
+                    <h1 class="upg2-hero-title">Testimonials</h1>
 
                     <p class="description">
                         Discover the inspiring journeys of our alumni and how their experiences at University shaped
@@ -5497,12 +5659,12 @@
 
                 <div class="ri-stats-panel">
                     <div class="ri-stats-block">
-                     <span id="recruiterCount">0</span>
+                        <span id="recruiterCount">0</span>
                         <label>Recruiters</label>
                     </div>
                     <div class="ri-divider"></div>
                     <div class="ri-stats-block">
-                      <span id="careerCount">100</span>
+                        <span id="careerCount">100</span>
                         <label>Career Opportunities</label>
                     </div>
                     <div class="ri-divider"></div>
@@ -5595,7 +5757,8 @@
     </section>
 
 
-    <section style="background-color: #fffff; color: #333; padding: 5rem 8rem; max-width: 90%; margin: auto;">
+    <section class="gv-gallery-section"
+        style="background-color: #fffff; color: #333; padding: 5rem 8rem; margin: auto;">
         <h1 style="font-weight: 700; font-size: 3.5rem; margin-bottom: 7rem; color: #555;">
             Frequently Asked Questions ?
             <span style="font-weight: 700; color: #111;">(FAQs)</span>
@@ -5773,6 +5936,63 @@
             </div>
         </div>
     </footer>
+<script>
+(function () {
+  // Wait until DOM is ready
+  function ready(fn) {
+    if (document.readyState !== 'loading') return fn();
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+
+  ready(function () {
+    const sidebar = document.querySelector('.sidebar');
+    const form = sidebar?.querySelector('.tcet-form');
+    const videoSection = document.querySelector('.video-section');
+
+    if (!sidebar || !form || !videoSection) {
+      console.warn('Missing .sidebar, .tcet-form, or .video-section');
+      return;
+    }
+
+    console.log('Unified Scroll Overlay Init ✅');
+
+    const THRESHOLD = 120; // scroll distance before overlays show
+    let isScrolled = false;
+    let ticking = false;
+
+    function applyScrolledState(active) {
+      if (active && !isScrolled) {
+        sidebar.classList.add('scrolled');
+        videoSection.classList.add('scrolled');
+        isScrolled = true;
+        console.log('→ Overlays ON');
+      } else if (!active && isScrolled) {
+        sidebar.classList.remove('scrolled');
+        videoSection.classList.remove('scrolled');
+        isScrolled = false;
+        console.log('→ Overlays OFF');
+      }
+    }
+
+    function updateScroll() {
+      const y = window.scrollY || document.documentElement.scrollTop;
+      applyScrolledState(y > THRESHOLD);
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Initial check
+    updateScroll();
+  });
+})();
+</script>
+
 
 </body>
 
@@ -6056,44 +6276,45 @@
 </script>
 
 <script>
-function animateCounter(element, endValue, duration = 1500) {
-  let start = 0;
-  const increment = endValue / (duration / 10);
-  const step = () => {
-    start += increment;
-    if (start < endValue) {
-      element.textContent = Math.floor(start);
-      requestAnimationFrame(step);
-    } else {
-      element.textContent = endValue;
+    function animateCounter(element, endValue, duration = 1500) {
+        let start = 0;
+        const increment = endValue / (duration / 10);
+        const step = () => {
+            start += increment;
+            if (start < endValue) {
+                element.textContent = Math.floor(start);
+                requestAnimationFrame(step);
+            } else {
+                element.textContent = endValue;
+            }
+        };
+        requestAnimationFrame(step);
     }
-  };
-  requestAnimationFrame(step);
-}
-document.addEventListener('DOMContentLoaded', function () {
-  const stats = [
-    { id: 'recruiterCount', value: 250 },
-    { id: 'careerCount', value: 100 },
-    { id: 'ctcCount', value: 40 }
-  ];
+    document.addEventListener('DOMContentLoaded', function () {
+        const stats = [
+            { id: 'recruiterCount', value: 250 },
+            { id: 'careerCount', value: 100 },
+            { id: 'ctcCount', value: 40 }
+        ];
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !entry.target.dataset.animated) {
-        let value = entry.target.dataset.value;
-        animateCounter(entry.target, parseInt(value));
-        entry.target.dataset.animated = "true";
-      }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    let value = entry.target.dataset.value;
+                    animateCounter(entry.target, parseInt(value));
+                    entry.target.dataset.animated = "true";
+                }
+            });
+        }, { threshold: 0.5 });
+
+        stats.forEach(stat => {
+            const el = document.getElementById(stat.id);
+            el.dataset.value = stat.value;
+            observer.observe(el);
+        });
     });
-  }, { threshold: 0.5 });
-
-  stats.forEach(stat => {
-    const el = document.getElementById(stat.id);
-    el.dataset.value = stat.value;
-    observer.observe(el);
-  });
-});
 
 
 </script>
+
 </html>
