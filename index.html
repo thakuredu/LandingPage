@@ -58,144 +58,195 @@
 
     </script>
     <script>
-        let currentSlide = 0;
-        let autoplayInterval = null;
+        /* ---------- CONFIG ---------- */
+        const FLIP_DURATION = 800;      // ms — must match your CSS transition time
+        const FLIP_HALF = FLIP_DURATION / 2;
+        const CAROUSEL_INTERVAL = 4000; // ms autoplay
 
-        function showCarouselSlide(idx) {
-            const slides = document.querySelectorAll('.carousel-slide');
-            const dots = document.querySelectorAll('.carousel-dot');
-            if (!slides.length) return;
-            // Normalize index
-            if (idx < 0) idx = slides.length - 1;
-            if (idx >= slides.length) idx = 0;
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === idx);
-            });
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === idx);
-            });
-            currentSlide = idx;
-        }
-
-        function moveCarousel(step) {
-            const slides = document.querySelectorAll('.carousel-slide');
-            if (!slides.length) return;
-            showCarouselSlide(currentSlide + step);
-            resetAutoplay();
-        }
-
-        function setupCarouselDots() {
-            const dotsContainer = document.querySelector('.carousel-dots');
-            const slides = document.querySelectorAll('.carousel-slide');
-            if (!dotsContainer) return;
-            dotsContainer.innerHTML = '';
-            slides.forEach((_slide, i) => {
-                const dot = document.createElement('button');
-                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-                dot.onclick = () => {
-                    showCarouselSlide(i);
-                    resetAutoplay();
-                };
-                dotsContainer.appendChild(dot);
-            });
-        }
-
-        // Autoplay setup
-        function startAutoplay() {
-            autoplayInterval = setInterval(() => {
-                moveCarousel(1);
-            }, 4000); // change slide every 4000ms (4 seconds)
-        }
-
-        function resetAutoplay() {
-            clearInterval(autoplayInterval);
-            startAutoplay();
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setupCarouselDots();
-            showCarouselSlide(0);
-            startAutoplay();
-        });
+        /* ---------- DATA ---------- */
         const cardData = [
             {
                 pink: {
                     main: "1 Million",
                     label: "Rural residents<br>benefited",
-                    bgColor: "rgba(217, 35, 82, 0.89)",
-                    textColor: "#fff"
+                    bgColor: "#ffe44d",
+                    textColor: "#b00636"
                 },
                 yellow: {
                     main: "30+",
                     label: "Institutional<br>Participation",
-                    bgColor: "#ffe44d",
-                    textColor: "#b00636"
+                    bgColor: "rgba(217, 35, 82, 0.89)",
+                    textColor: "#fff"
                 }
             },
             {
                 pink: {
                     main: "2 Million",
                     label: "Urban residents<br>impacted",
-                    bgColor: "rgba(180, 50, 70, 0.85)",
+                    bgColor: "rgba(217, 35, 82, 0.89)",
                     textColor: "#fff"
                 },
                 yellow: {
                     main: "45+",
                     label: "New partnerships<br>formed",
-                    bgColor: "#ffde63",
-                    textColor: "#9a023e"
+                    bgColor: "#ffe44d",
+                    textColor: "#b00636"
                 }
-            },
-            // Add more entries as desired
+            }
         ];
 
-        let currentCardIndex = 0;
+        /* ---------- STATE ---------- */
+        let currentIndex = 0;
+        let autoplayHandle = null;
 
-        function updateCards(idx) {
+        /* ---------- DOM helpers ---------- */
+        function getSlides() { return Array.from(document.querySelectorAll('.carousel-slide')); }
+        function getDots() { return Array.from(document.querySelectorAll('.carousel-dot')); }
+        function setActiveSlide(idx) {
+            const track = document.querySelector('.carousel-track');
+            const slides = getSlides();
+            const dots = getDots();
+            if (!track || !slides.length) return;
+
+            // Normalize index
+            idx = (idx + slides.length) % slides.length;
+
+            // Animate the track to the target slide
+            track.style.transform = `translateX(-${idx * 100}%)`;
+
+            // Update active class for dots
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+
+            // Save current index
+            currentIndex = idx;
+        }
+
+        /* ---------- Flip + Sync logic ---------- */
+        function syncFlipAndCarousel(targetIndex) {
             const pinkBox = document.querySelector('.impactvis-pinkbox');
             const yellowBox = document.querySelector('.impactvis-yellowbox');
-            if (!pinkBox || !yellowBox || !cardData[idx]) return;
+            if (!pinkBox || !yellowBox) return;
 
-            // Animate fade out
-            pinkBox.style.opacity = '0';
-            yellowBox.style.opacity = '0';
+            // normalize index
+            const slides = getSlides();
+            if (slides.length) {
+                targetIndex = ((targetIndex % slides.length) + slides.length) % slides.length;
+            } else {
+                targetIndex = targetIndex % cardData.length;
+            }
 
+            // 1) Start flip animation immediately
+            pinkBox.classList.add('flip');
+            yellowBox.classList.add('flip');
+
+            // 2) Immediately switch carousel slide/dots so carousel moves with the flip start
+            setActiveSlide(targetIndex);
+
+            // 3) At half flip, update card content/colors so the back shows new content
             setTimeout(() => {
-                // Update pink card
-                pinkBox.style.backgroundColor = cardData[idx].pink.bgColor;
-                pinkBox.querySelector('.impactvis-pink-main').innerHTML = cardData[idx].pink.main;
-                pinkBox.querySelector('.impactvis-pink-label').innerHTML = cardData[idx].pink.label;
-                pinkBox.style.color = cardData[idx].pink.textColor;
+                const data = cardData[targetIndex];
 
-                // Update yellow card
-                yellowBox.style.backgroundColor = cardData[idx].yellow.bgColor;
-                yellowBox.querySelector('.impactvis-yellow-main').innerHTML = cardData[idx].yellow.main;
-                yellowBox.querySelector('.impactvis-yellow-label').innerHTML = cardData[idx].yellow.label;
-                yellowBox.style.color = cardData[idx].yellow.textColor;
+                // update pink box content and color
+                const pMain = pinkBox.querySelector('.impactvis-pink-main');
+                const pLabel = pinkBox.querySelector('.impactvis-pink-label');
+                pinkBox.style.backgroundColor = data.pink.bgColor;
+                pinkBox.style.color = data.pink.textColor;
+                if (pMain) pMain.innerHTML = data.pink.main;
+                if (pLabel) pLabel.innerHTML = data.pink.label;
 
-                // Animate fade in
-                pinkBox.style.opacity = '1';
-                yellowBox.style.opacity = '1';
-            }, 600); // duration matching CSS transition
+                // update yellow box content and color
+                const yMain = yellowBox.querySelector('.impactvis-yellow-main');
+                const yLabel = yellowBox.querySelector('.impactvis-yellow-label');
+                yellowBox.style.backgroundColor = data.yellow.bgColor;
+                yellowBox.style.color = data.yellow.textColor;
+                if (yMain) yMain.innerHTML = data.yellow.main;
+                if (yLabel) yLabel.innerHTML = data.yellow.label;
+            }, FLIP_HALF);
+
+            // 4) End flip after full duration
+            setTimeout(() => {
+                pinkBox.classList.remove('flip');
+                yellowBox.classList.remove('flip');
+            }, FLIP_DURATION);
+
+            // reset autoplay so timing remains consistent after manual action
+            resetAutoplay();
         }
 
-        // Automatic animation every 4 seconds
-        function startCardAnimation() {
-            setInterval(() => {
-                currentCardIndex++;
-                if (currentCardIndex >= cardData.length) currentCardIndex = 0;
-                updateCards(currentCardIndex);
-            }, 4000); // change interval here
+        /* ---------- Autoplay ---------- */
+        function startAutoplay() {
+            clearInterval(autoplayHandle);
+            autoplayHandle = setInterval(() => {
+                const next = (currentIndex + 1) % Math.max(1, cardData.length);
+                syncFlipAndCarousel(next);
+            }, CAROUSEL_INTERVAL);
         }
 
-        // Initialize cards on page load and start animation
+        function resetAutoplay() {
+            clearInterval(autoplayHandle);
+            startAutoplay();
+        }
+
+        /* ---------- Init & Controls ---------- */
+        function setupDots() {
+            const dotsContainer = document.querySelector('.carousel-dots');
+            const slides = getSlides();
+            if (!dotsContainer || !slides.length) return;
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, i) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                btn.addEventListener('click', () => syncFlipAndCarousel(i));
+                dotsContainer.appendChild(btn);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            updateCards(0); // initial populate cards
-            startCardAnimation();
+            setupDots();
+
+            // initial render
+            setActiveSlide(0);
+            // populate initial card content from data[0]
+            const initialPink = cardData[0].pink;
+            const initialYellow = cardData[0].yellow;
+            const pBox = document.querySelector('.impactvis-pinkbox');
+            const yBox = document.querySelector('.impactvis-yellowbox');
+            if (pBox) {
+                pBox.style.backgroundColor = initialPink.bgColor;
+                pBox.style.color = initialPink.textColor;
+                const pMain = pBox.querySelector('.impactvis-pink-main');
+                const pLabel = pBox.querySelector('.impactvis-pink-label');
+                if (pMain) pMain.innerHTML = initialPink.main;
+                if (pLabel) pLabel.innerHTML = initialPink.label;
+            }
+            if (yBox) {
+                yBox.style.backgroundColor = initialYellow.bgColor;
+                yBox.style.color = initialYellow.textColor;
+                const yMain = yBox.querySelector('.impactvis-yellow-main');
+                const yLabel = yBox.querySelector('.impactvis-yellow-label');
+                if (yMain) yMain.innerHTML = initialYellow.main;
+                if (yLabel) yLabel.innerHTML = initialYellow.label;
+            }
+
+            // wire prev/next buttons if present
+            const prev = document.querySelector('.carousel-prev');
+            const next = document.querySelector('.carousel-next');
+            if (prev) prev.addEventListener('click', () => syncFlipAndCarousel(currentIndex - 1));
+            if (next) next.addEventListener('click', () => syncFlipAndCarousel(currentIndex + 1));
+
+            // start autoplay
+            startAutoplay();
+
+            // pause on hover, resume on mouse leave (optional)
+            const wrap = document.querySelector('.carousel-wrapper');
+            if (wrap) {
+                wrap.addEventListener('mouseenter', () => clearInterval(autoplayHandle));
+                wrap.addEventListener('mouseleave', () => startAutoplay());
+            }
         });
-
-
     </script>
+
     <!-- Tab JS -->
 
 
@@ -457,30 +508,34 @@
             }
         }
 
-.why-mba-section {
-  position: relative;
-  width: 100vw;                     /* full viewport width */
-  left: 50%;                        /* center alignment trick */
-  right: 50%;
-  margin-left: -50vw;               /* remove parent container’s width limit */
-  margin-right: -50vw;
+        .why-mba-section {
+            position: relative;
+            width: 100vw;
+            /* full viewport width */
+            left: 50%;
+            /* center alignment trick */
+            right: 50%;
+            margin-left: -50vw;
+            /* remove parent container’s width limit */
+            margin-right: -50vw;
 
-  min-height: 100vh;
-  background: #fff;                 /* fallback */
-  background-image: url('./WhatsApp Image 2025-10-25 at 3.46.12 PM.jpeg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+            min-height: 100vh;
+            background: #fff;
+            /* fallback */
+            background-image: url('./WhatsApp Image 2025-10-25 at 3.46.12 PM.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
 
-  padding: 3em 2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+            padding: 3em 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-  box-sizing: border-box;
-  z-index: 0;
-}
+            box-sizing: border-box;
+            z-index: 0;
+        }
 
 
         /* Black overlay */
@@ -1002,7 +1057,7 @@
             display: flex;
             align-items: flex-start;
             justify-content: flex-start;
-            background: transparent;
+            background: #f9fafb;
             min-height: 1686px;
         }
 
@@ -1020,7 +1075,7 @@
         }
 
         .impactvis-pinkbox {
-            background: rgba(217, 35, 82, 0.89);
+            /* background: rgba(217, 35, 82, 0.89); */
             width: 400px;
             height: 340px;
             display: flex;
@@ -1034,7 +1089,7 @@
         }
 
         .impactvis-pink-main {
-            color: #fff;
+            /* color: #fff; */
             font-size: 3.1rem;
             font-weight: 700;
             letter-spacing: -1px;
@@ -1044,7 +1099,7 @@
         }
 
         .impactvis-pink-label {
-            color: #fff;
+            /* color: #fff; */
             opacity: 0.95;
             font-size: 1.1rem;
             font-weight: 400;
@@ -1054,7 +1109,7 @@
         }
 
         .impactvis-yellowbox {
-            background: #ffe44d;
+            /* background: #ffe44d; */
             width: 370px;
             height: 340px;
             box-shadow: 0 1.5px 16px rgba(240, 209, 54, .09);
@@ -1071,7 +1126,7 @@
 
 
         .impactvis-yellow-main {
-            color: #b00636;
+            /* color: #b00636; */
             font-size: 3.1rem;
             font-weight: 700;
             margin-bottom: 10px;
@@ -1081,7 +1136,7 @@
         }
 
         .impactvis-yellow-label {
-            color: #513a04;
+            /* color: #513a04; */
             font-size: 1.1rem;
             font-weight: 500;
             line-height: 1.39;
@@ -1295,22 +1350,24 @@
             display: block;
         }
 
-        Research & Innovation Section Styles */ .research-innovation-section {
+        .research-innovation-section {
             width: 100%;
-            background: #fff;
+            background: #f9fafb;
             padding: 0;
         }
 
         .ri-container {
-            background-image: url('./Landing_Placement_01.webp');
+            background-image: url('./Landing_Placement_02.png');
             background-size: cover;
-            background-position: center center;
+            background-position: 25%;
             background-repeat: no-repeat;
             padding: 2rem;
-            min-height: 400px;
             display: flex;
             min-height: 600px;
+            background-color: #f9fafb;
+            padding: 45px 170px;
         }
+
 
         .ri-stats-panel {
             flex: 1;
@@ -1318,7 +1375,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-end;
-            /* background: #fff; */
+            background: #f9fafb;
             /* padding-right: 2vw; */
         }
 
@@ -1365,15 +1422,17 @@
         }
 
         .ri-overlap-content {
-            margin-left: 15vw;
+            margin-left: 13vw;
+            /* margin-bottom: 16vw; */
+
         }
 
         .ri-innovation-label {
-            font-size: 3vw;
+            font-size: 2.5vw;
             font-weight: 700;
             color: #b01841;
             line-height: 1.2;
-            margin-bottom: 1.5vw;
+
             max-width: 90vw;
         }
 
@@ -2053,6 +2112,7 @@
 
         .ri-container {
             position: relative;
+            background-color: #f9fafb;
         }
 
         .vertical-logo-marquees.left-fixed {
@@ -3020,6 +3080,7 @@
 
             .tgb-contact-row {
                 justify-content: center;
+                text-align: justify;
             }
 
             .tgb-map iframe {
@@ -3040,10 +3101,7 @@
                 gap: 10px;
             }
 
-            .tgb-contact-row i {
-                font-size: 21px;
-                min-width: 22px;
-            }
+          
 
 
         }
@@ -3172,7 +3230,7 @@
             letter-spacing: -0.5px;
             cursor: pointer;
             transition: filter 0.2s ease;
-              font-family: "Outfit", sans-serif;
+            font-family: "Outfit", sans-serif;
 
         }
 
@@ -3406,7 +3464,7 @@
             position: relative;
             width: 100vw;
             min-height: 500px;
-            background: #fff;
+            background: #f9fafb;
             /* fallback */
             background-image: url('./#');
             /* update path if needed */
@@ -3436,13 +3494,13 @@
             position: relative;
             z-index: 2;
             /* layout and spacing as per your design */
-            background: none !important;
-            /* Remove individual bg if set previously */
+            background-color: #e5e7eb
+                /* Remove individual bg if set previously */
         }
 
         /* ===== upg2 styles (unique class prefix) ===== */
         :root {
-            --upg2-bg: #f8fafc;
+            --upg2-bg: #e5e7eb;
             --upg2-bg-dark: #0f172a;
             --upg2-text: #0b1726;
             --upg2-muted: #475569;
@@ -3460,7 +3518,7 @@
 
         body {
 
-            background: var(--upg2-bg);
+
             color: var(--upg2-text);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -3468,13 +3526,14 @@
         }
 
         /* container */
-.upg2-root {
-  padding: 45px 20px;       /* 45px top & bottom, 20px left & right */
-  margin: 0 auto;
-  z-index: 100;
-  background-color: #f9fafb;
-  width: 100%;
-}
+        .upg2-root {
+            /* padding: 45px 20px; */
+            /* 45px top & bottom, 20px left & right */
+            margin: 0 auto;
+            z-index: 100;
+            background-color: #f9fafb;
+            width: 100%;
+        }
 
 
         /* HERO */
@@ -3492,7 +3551,8 @@
 
         .upg2-hero-title {
             font-size: 64px;
-            padding: 8px 0 15px;
+           padding-top: 45px;
+           padding-bottom: 30px;
             font-weight: 700;
             letter-spacing: -1px;
             color: #0b1726;
@@ -3571,7 +3631,7 @@
         }
 
         .upg2-title {
-            font-size: 40px;
+            font-size: 33px;
             margin: 0 0 6px;
             font-weight: 700;
             color: #0b1726;
@@ -3889,7 +3949,7 @@
 
         .upg2-tab--active {
             color: #0b1726;
-            background:rgba(0, 0, 0, 0.10);
+            background: rgba(0, 0, 0, 0.10);
             box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
         }
 
@@ -3916,23 +3976,23 @@
 
         /* 🎨 Unique gradients */
         .about-card.eng {
-            background: #223D77;
-        }
-
-        .about-card.mgmt {
             background: #7E68C6;
         }
 
-        .about-card.bvoc {
+        .about-card.mgmt {
             background: #FA9F3C;
         }
 
+        .about-card.bvoc {
+            background: #D92352;
+        }
+
         .about-card.comp {
-            background: #D92329;
+            background: #F6BB3F;
         }
 
         .about-card.research {
-            background: #2BBFE8;
+            background: #D92329;
         }
 
         /* base panel state — panels are hidden by default with display:none */
@@ -4485,19 +4545,22 @@
             left: 0;
             width: 100%;
             z-index: 3000;
+            background:  rgba(34, 61, 119, 0.86);
             /* Keep this high! */
-            background: linear-gradient(90deg,
-                    rgba(34, 61, 119, 0.86) 60%,
-                    /* Main blue with strong opacity */
-                    rgba(34, 61, 119, 0.55) 90%,
-                    /* Softer blue, more transparent */
-                    rgba(255, 255, 255, 0.13) 100%);
+         
             /* Gentle fade to white for end */
             box-shadow: 0 1.5px 12px rgba(0, 0, 0, 0.10);
             border-bottom: 1px solid rgba(35, 55, 87, 0.18);
             padding: 0;
             backdrop-filter: blur(10px);
             /* No need for pointer-events here */
+
+               /* background: linear-gradient(90deg,
+                    rgba(34, 61, 119, 0.86) 60%,
+                    /* Main blue with strong opacity */
+                    /* rgba(34, 61, 119, 0.55) 90%, */
+                    /* Softer blue, more transparent */
+                    /* rgba(255, 255, 255, 0.13) 100%);  */
         }
 
 
@@ -4902,7 +4965,7 @@
         .gv-gallery-section {
             background-color: #f9fafb;
             z-index: 100;
-            padding-top: 52px;
+
 
             display: flex;
             flex-direction: column;
@@ -5123,6 +5186,25 @@
             color: #ddd;
             margin: 4px 0 0;
         }
+
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(.25, .8, .25, 1);
+            /* same duration as flip */
+            will-change: transform;
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            box-sizing: border-box;
+        }
     </style>
 
 </head>
@@ -5166,7 +5248,7 @@
             <div class="sidebar-overlay"></div>
             <div class="sidebar-content">
                 <div class="logo-area">
-                    <img src="Emblem@4x.webp" alt="TCET University Logo" class="logo-large" />
+                    <img src="./Emblem.svg" alt="TCET University Logo" class="logo-large" />
                 </div>
                 <form class="tcet-form">
                     <input type="text" name="name" placeholder="Name*" required />
@@ -5193,21 +5275,17 @@
                     <button type="submit" class="submit-btn">ENQUIRE NOW</button>
                 </form>
                 <!-- NoPaperForms Widget Embed -->
-<div class="tcet-form-wrapper">
-  <div
-    class="npf_wgts"
-    data-height="450px"
-    data-w="3161dad8e26b7ac51061b90c16309269"
-  ></div>
-</div>
+                <div class="tcet-form-wrapper">
+                    <div class="npf_wgts" data-height="450px" data-w="3161dad8e26b7ac51061b90c16309269"></div>
+                </div>
 
-<script type="text/javascript">
-  var s = document.createElement("script");
-  s.type = "text/javascript";
-  s.async = true;
-  s.src = "https://widgets.in8.nopaperforms.com/emwgts.js";
-  document.body.appendChild(s);
-</script>
+                <script type="text/javascript">
+                    var s = document.createElement("script");
+                    s.type = "text/javascript";
+                    s.async = true;
+                    s.src = "https://widgets.in8.nopaperforms.com/emwgts.js";
+                    document.body.appendChild(s);
+                </script>
 
             </div>
         </div>
@@ -5498,7 +5576,7 @@
                                 </div>
                             </div>
 
-                            <a class="upg2-cta" href="#" role="button">Contact Us</a>
+                            <a class="upg2-cta" href="#" role="button">Apply Now</a>
                         </article>
 
                         <figure class="upg2-card upg2-card--media" aria-hidden="true">
@@ -5539,6 +5617,7 @@
                             <div class="upg2-programme-table">
                                 <h3 class="upg2-feat-title">Postgraduate Programmes</h3>
                                 <ol class="upg2-programme-list">
+                                     <li>M. in Computer Application</li>
                                     <li>M.E. in Computer Engineering</li>
                                     <li>M.E. in Information Technology</li>
                                     <li>M.E. in Communication Technology and Management</li>
@@ -5570,7 +5649,7 @@
                                 </div>
                             </div>
 
-                            <a class="upg2-cta" href="#">Contact Us</a>
+                            <a class="upg2-cta" href="#">Apply Now</a>
                         </article>
                     </div>
                 </div>
@@ -5629,7 +5708,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <a class="upg2-cta" href="#">Contact Us</a>
+                            <a class="upg2-cta" href="#">Apply Now</a>
                         </article>
 
                         <figure class="upg2-card upg2-card--media" aria-hidden="true">
@@ -5679,12 +5758,12 @@
 
             <div class="ri-stats-panel">
                 <div class="ri-stats-block">
-                    <span id="recruiterCount">0</span>
+                    <span id="recruiterCount">0</span>   
                     <label>Recruiters</label>
                 </div>
                 <div class="ri-divider"></div>
                 <div class="ri-stats-block">
-                    <span id="careerCount">100</span>
+                    <span id="careerCount">100+</span>
                     <label>Career Opportunities</label>
                 </div>
                 <div class="ri-divider"></div>
@@ -5700,110 +5779,336 @@
                     <div class="ri-innovation-label">
                         PLACEMENTS
                     </div>
-                    <button class="ri-read-more-btn" onclick="window.location.href='#'">READ MORE</button>
+
+                    <!-- <button class="ri-read-more-btn" onclick="window.location.href='#'">READ MORE</button> -->
                 </div>
             </div>
         </div>
     </section>
     </section>
 
-    <section id="test" class="success-stories-section">
-        <div class="container">
-            <div class="content-wrapper">
-                <div class="text-column">
-                    <!-- <h2 class="subtitle">University</h2> -->
-
-                    <h1 class="upg2-hero-title">Testimonials</h1>
-
-                    <p class="description">
-                        Discover the inspiring journeys of our alumni and how their experiences at University shaped
-                        their
-                        careers — honest stories from graduates across programs.
-                    </p>
+    <section class="testimonial-tabs-carousel">
+        <div class="testimonial-main-grid2">
+            <!-- Left Side -->
+            <div class="testimonial-left">
+                <h1 class="testimonial-heading">Testimonials</h1>
+                <p class="testimonial-description">
+                    Discover the inspiring journeys of our alumni and how their experiences at University shaped their
+                    careers — honest stories from graduates across programs.
+                </p>
+                <div class="carousel-nav-row">
+                    <button id="carousel-left-btn" class="carousel-nav2" aria-label="Previous">&#8592;</button>
+                    <button id="carousel-right-btn" class="carousel-nav2" aria-label="Next">&#8594;</button>
                 </div>
-
-                <div class="cards-grid">
-                    <!-- Card 1: Testimonial -->
-                    <article id="btech-card" class="card card-primary"
-                        style="width: 300px; transition: width 0.5s ease, opacity 0.5s ease;">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ISt8wLzTDWdHtMkWs2u5JhkxsEYeYJIan3QHLIwN6sM_3745JzKxwAqio4DqySyQyvcgU7Q8or0XK9B9smDM1qHL9dFwehcV_7m1HXv9QQPFILXGrTFL_RfcuseuGVs7iD9Jqq4PWs9YYLU79eYYj4scsoXCQ7JAi7nml9ZetUjg5b6-N14-uLyEShOJvig5epGaZ_qqbe0yzgqFgx9fcKWKbqBCb6GxRPoQ33T-RUwWfWSZi39qeHdFeY_5_NdFzforO9JG9Q8"
-                            alt="Riddhi Santhalia" class="card-img" />
-                        <h3 class="card-name">Riddhi Santhalia</h3>
-
-                        <p class="card-text">
-                            “The mentorship I received at University changed the course of my career. Faculty pushed me
-                            to
-                            think bigger, supported my startup idea and connected me with the right industry mentors —
-                            today
-                            I lead product at a fast-growing firm.”
-                        </p>
-
-                        <div id="btech-details" style="display:none; margin-top:10px; text-align:left;">
-                            <strong>Role:</strong> Product Manager — TechScale<br />
-                            <strong>Graduation:</strong> MBA, 2019<br />
-                            <strong>Highlight:</strong> Placed first in university entrepreneurship pitch; secured seed
-                            funding.
+            </div>
+            <!-- Right Side: Carousel -->
+            <div class="tabbed-carousel2">
+                <div class="tabs-track2" id="tabs-track2">
+                    <!-- All testimonial cards in a single row (for scroll/slide animation) -->
+                    <!-- Add 10-15 cards as needed -->
+                    <div class="carousel-row" id="carousel-row">
+                        <div class="testimonial-card accent-gold">
+                            <div class="testimonial-image-wrap"><img
+                                    src="https://randomuser.me/api/portraits/women/80.jpg" alt=""></div>
+                            <h3>Riddhi Santhalia</h3>
+                            <p>“The mentorship I received...”</p>
                         </div>
-
-                        <a href="#" class="card-link" onclick="toggleCard('btech-card'); return false;">Read More</a>
-                    </article>
-
-                    <!-- Card 2: Testimonial (middle featured) -->
-                    <article id="pg-card-middle" class="card card-middle-featured"
-                        style="width: 300px; transition: width 0.5s ease, opacity 0.5s ease;">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ISt8wLzTDWdHtMkWs2u5JhkxsEYeYJIan3QHLIwN6sM_3745JzKxwAqio4DqySyQyvcgU7Q8or0XK9B9smDM1qHL9dFwehcV_7m1HXv9QQPFILXGrTFL_RfcuseuGVs7iD9Jqq4PWs9YYLU79eYYj4scsoXCQ7JAi7nml9ZetUjg5b6-N14-uLyEShOJvig5epGaZ_qqbe0yzgqFgx9fcKWKbqBCb6GxRPoQ33T-RUwWfWSZi39qeHdFeY_5_NdFzforO9JG9Q8"
-                            alt="Vishakha Naik" class="card-img" />
-                        <h3 class="card-name">Ms. Vishakha Naik</h3>
-
-                        <p class="card-text">
-                            “What stands out is the practical learning — labs, live projects and industry tie-ups. My
-                            transition
-                            into a leadership role at a multinational was direct because of the hands-on exposure and
-                            the career
-                            support I received here.”
-                        </p>
-
-                        <div id="pg-details-middle" style="display:none; margin-top:10px; text-align:left;">
-                            <strong>Role:</strong> Senior Operations Lead — GlobalCorp<br />
-                            <strong>Graduation:</strong> M.E., 2017<br />
-                            <strong>Highlight:</strong> Led internship program partnerships with three Fortune 500
-                            companies.
+                        <div class="testimonial-card accent-pink">
+                            <div class="testimonial-image-wrap"><img
+                                    src="https://randomuser.me/api/portraits/women/81.jpg" alt=""></div>
+                            <h3>Vishakha Naik</h3>
+                            <p>“What stands out is the practical learning...”</p>
                         </div>
-
-                        <a href="#" class="card-link" onclick="toggleCard('pg-card-middle'); return false;">Read
-                            More</a>
-                    </article>
-
-                    <!-- Card 3: Testimonial -->
-                    <article id="phd-card" class="card card-accent"
-                        style="width: 300px; transition: width 0.5s ease, opacity 0.5s ease; overflow: hidden;">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ISt8wLzTDWdHtMkWs2u5JhkxsEYeYJIan3QHLIwN6sM_3745JzKxwAqio4DqySyQyvcgU7Q8or0XK9B9smDM1qHL9dFwehcV_7m1HXv9QQPFILXGrTFL_RfcuseuGVs7iD9Jqq4PWs9YYLU79eYYj4scsoXCQ7JAi7nml9ZetUjg5b6-N14-uLyEShOJvig5epGaZ_qqbe0yzgqFgx9fcKWKbqBCb6GxRPoQ33T-RUwWfWSZi39qeHdFeY_5_NdFzforO9JG9Q8"
-                            alt="Ritika" class="card-img" />
-                        <h3 class="card-name">Ritika</h3>
-
-                        <p class="card-text">
-                            “My PhD journey gave me the confidence to publish and present internationally. The
-                            collaborative research
-                            culture and dedicated supervisors made complex problems manageable — I now work on
-                            cross-border research
-                            projects with industry partners.”
-                        </p>
-
-                        <div id="phd-details" style="display:none; margin-top:10px; text-align:left;">
-                            <strong>Role:</strong> Research Scientist — Innovate Labs<br />
-                            <strong>Graduation:</strong> PhD, 2021<br />
-                            <strong>Highlight:</strong> 6 international publications; lead author on two patents.
+                        <div class="testimonial-card accent-orange">
+                            <div class="testimonial-image-wrap"><img
+                                    src="https://randomuser.me/api/portraits/women/82.jpg" alt=""></div>
+                            <h3>Ritika</h3>
+                            <p>“My PhD journey gave me the confidence...”</p>
                         </div>
-
-                        <a href="#" class="card-link" onclick="toggleCard('phd-card'); return false;">Read More</a>
-                    </article>
+                        <div class="testimonial-card accent-gold">
+                            <div class="testimonial-image-wrap"><img
+                                    src="https://randomuser.me/api/portraits/men/83.jpg" alt=""></div>
+                            <h3>Alex Jaini</h3>
+                            <p>“Faculty at University encouraged new thinking...”</p>
+                        </div>
+                        <div class="testimonial-card accent-pink">
+                            <div class="testimonial-image-wrap"><img
+                                    src="https://randomuser.me/api/portraits/men/84.jpg" alt=""></div>
+                            <h3>Suhas Kulkarni</h3>
+                            <p>“A supportive alumni community and hands-on labs...”</p>
+                        </div>
+                        <div class="testimonial-card accent-orange">
+                            <div class="testimonial-image-wrap"><img
+                                    src="https://randomuser.me/api/portraits/women/85.jpg" alt=""></div>
+                            <h3>Nida Sayed</h3>
+                            <p>“The MBA program allowed me to explore real-world problems...”</p>
+                        </div>
+                        <div class="testimonial-card accent-gold">
+                            <div class="testimonial-image-wrap"><img
+                                    src="https://randomuser.me/api/portraits/men/86.jpg" alt=""></div>
+                            <h3>Parag Sharma</h3>
+                            <p>“I received constant encouragement to pursue research...”</p>
+                        </div>
+                        <div class="testimonial-card accent-pink">
+                            <div class="testimonial-image-wrap"><img
+                                    src="https://randomuser.me/api/portraits/men/87.jpg" alt=""></div>
+                            <h3>Rahul Kumar</h3>
+                            <p>“University gave me the skills and network...”</p>
+                        </div>
+                        <div class="testimonial-card accent-orange">
+                            <div class="testimonial-image-wrap"><img
+                                    src="https://randomuser.me/api/portraits/men/88.jpg" alt=""></div>
+                            <h3>Aarti K</h3>
+                            <p>“A global campus, rigorous academics and extraordinary faculty...”</p>
+                        </div>
+                        <!-- add more cards for 10-15 total -->
+                    </div>
                 </div>
-
             </div>
         </div>
-        <!-- Carousel + Stats Section -->
-        <!-- Research & Innovation Section -->
     </section>
+    <style>
+    .testimonial-tabs-carousel {
+    background: #f9fafb;
+    padding: 65px 0;
+    min-height: 90vh;   /* ensures it always takes up at least 80% of viewport height */
+    height: auto;       /* grows automatically if content exceeds min-height */
+}
+
+.testimonial-main-grid2 {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 10px 120px;  
+    width: 100%;      /* takes full container width */
+    max-width: 1400px; /* optional — keeps content centered and readable */
+ 
+    margin: 0 auto;    /* centers horizontally */
+    align-items: center;
+    /* padding: 60px 80px;  */
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+
+        .testimonial-left {
+            /* padding-left: 36px; */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 420px;
+        }
+
+     .testimonial-heading {
+    /* padding: 45px 170px; */
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #0b1726;
+    /* background-color: #f9fafb; */
+    font-size: 2.75rem;
+    text-align: left; /* changed from left to center */
+}
+
+
+        .testimonial-description {
+            font-size: 21px;
+            color: #6b717d;
+            line-height: 1.47;
+            max-width: 430px;
+            text-align: left;
+        }
+
+        .carousel-nav-row {
+            margin-top: 60px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .carousel-nav2 {
+            background: #223D77;
+            color: #fff;
+            border: none;
+            padding: 1px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 32px;
+            box-shadow: 0 2px 12px #0001;
+            transition: background 0.16s;
+        }
+
+        .carousel-nav2:hover {
+            background: #232839;
+        }
+
+        .tabbed-carousel2 {
+            width: 100%;
+            min-height: 500px;
+            position: relative;
+        }
+
+        .tabs-track2 {
+            width: 100%;
+            min-height: 480px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-row {
+            display: flex;
+            gap: 36px;
+            position: relative;
+            left: 0;
+            top: 0;
+            will-change: transform;
+            transition: transform 0.88s cubic-bezier(.83, -0.01, .23, 1.01);
+        }
+
+        .testimonial-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 2px 16px #e0e3ec50;
+            padding: 44px 24px 32px 24px;
+            min-width: 300px;
+            max-width: 300px;
+            text-align: center;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow 0.22s, border-color 0.24s, transform 0.25s;
+            border: 3px solid transparent;
+            cursor: pointer;
+            height: 500px;
+        }
+
+
+
+        .testimonial-card h3 {
+            font-size: 23px;
+            font-weight: 700;
+            color: #232839;
+            margin: 28px 0 15px 0;
+        }
+
+        .testimonial-card p {
+            color: #61677c;
+            font-size: 18px;
+            margin-bottom: 26px;
+            line-height: 1.45;
+        }
+
+        .testimonial-link {
+            font-weight: 600;
+            color: #A12F75;
+            font-size: 17px;
+            text-decoration: none;
+            margin-top: auto;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-image-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0;
+        }
+
+        .testimonial-image-wrap img {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #edeff2;
+            border: 4px solid #edeff2;
+            box-sizing: border-box;
+            margin-bottom: 0;
+        }
+
+        .accent-gold {
+            border-color: #f7c846;
+            box-shadow: 0 0 20px #f7c84636;
+        }
+
+        .accent-pink {
+            border-color: #ee4e80;
+            box-shadow: 0 0 20px #ee4e8030;
+        }
+
+        .accent-orange {
+            border-color: #f7c896;
+            box-shadow: 0 0 20px #f7c89630;
+        }
+
+        @media(max-width:1400px) {
+            .testimonial-card {
+                min-width: 290px;
+                max-width: 290px;
+            }
+        }
+
+        @media(max-width:1080px) {
+            .testimonial-main-grid2 {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-left {
+                padding-left: 0;
+                margin-bottom: 38px;
+            }
+        }
+
+        @media(max-width:900px) {
+            .carousel-row {
+                gap: 18px;
+            }
+
+            .testimonial-card {
+                min-width: 220px;
+                max-width: 220px;
+            }
+        }
+    </style>
+    <script>
+        const row = document.getElementById('carousel-row');
+        const cards = row.children;
+        const leftBtn = document.getElementById('carousel-left-btn');
+        const rightBtn = document.getElementById('carousel-right-btn');
+        const cardsToShow = 3;
+        let startIdx = 0;
+        let intervalId;
+        let stoppedByHover = false;
+        // get current width (responsive)
+        function getCardWidth() { return cards[0].offsetWidth + 36; }
+        function updateRow() {
+            // Animate slide left to next set of 3 cards (by 1 card each time)
+            row.style.transform = `translateX(${-startIdx * getCardWidth()}px)`;
+        }
+        function next() {
+            startIdx = (startIdx + 1) % cards.length;
+            // If remaining less than cardsToShow, wrap to start
+            if (startIdx > cards.length - cardsToShow) startIdx = 0;
+            updateRow();
+        }
+        function prev() {
+            startIdx = (startIdx - 1 + cards.length) % cards.length;
+            if (startIdx > cards.length - cardsToShow) startIdx = cards.length - cardsToShow;
+            updateRow();
+        }
+        function startCarousel() {
+            if (intervalId) clearInterval(intervalId);
+            intervalId = setInterval(() => { if (!stoppedByHover) next(); }, 3000);
+        }
+        startCarousel();
+        updateRow();
+
+        Array.from(cards).forEach(card => {
+            card.addEventListener('mouseenter', e => { stoppedByHover = true; card.classList.add('card-pop'); });
+            card.addEventListener('mouseleave', e => { stoppedByHover = false; card.classList.remove('card-pop'); });
+        });
+        rightBtn.addEventListener('click', () => { stoppedByHover = true; next(); });
+        leftBtn.addEventListener('click', () => { stoppedByHover = true; prev(); });
+        window.addEventListener('resize', updateRow);
+    </script>
+
     <h1 id="life" class="upg2-hero-title">
         Life @ TCET University<br />
         <!-- <span class="about-header-proposed">Deemed to be University</span> -->
@@ -5812,12 +6117,12 @@
         <section class="impactvis-section">
             <div class="impactvis-img-col">
                 <div class="carousel-wrapper">
-                    <div class="carousel-slider">
+                    <div class="carousel-track">
                         <div class="carousel-slide active">
                             <img src="./Events/image00040.jpeg" alt="Students 1" />
                         </div>
                         <div class="carousel-slide">
-                            <img src="./Events/image00064.jpeg" alt="Students 2" />
+                            <img src="./Events/image00040.jpeg" alt="Students 2" />
                         </div>
                         <div class="carousel-slide">
                             <img src="./Events/image00002-2.jpeg" alt="Students 3" />
@@ -5919,7 +6224,7 @@
 
 
         <section class="faq-section">
-            <h1 class="faq-heading">
+            <h1 class="upg2-hero-title">
                 Frequently Asked Questions ? <span>(FAQs)</span>
             </h1>
 
@@ -5986,10 +6291,10 @@
 
         <style>
             .faq-section {
-                background-color: #ffffff;
+                background-color: #f9fafb;
                 color: #333;
-                padding: 5rem 2rem;
-                width: 90%;
+
+                width: 80%;
                 margin: 0 auto;
             }
 
@@ -6008,6 +6313,7 @@
                 display: flex;
                 flex-direction: column;
                 gap: 2rem;
+                padding-bottom: 4rem;
             }
 
             .faq-item {
@@ -6217,20 +6523,20 @@
         <footer style="width:100%;">
             <div class="tgb-contact-wrap">
                 <div class="tgb-contact-container">
-                    <img src="Asset 1.svg" alt="TGBS Logo" />
+                    <img src="./TCET_Logo_White (1).svg" alt="TGBS Logo" />
                     <div class="tgb-contact-row">
-                        <i class="fas fa-map-marker-alt"></i>
+                      
                         TCET (Deemed to be University),
-                        A-Block, Thakur Educational Campus,
-                        Shyamnarayan Thakur Marg, Thakur Village,
+                        A-Block, Thakur Educational Campus,<br/>
+                        Shyamnarayan Thakur Marg, Thakur Village,<br/>
                         Kandivali(E), Mumbai – 400101.
                     </div>
                     <div class="tgb-contact-row">
-                        <i class="fas fa-phone-alt"></i>
+                   
                         022 – 28461891 | 022 – 67308000
                     </div>
                     <div class="tgb-contact-row">
-                        <i class="fas fa-envelope"></i>
+                      
                         <a class="tgb-contact-link" href="mailto:tgbs@thakureducation.org">tcet@thakureducation.org</a>
                     </div>
 
@@ -6583,45 +6889,144 @@
 </script>
 
 <script>
-    function animateCounter(element, endValue, duration = 1500) {
-        let start = 0;
-        const increment = endValue / (duration / 10);
-        const step = () => {
-            start += increment;
-            if (start < endValue) {
-                element.textContent = Math.floor(start);
-                requestAnimationFrame(step);
-            } else {
-                element.textContent = endValue;
-            }
-        };
-        requestAnimationFrame(step);
+const stats = [
+  { id: 'recruiterCount', value: 250 },
+  { id: 'careerCount', value: 100 },
+  { id: 'ctcCount', value: 40 }
+];
+
+const DURATION = 1500; // animation duration in ms
+const VIEW_THRESHOLD = 0.5; // how much of the section must be visible to trigger
+
+// store animation state per element
+const animState = {}; // { id: { running: bool, raf: number|null } }
+
+function animateCountUpRAF(el, target, duration = DURATION) {
+  // cancel any existing RAF for this element
+  if (animState[el.id] && animState[el.id].raf) {
+    cancelAnimationFrame(animState[el.id].raf);
+  }
+
+  const startTime = performance.now();
+  const startValue = 0;
+
+  function frame(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const value = Math.floor(startValue + (target - startValue) * progress);
+    el.textContent = value;
+
+    if (progress < 1) {
+      animState[el.id].raf = requestAnimationFrame(frame);
+    } else {
+      animState[el.id].raf = null;
+      animState[el.id].running = false;
+      el.textContent = `${target}+`; // add plus sign at end
     }
-    document.addEventListener('DOMContentLoaded', function () {
-        const stats = [
-            { id: 'recruiterCount', value: 250 },
-            { id: 'careerCount', value: 100 },
-            { id: 'ctcCount', value: 40 }
-        ];
+  }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.dataset.animated) {
-                    let value = entry.target.dataset.value;
-                    animateCounter(entry.target, parseInt(value));
-                    entry.target.dataset.animated = "true";
-                }
-            });
-        }, { threshold: 0.5 });
+  animState[el.id] = { running: true, raf: requestAnimationFrame(frame) };
+}
 
-        stats.forEach(stat => {
-            const el = document.getElementById(stat.id);
-            el.dataset.value = stat.value;
-            observer.observe(el);
-        });
+function resetCount(el) {
+  // cancel RAF if running
+  if (animState[el.id] && animState[el.id].raf) {
+    cancelAnimationFrame(animState[el.id].raf);
+  }
+  animState[el.id] = { running: false, raf: null };
+  el.textContent = '0';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.querySelector('.ri-stats-panel'); // change if your wrapper is different
+  if (!container) {
+    // fallback: just run once if container not found
+    stats.forEach(s => {
+      const el = document.getElementById(s.id);
+      if (el) animateCountUpRAF(el, s.value, DURATION);
     });
+    return;
+  }
 
+  // ensure initial state
+  stats.forEach(s => {
+    const el = document.getElementById(s.id);
+    if (el) {
+      el.textContent = '0';
+      animState[s.id] = { running: false, raf: null };
+    }
+  });
 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      // when visible enough, start animations
+      if (entry.isIntersecting && entry.intersectionRatio >= VIEW_THRESHOLD) {
+        stats.forEach(s => {
+          const el = document.getElementById(s.id);
+          if (!el) return;
+          // if already running, skip
+          if (animState[s.id] && animState[s.id].running) return;
+          animateCountUpRAF(el, s.value, DURATION);
+        });
+      } else {
+        // when leaving the viewport enough, reset numbers so it can trigger again next time
+        stats.forEach(s => {
+          const el = document.getElementById(s.id);
+          if (!el) return;
+          resetCount(el);
+        });
+      }
+    });
+  }, {
+    threshold: [0, VIEW_THRESHOLD, 1]
+  });
+
+  observer.observe(container);
+});
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Map card class to section ID
+  const cardToPanelMap = {
+    'eng': 'panel-undergrad',
+    'mgmt': 'panel-undergrad',
+    'bvoc': 'panel-undergrad',
+    'comp': 'panel-undergrad',
+    'research': 'panel-undergrad',
+  };
+
+  Object.entries(cardToPanelMap).forEach(([cardClass, panelId]) => {
+    const card = document.querySelector(`.about-card.${cardClass}`);
+    if (card) {
+      card.style.cursor = 'pointer'; // Optional: pointer cursor
+      card.addEventListener('click', () => {
+        const panel = document.getElementById(panelId);
+        if (panel) {
+          // Show panel if hidden (remove hidden class/attribute)
+          panel.hidden = false;
+          panel.classList.remove('upg2-panel--hidden');
+
+          // Hide other panels if necessary:
+          document.querySelectorAll('.upg2-panel').forEach(p => {
+            if (p.id !== panelId) {
+              p.hidden = true;
+              p.classList.add('upg2-panel--hidden');
+            }
+          });
+
+          // Scroll smoothly to the panel
+          panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+          // Optionally activate accompanying tab header, if you use tabs
+          const tabHeader = document.querySelector(`[aria-labelledby="tab-${cardClass}"]`);
+          if (tabHeader) {
+            document.querySelectorAll('[aria-selected]').forEach(el => el.setAttribute('aria-selected', false));
+            tabHeader.setAttribute('aria-selected', true);
+          }
+        }
+      });
+    }
+  });
+});
+</script>
 </html>
