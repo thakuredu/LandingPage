@@ -5307,69 +5307,76 @@
                 transition: opacity 0.3s ease, transform 0.3s ease;
             }
         }
+
         /* Floating vertical tabs - mobile-only by default */
-/* Floating vertical tab - flush with right edge */
-.floating-tabs {
-  position: fixed;
-  right: 0;                       /* flush to screen edge */
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: flex-end;
-  z-index: 5200;
-}
+        /* Floating vertical tab - flush with right edge */
+        .floating-tabs {
+            position: fixed;
+            right: 0;
+            /* flush to screen edge */
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-end;
+            z-index: 5200;
+        }
 
-/* Each tab */
-.ft-tab {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 54px;                    /* tab width (depth into screen) */
-  height: 140px;                  /* tab height */
-  border-radius: 14px 0 0 14px;   /* curved left side only */
-  background: #2f2a55;            /* dark purple (MIT-style) */
-  color: #fff;
-  font-weight: 700;
-  font-size: 13px;
-  line-height: 1;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 6px 18px rgba(6,10,20,0.15);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  -webkit-tap-highlight-color: transparent;
-  padding: 0;
-}
+        /* Each tab */
+        .ft-tab {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 54px;
+            /* tab width (depth into screen) */
+            height: 140px;
+            /* tab height */
+            border-radius: 14px 0 0 14px;
+            /* curved left side only */
+            background: #2f2a55;
+            /* dark purple (MIT-style) */
+            color: #fff;
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 1;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(6, 10, 20, 0.15);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+            padding: 0;
+        }
 
-/* Keep text vertical and readable */
-.ft-label {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
-  display: block;
-  white-space: nowrap;
-}
+        /* Keep text vertical and readable */
+        .ft-label {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            display: block;
+            white-space: nowrap;
+        }
 
-/* Hover / active state */
-
-
-/* Mobile only */
-@media (min-width: 768px) {
-  .floating-tabs { display: none; }
-}
-
-/* For smaller phones: slightly shorter */
-@media (max-width: 420px) {
-  .ft-tab {
-    width: 48px;
-    height: 120px;
-    font-size: 12px;
-  }
-}
-/* Mobile hero look (matches your reference) */
+        /* Hover / active state */
 
 
+        /* Mobile only */
+        @media (min-width: 768px) {
+            .floating-tabs {
+                display: none;
+            }
+        }
+
+        /* For smaller phones: slightly shorter */
+        @media (max-width: 420px) {
+            .ft-tab {
+                width: 48px;
+                height: 120px;
+                font-size: 12px;
+            }
+        }
+
+        /* Mobile hero look (matches your reference) */
     </style>
 
 </head>
@@ -5442,23 +5449,40 @@
             </button>
         </nav>
 
-        <div class="video-section">
-        <video id="heroVideo" autoplay muted loop playsinline poster="">
-  <source src="uni-1.mp4" type="video/mp4">
-  Your browser does not support the video tag.
+      <div class="video-section">
+   <video id="heroVideo" autoplay muted loop playsinline poster="">
+    <source src="uni-1.mp4" type="video/mp4">
+    Your browser does not support the video tag.
 </video>
 
-<!-- Add a visible unmute button -->
-<button id="unmuteBtn" class="unmute-button">🔊 Unmute</button>
+    <!-- Unmute/mute toggle button -->
+   
+<button id="muteToggleBtn" class="unmute-button">🔊 Unmute</button>
 
-            <div class="video-overlay"></div>
-            <button class="menu-button">
-                <span class="material-symbols-outlined">menu</span>
-            </button>
-            <div class="scroll-indicator">
-                <span class="material-symbols-outlined">expand_more</span>
-            </div>
-        </div>
+    <div class="video-overlay"></div>
+    <button class="menu-button">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
+    <div class="scroll-indicator">
+        <span class="material-symbols-outlined">expand_more</span>
+    </div>
+</div>
+
+<script>
+const video = document.getElementById('heroVideo');
+const muteToggleBtn = document.getElementById('muteToggleBtn');
+
+// Video starts muted for autoplay policy compliance
+video.muted = true;
+muteToggleBtn.textContent = '🔊 Unmute';
+
+// When user clicks, unmute or mute video and update button text
+muteToggleBtn.addEventListener('click', () => {
+    video.muted = !video.muted;
+    muteToggleBtn.textContent = video.muted ? '🔊 Unmute' : '🔇 Mute';
+});
+</script>
+
 
         <div class="sidebar">
             <div class="sidebar-overlay"></div>
@@ -5506,16 +5530,16 @@
             </div>
         </div>
 
-<!-- Floating vertical tabs (paste after your .sidebar) -->
-<div class="floating-tabs" aria-hidden="false">
-  <button class="ft-tab ft-tab--purple" id="tabAdmission" aria-label="Admission Enquiry">
-    <span class="ft-label">Admission Enquiry</span>
-  </button>
+        <!-- Floating vertical tabs (paste after your .sidebar) -->
+        <div class="floating-tabs" aria-hidden="false">
+            <button class="ft-tab ft-tab--purple" id="tabAdmission" aria-label="Admission Enquiry">
+                <span class="ft-label">Admission Enquiry</span>
+            </button>
 
 
-  <!-- optional: small pager / drag dots -->
+            <!-- optional: small pager / drag dots -->
 
-</div>
+        </div>
 
 
 
@@ -6305,7 +6329,6 @@
                 display: none !important;
             }
         }
-        
     </style>
     <script>
         const row = document.getElementById('carousel-row');
@@ -6893,35 +6916,35 @@
                     }
                 });
             })();
-// Simple toggle: opens your existing #siteSidebar (or .sidebar) in mobile mode
-(function(){
-  const sidebar = document.getElementById('siteSidebar') || document.querySelector('.sidebar');
-  const tabAdmission = document.getElementById('tabAdmission');
-  const tabChat = document.getElementById('tabChat');
+            // Simple toggle: opens your existing #siteSidebar (or .sidebar) in mobile mode
+            (function () {
+                const sidebar = document.getElementById('siteSidebar') || document.querySelector('.sidebar');
+                const tabAdmission = document.getElementById('tabAdmission');
+                const tabChat = document.getElementById('tabChat');
 
-  function openSidebarMobile() {
-    if(!sidebar) return;
-    sidebar.classList.add('open-mobile');   // CSS from your mobile sidebar code should handle this
-    sidebar.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
+                function openSidebarMobile() {
+                    if (!sidebar) return;
+                    sidebar.classList.add('open-mobile');   // CSS from your mobile sidebar code should handle this
+                    sidebar.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden';
+                }
 
-  function openChatAction() {
-    // replace with your chat widget opening code or navigation
-    // example fallback: scroll to a chat section or open whatsapp link
-    window.location.href = 'https://wa.me/919xxxxxxxxx';
-  }
+                function openChatAction() {
+                    // replace with your chat widget opening code or navigation
+                    // example fallback: scroll to a chat section or open whatsapp link
+                    window.location.href = 'https://wa.me/919xxxxxxxxx';
+                }
 
-  tabAdmission?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    openSidebarMobile();
-  });
+                tabAdmission?.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openSidebarMobile();
+                });
 
-  tabChat?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    openChatAction();
-  });
-})();
+                tabChat?.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openChatAction();
+                });
+            })();
 
         </script>
 
