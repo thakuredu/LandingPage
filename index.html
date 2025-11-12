@@ -5449,39 +5449,24 @@
             </button>
         </nav>
 
-      <div class="video-section">
-   <video id="heroVideo" autoplay muted loop playsinline poster="">
-    <source src="uni-1.mp4" type="video/mp4">
+      <<div class="video-section">
+  <video id="heroVideo" autoplay muted loop playsinline poster="">
+    <source src="uni-1.mp4" type="video/mp4" />
     Your browser does not support the video tag.
-</video>
+  </video>
 
-    <!-- Unmute/mute toggle button -->
-   
-<button id="muteToggleBtn" class="unmute-button">🔊 Unmute</button>
+  <button id="muteToggleBtn" class="unmute-button">🔊 Unmute</button>
 
-    <div class="video-overlay"></div>
-    <button class="menu-button">
-        <span class="material-symbols-outlined">menu</span>
-    </button>
-    <div class="scroll-indicator">
-        <span class="material-symbols-outlined">expand_more</span>
-    </div>
+  <div class="video-overlay"></div>
+  <button class="menu-button">
+    <span class="material-symbols-outlined">menu</span>
+  </button>
+  <div class="scroll-indicator">
+    <span class="material-symbols-outlined">expand_more</span>
+  </div>
 </div>
 
-<script>
-const video = document.getElementById('heroVideo');
-const muteToggleBtn = document.getElementById('muteToggleBtn');
 
-// Video starts muted for autoplay policy compliance
-video.muted = true;
-muteToggleBtn.textContent = '🔊 Unmute';
-
-// When user clicks, unmute or mute video and update button text
-muteToggleBtn.addEventListener('click', () => {
-    video.muted = !video.muted;
-    muteToggleBtn.textContent = video.muted ? '🔊 Unmute' : '🔇 Mute';
-});
-</script>
 
 
         <div class="sidebar">
@@ -7370,6 +7355,20 @@ muteToggleBtn.addEventListener('click', () => {
             }
         });
     });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('heroVideo');
+    const muteToggleBtn = document.getElementById('muteToggleBtn');
+
+    video.muted = true;
+    muteToggleBtn.textContent = '🔊 Unmute';
+
+    muteToggleBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      muteToggleBtn.textContent = video.muted ? '🔊 Unmute' : '🔇 Mute';
+    });
+  });
 </script>
 
 </html>
