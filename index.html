@@ -5787,7 +5787,7 @@
     </section>
     </section>
 
-    <section class="testimonial-tabs-carousel">
+    <section class="testimonial-tabs-carousel" id="#test">
         <div class="testimonial-main-grid2">
             <!-- Left Side -->
             <div class="testimonial-left">
@@ -6066,6 +6066,13 @@
                 max-width: 220px;
             }
         }
+        /* hide navbar on screens narrower than 768px */
+@media (max-width: 767px) {
+  .navbar {
+    display: none !important;
+  }
+}
+
     </style>
     <script>
         const row = document.getElementById('carousel-row');
