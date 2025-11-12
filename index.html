@@ -3101,7 +3101,7 @@
                 gap: 10px;
             }
 
-          
+
 
 
         }
@@ -3551,8 +3551,8 @@
 
         .upg2-hero-title {
             font-size: 64px;
-           padding-top: 45px;
-           padding-bottom: 30px;
+            padding-top: 45px;
+            padding-bottom: 30px;
             font-weight: 700;
             letter-spacing: -1px;
             color: #0b1726;
@@ -3976,23 +3976,23 @@
 
         /* 🎨 Unique gradients */
         .about-card.eng {
-            background: #7E68C6;
+            background: #223D77;
         }
 
         .about-card.mgmt {
-            background: #FA9F3C;
+            background: #7E68C6;
         }
 
         .about-card.bvoc {
-            background: #D92352;
+            background: #FA9F3C;
         }
 
         .about-card.comp {
-            background: #F6BB3F;
+            background: #D92329;
         }
 
         .about-card.research {
-            background: #D92329;
+            background: #2BBFE8;
         }
 
         /* base panel state — panels are hidden by default with display:none */
@@ -4545,9 +4545,9 @@
             left: 0;
             width: 100%;
             z-index: 3000;
-            background:  rgba(34, 61, 119, 0.86);
+            background: rgba(34, 61, 119, 0.86);
             /* Keep this high! */
-         
+
             /* Gentle fade to white for end */
             box-shadow: 0 1.5px 12px rgba(0, 0, 0, 0.10);
             border-bottom: 1px solid rgba(35, 55, 87, 0.18);
@@ -4555,12 +4555,12 @@
             backdrop-filter: blur(10px);
             /* No need for pointer-events here */
 
-               /* background: linear-gradient(90deg,
+            /* background: linear-gradient(90deg,
                     rgba(34, 61, 119, 0.86) 60%,
                     /* Main blue with strong opacity */
-                    /* rgba(34, 61, 119, 0.55) 90%, */
-                    /* Softer blue, more transparent */
-                    /* rgba(255, 255, 255, 0.13) 100%);  */
+            /* rgba(34, 61, 119, 0.55) 90%, */
+            /* Softer blue, more transparent */
+            /* rgba(255, 255, 255, 0.13) 100%);  */
         }
 
 
@@ -5205,80 +5205,170 @@
             width: 100%;
             box-sizing: border-box;
         }
+
         /* Mobile bottom nav - only on small screens */
-.mobile-bottom-nav{
-  display: none;
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 5000;
+            background: rgba(14, 40, 102, 1);
+            /* deep blue bar - tweak */
+            padding: 8px 10px;
+            box-shadow: 0 -6px 20px rgba(8, 10, 20, 0.12);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* grid of 4 equal buttons */
+        .mobile-bottom-nav .mbn-item {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 6px;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+            font-size: 12px;
+            width: calc(25% - 6px);
+            min-width: 60px;
+            cursor: pointer;
+            transition: transform .18s ease, background .18s ease;
+            border-radius: 8px;
+        }
+
+        /* icon */
+        .mbn-icon {
+            width: 22px;
+            height: 22px;
+            display: block;
+            stroke: currentColor;
+            color: #fff;
+        }
+
+        /* label */
+        .mbn-label {
+            font-size: 11px;
+            line-height: 1;
+        }
+
+        /* active / pressed state */
+        .mobile-bottom-nav .mbn-item:active,
+        .mobile-bottom-nav .mbn-item:focus {
+            transform: translateY(-3px);
+            outline: none;
+        }
+
+        /* elevated pill layout on wide-ish phones */
+        @media (max-width: 480px) {
+            .mobile-bottom-nav {
+                display: flex;
+                gap: 6px;
+                padding: 8px;
+            }
+
+            .mobile-bottom-nav .mbn-item {
+                width: 25%;
+            }
+        }
+
+        /* show on phones and small tablets only */
+        @media (max-width: 767px) {
+            .mobile-bottom-nav {
+                display: flex;
+            }
+        }
+
+        /* hide if a larger nav is used */
+        @media (min-width: 768px) {
+            .mobile-bottom-nav {
+                display: none !important;
+            }
+        }
+
+        /* optional: slightly larger tap area for touch devices */
+        .mbn-item {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.06);
+        }
+
+        @media (max-width: 767px) {
+            .sidebar {
+                pointer-events: none;
+                opacity: 0;
+                transform: translateX(100%);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+        }
+        /* Floating vertical tabs - mobile-only by default */
+/* Floating vertical tab - flush with right edge */
+.floating-tabs {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 5000;
-  background: rgba(14, 40, 102, 1); /* deep blue bar - tweak */
-  padding: 8px 10px;
-  box-shadow: 0 -6px 20px rgba(8,10,20,0.12);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  backdrop-filter: blur(6px);
-  align-items: center;
-  justify-content: center;
-}
-
-/* grid of 4 equal buttons */
-.mobile-bottom-nav .mbn-item{
-  background: transparent;
-  border: none;
-  color: #ffffff;
-  display: inline-flex;
+  right: 0;                       /* flush to screen edge */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
   flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+  z-index: 5200;
+}
+
+/* Each tab */
+.ft-tab {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 8px 6px;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-  font-size: 12px;
-  width: calc(25% - 6px);
-  min-width: 60px;
-  cursor: pointer;
-  transition: transform .18s ease, background .18s ease;
-  border-radius: 8px;
-}
-
-/* icon */
-.mbn-icon{
-  width: 22px;
-  height: 22px;
-  display: block;
-  stroke: currentColor;
+  width: 54px;                    /* tab width (depth into screen) */
+  height: 140px;                  /* tab height */
+  border-radius: 14px 0 0 14px;   /* curved left side only */
+  background: #2f2a55;            /* dark purple (MIT-style) */
   color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(6,10,20,0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0;
 }
 
-/* label */
-.mbn-label{ font-size: 11px; line-height: 1; }
-
-/* active / pressed state */
-.mobile-bottom-nav .mbn-item:active,
-.mobile-bottom-nav .mbn-item:focus{
-  transform: translateY(-3px);
-  outline: none;
+/* Keep text vertical and readable */
+.ft-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  display: block;
+  white-space: nowrap;
 }
 
-/* elevated pill layout on wide-ish phones */
-@media (max-width: 480px){
-  .mobile-bottom-nav{ display: flex; gap: 6px; padding: 8px; }
-  .mobile-bottom-nav .mbn-item{ width: 25%; }
+/* Hover / active state */
+
+
+/* Mobile only */
+@media (min-width: 768px) {
+  .floating-tabs { display: none; }
 }
 
-/* show on phones and small tablets only */
-@media (max-width: 767px){
-  .mobile-bottom-nav{ display: flex; }
+/* For smaller phones: slightly shorter */
+@media (max-width: 420px) {
+  .ft-tab {
+    width: 48px;
+    height: 120px;
+    font-size: 12px;
+  }
 }
+/* Mobile hero look (matches your reference) */
 
-/* hide if a larger nav is used */
-@media (min-width: 768px){
-  .mobile-bottom-nav{ display: none !important; }
-}
-
-/* optional: slightly larger tap area for touch devices */
-.mbn-item{ touch-action: manipulation; -webkit-tap-highlight-color: rgba(0,0,0,0.06); }
 
     </style>
 
@@ -5305,31 +5395,52 @@
                 </ul>
         </nav>
         <!-- MOBILE BOTTOM NAV (visible only on mobile) -->
-<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
-  <button class="mbn-item" data-action="apply" aria-label="Apply Now">
-    <!-- phone / call icon -->
-    <svg class="mbn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 10.2a15.1 15.1 0 006.2 6.2l1.8-1.8a1 1 0 01.9-.25 11.4 11.4 0 003.6.6 1 1 0 011 1v3.2a1 1 0 01-1 1A19 19 0 015 5a1 1 0 011-1h3.2a1 1 0 011 1c0 1.3.2 2.6.6 3.6a1 1 0 01-.25.9l-1.8 1.8z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span class="mbn-label">Apply Now</span>
-  </button>
+        <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+            <button class="mbn-item" data-action="apply" aria-label="Apply Now">
+                <!-- phone / call icon -->
+                <svg class="mbn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                        d="M6.6 10.2a15.1 15.1 0 006.2 6.2l1.8-1.8a1 1 0 01.9-.25 11.4 11.4 0 003.6.6 1 1 0 011 1v3.2a1 1 0 01-1 1A19 19 0 015 5a1 1 0 011-1h3.2a1 1 0 011 1c0 1.3.2 2.6.6 3.6a1 1 0 01-.25.9l-1.8 1.8z"
+                        stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="mbn-label">Apply Now</span>
+            </button>
 
-  <button class="mbn-item" data-action="programmes" aria-label="Programmes">
-    <!-- book icon -->
-    <svg class="mbn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 5.5A2.5 2.5 0 015.5 3H19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 19.5A2.5 2.5 0 015.5 17H19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 8.5v7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span class="mbn-label">Programmes</span>
-  </button>
+            <button class="mbn-item" data-action="programmes" aria-label="Programmes">
+                <!-- book icon -->
+                <svg class="mbn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M3 5.5A2.5 2.5 0 015.5 3H19" stroke="currentColor" stroke-width="1.4"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M3 19.5A2.5 2.5 0 015.5 17H19" stroke="currentColor" stroke-width="1.4"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M3 8.5v7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span class="mbn-label">Programmes</span>
+            </button>
 
-  <button class="mbn-item" data-action="schools" aria-label="Schools">
-    <!-- building icon -->
-    <svg class="mbn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 21h18" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 3v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10h14v8H5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span class="mbn-label">Schools</span>
-  </button>
+            <button class="mbn-item" data-action="schools" aria-label="Schools">
+                <!-- building icon -->
+                <svg class="mbn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M3 21h18" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M12 3v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M5 10h14v8H5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span class="mbn-label">Schools</span>
+            </button>
 
-  <button class="mbn-item" id="mbn-menu-btn" aria-label="Open Menu" aria-expanded="false" data-action="menu">
-    <!-- menu icon -->
-    <svg class="mbn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span class="mbn-label">Menu</span>
-  </button>
-</nav>
+            <button class="mbn-item" id="mbn-menu-btn" aria-label="Open Menu" aria-expanded="false" data-action="menu">
+                <!-- menu icon -->
+                <svg class="mbn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span class="mbn-label">Menu</span>
+            </button>
+        </nav>
 
         <div class="video-section">
             <video autoplay muted loop poster="">
@@ -5392,6 +5503,16 @@
             </div>
         </div>
 
+<!-- Floating vertical tabs (paste after your .sidebar) -->
+<div class="floating-tabs" aria-hidden="false">
+  <button class="ft-tab ft-tab--purple" id="tabAdmission" aria-label="Admission Enquiry">
+    <span class="ft-label">Admission Enquiry</span>
+  </button>
+
+
+  <!-- optional: small pager / drag dots -->
+
+</div>
 
 
 
@@ -5719,7 +5840,7 @@
                             <div class="upg2-programme-table">
                                 <h3 class="upg2-feat-title">Postgraduate Programmes</h3>
                                 <ol class="upg2-programme-list">
-                                     <li>M. in Computer Application</li>
+                                    <li>M. in Computer Application</li>
                                     <li>M.E. in Computer Engineering</li>
                                     <li>M.E. in Information Technology</li>
                                     <li>M.E. in Communication Technology and Management</li>
@@ -5860,7 +5981,7 @@
 
             <div class="ri-stats-panel">
                 <div class="ri-stats-block">
-                    <span id="recruiterCount">0</span>   
+                    <span id="recruiterCount">0</span>
                     <label>Recruiters</label>
                 </div>
                 <div class="ri-divider"></div>
@@ -5970,26 +6091,31 @@
         </div>
     </section>
     <style>
-    .testimonial-tabs-carousel {
-    background: #f9fafb;
-    padding: 65px 0;
-    min-height: 90vh;   /* ensures it always takes up at least 80% of viewport height */
-    height: auto;       /* grows automatically if content exceeds min-height */
-}
+        .testimonial-tabs-carousel {
+            background: #f9fafb;
+            padding: 65px 0;
+            min-height: 90vh;
+            /* ensures it always takes up at least 80% of viewport height */
+            height: auto;
+            /* grows automatically if content exceeds min-height */
+        }
 
-.testimonial-main-grid2 {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 10px 120px;  
-    width: 100%;      /* takes full container width */
-    max-width: 1400px; /* optional — keeps content centered and readable */
- 
-    margin: 0 auto;    /* centers horizontally */
-    align-items: center;
-    /* padding: 60px 80px;  */
-    box-sizing: border-box;
-    margin: 0 auto;
-}
+        .testimonial-main-grid2 {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px 120px;
+            width: 100%;
+            /* takes full container width */
+            max-width: 1400px;
+            /* optional — keeps content centered and readable */
+
+            margin: 0 auto;
+            /* centers horizontally */
+            align-items: center;
+            /* padding: 60px 80px;  */
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
 
 
         .testimonial-left {
@@ -6000,15 +6126,16 @@
             min-height: 420px;
         }
 
-     .testimonial-heading {
-    /* padding: 45px 170px; */
-    font-weight: 700;
-    letter-spacing: -1px;
-    color: #0b1726;
-    /* background-color: #f9fafb; */
-    font-size: 2.75rem;
-    text-align: left; /* changed from left to center */
-}
+        .testimonial-heading {
+            /* padding: 45px 170px; */
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #0b1726;
+            /* background-color: #f9fafb; */
+            font-size: 2.75rem;
+            text-align: left;
+            /* changed from left to center */
+        }
 
 
         .testimonial-description {
@@ -6168,13 +6295,14 @@
                 max-width: 220px;
             }
         }
-        /* hide navbar on screens narrower than 768px */
-@media (max-width: 767px) {
-  .navbar {
-    display: none !important;
-  }
-}
 
+        /* hide navbar on screens narrower than 768px */
+        @media (max-width: 767px) {
+            .navbar {
+                display: none !important;
+            }
+        }
+        
     </style>
     <script>
         const row = document.getElementById('carousel-row');
@@ -6634,18 +6762,18 @@
                 <div class="tgb-contact-container">
                     <img src="./TCET_Logo_White (1).svg" alt="TGBS Logo" />
                     <div class="tgb-contact-row">
-                      
+
                         TCET (Deemed to be University),
-                        A-Block, Thakur Educational Campus,<br/>
-                        Shyamnarayan Thakur Marg, Thakur Village,<br/>
+                        A-Block, Thakur Educational Campus,<br />
+                        Shyamnarayan Thakur Marg, Thakur Village,<br />
                         Kandivali(E), Mumbai – 400101.
                     </div>
                     <div class="tgb-contact-row">
-                   
+
                         022 – 28461891 | 022 – 67308000
                     </div>
                     <div class="tgb-contact-row">
-                      
+
                         <a class="tgb-contact-link" href="mailto:tgbs@thakureducation.org">tcet@thakureducation.org</a>
                     </div>
 
@@ -6714,52 +6842,81 @@
                 });
             })();
 
-            (function(){
-  // button actions: apply, programmes, schools, menu
-  const nav = document.querySelector('.mobile-bottom-nav');
-  if(!nav) return;
+            (function () {
+                // button actions: apply, programmes, schools, menu
+                const nav = document.querySelector('.mobile-bottom-nav');
+                if (!nav) return;
 
-  nav.addEventListener('click', (e) => {
-    const btn = e.target.closest('.mbn-item');
-    if(!btn) return;
-    const action = btn.getAttribute('data-action');
+                nav.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.mbn-item');
+                    if (!btn) return;
+                    const action = btn.getAttribute('data-action');
 
-    switch(action){
-      case 'apply':
-        // navigate or open your apply page / modal
-        window.location.href = '/apply.html'; // change to your apply URL
-        break;
-      case 'programmes':
-        // smooth scroll to programmes section if present
-        document.querySelector('#programmes')?.scrollIntoView({behavior:'smooth', block:'start'});
-        break;
-      case 'schools':
-        document.querySelector('#schools')?.scrollIntoView({behavior:'smooth', block:'start'});
-        // fallback: if no #schools anchor, navigate to programmes list
-        break;
-      case 'menu':
-        // attempt to toggle your existing sidebar (#siteSidebar) if present
-        const sidebar = document.getElementById('siteSidebar') || document.querySelector('.sidebar');
-        const tab = document.getElementById('enquiryTab');
-        if(sidebar){
-          const isOpen = sidebar.classList.contains('open');
-          if(isOpen){
-            sidebar.classList.remove('open');
-            sidebar.setAttribute('aria-hidden','true');
-            tab?.setAttribute('aria-expanded','false');
-            document.body.style.overflow = '';
-          } else {
-            sidebar.classList.add('open');
-            sidebar.setAttribute('aria-hidden','false');
-            tab?.setAttribute('aria-expanded','true');
-            document.body.style.overflow = 'hidden';
-          }
-        } else {
-          // fallback: open nav menu or navigate to main menu page
-          document.querySelector('#menu')?.scrollIntoView({behavior:'smooth', block:'start'});
-        }
-        break;
-    }
+                    switch (action) {
+                        case 'apply':
+                            // navigate or open your apply page / modal
+                            window.location.href = '/apply.html'; // change to your apply URL
+                            break;
+                        case 'programmes':
+                            // smooth scroll to programmes section if present
+                            document.querySelector('#programmes')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            break;
+                        case 'schools':
+                            document.querySelector('#schools')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            // fallback: if no #schools anchor, navigate to programmes list
+                            break;
+                        case 'menu':
+                            // attempt to toggle your existing sidebar (#siteSidebar) if present
+                            const sidebar = document.getElementById('siteSidebar') || document.querySelector('.sidebar');
+                            const tab = document.getElementById('enquiryTab');
+                            if (sidebar) {
+                                const isOpen = sidebar.classList.contains('open');
+                                if (isOpen) {
+                                    sidebar.classList.remove('open');
+                                    sidebar.setAttribute('aria-hidden', 'true');
+                                    tab?.setAttribute('aria-expanded', 'false');
+                                    document.body.style.overflow = '';
+                                } else {
+                                    sidebar.classList.add('open');
+                                    sidebar.setAttribute('aria-hidden', 'false');
+                                    tab?.setAttribute('aria-expanded', 'true');
+                                    document.body.style.overflow = 'hidden';
+                                }
+                            } else {
+                                // fallback: open nav menu or navigate to main menu page
+                                document.querySelector('#menu')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                            break;
+                    }
+                });
+            })();
+// Simple toggle: opens your existing #siteSidebar (or .sidebar) in mobile mode
+(function(){
+  const sidebar = document.getElementById('siteSidebar') || document.querySelector('.sidebar');
+  const tabAdmission = document.getElementById('tabAdmission');
+  const tabChat = document.getElementById('tabChat');
+
+  function openSidebarMobile() {
+    if(!sidebar) return;
+    sidebar.classList.add('open-mobile');   // CSS from your mobile sidebar code should handle this
+    sidebar.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function openChatAction() {
+    // replace with your chat widget opening code or navigation
+    // example fallback: scroll to a chat section or open whatsapp link
+    window.location.href = 'https://wa.me/919xxxxxxxxx';
+  }
+
+  tabAdmission?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openSidebarMobile();
+  });
+
+  tabChat?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openChatAction();
   });
 })();
 
@@ -7048,144 +7205,147 @@
 </script>
 
 <script>
-const stats = [
-  { id: 'recruiterCount', value: 250 },
-  { id: 'careerCount', value: 100 },
-  { id: 'ctcCount', value: 40 }
-];
+    const stats = [
+        { id: 'recruiterCount', value: 250 },
+        { id: 'careerCount', value: 100 },
+        { id: 'ctcCount', value: 40 }
+    ];
 
-const DURATION = 1500; // animation duration in ms
-const VIEW_THRESHOLD = 0.5; // how much of the section must be visible to trigger
+    const DURATION = 1500; // animation duration in ms
+    const VIEW_THRESHOLD = 0.5; // how much of the section must be visible to trigger
 
-// store animation state per element
-const animState = {}; // { id: { running: bool, raf: number|null } }
+    // store animation state per element
+    const animState = {}; // { id: { running: bool, raf: number|null } }
 
-function animateCountUpRAF(el, target, duration = DURATION) {
-  // cancel any existing RAF for this element
-  if (animState[el.id] && animState[el.id].raf) {
-    cancelAnimationFrame(animState[el.id].raf);
-  }
+    function animateCountUpRAF(el, target, duration = DURATION) {
+        // cancel any existing RAF for this element
+        if (animState[el.id] && animState[el.id].raf) {
+            cancelAnimationFrame(animState[el.id].raf);
+        }
 
-  const startTime = performance.now();
-  const startValue = 0;
+        const startTime = performance.now();
+        const startValue = 0;
 
-  function frame(now) {
-    const progress = Math.min((now - startTime) / duration, 1);
-    const value = Math.floor(startValue + (target - startValue) * progress);
-    el.textContent = value;
+        function frame(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const value = Math.floor(startValue + (target - startValue) * progress);
+            el.textContent = value;
 
-    if (progress < 1) {
-      animState[el.id].raf = requestAnimationFrame(frame);
-    } else {
-      animState[el.id].raf = null;
-      animState[el.id].running = false;
-      el.textContent = `${target}+`; // add plus sign at end
+            if (progress < 1) {
+                animState[el.id].raf = requestAnimationFrame(frame);
+            } else {
+                animState[el.id].raf = null;
+                animState[el.id].running = false;
+                el.textContent = `${target}+`; // add plus sign at end
+            }
+        }
+
+        animState[el.id] = { running: true, raf: requestAnimationFrame(frame) };
     }
-  }
 
-  animState[el.id] = { running: true, raf: requestAnimationFrame(frame) };
-}
-
-function resetCount(el) {
-  // cancel RAF if running
-  if (animState[el.id] && animState[el.id].raf) {
-    cancelAnimationFrame(animState[el.id].raf);
-  }
-  animState[el.id] = { running: false, raf: null };
-  el.textContent = '0';
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.querySelector('.ri-stats-panel'); // change if your wrapper is different
-  if (!container) {
-    // fallback: just run once if container not found
-    stats.forEach(s => {
-      const el = document.getElementById(s.id);
-      if (el) animateCountUpRAF(el, s.value, DURATION);
-    });
-    return;
-  }
-
-  // ensure initial state
-  stats.forEach(s => {
-    const el = document.getElementById(s.id);
-    if (el) {
-      el.textContent = '0';
-      animState[s.id] = { running: false, raf: null };
+    function resetCount(el) {
+        // cancel RAF if running
+        if (animState[el.id] && animState[el.id].raf) {
+            cancelAnimationFrame(animState[el.id].raf);
+        }
+        animState[el.id] = { running: false, raf: null };
+        el.textContent = '0';
     }
-  });
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      // when visible enough, start animations
-      if (entry.isIntersecting && entry.intersectionRatio >= VIEW_THRESHOLD) {
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.ri-stats-panel'); // change if your wrapper is different
+        if (!container) {
+            // fallback: just run once if container not found
+            stats.forEach(s => {
+                const el = document.getElementById(s.id);
+                if (el) animateCountUpRAF(el, s.value, DURATION);
+            });
+            return;
+        }
+
+        // ensure initial state
         stats.forEach(s => {
-          const el = document.getElementById(s.id);
-          if (!el) return;
-          // if already running, skip
-          if (animState[s.id] && animState[s.id].running) return;
-          animateCountUpRAF(el, s.value, DURATION);
+            const el = document.getElementById(s.id);
+            if (el) {
+                el.textContent = '0';
+                animState[s.id] = { running: false, raf: null };
+            }
         });
-      } else {
-        // when leaving the viewport enough, reset numbers so it can trigger again next time
-        stats.forEach(s => {
-          const el = document.getElementById(s.id);
-          if (!el) return;
-          resetCount(el);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // when visible enough, start animations
+                if (entry.isIntersecting && entry.intersectionRatio >= VIEW_THRESHOLD) {
+                    stats.forEach(s => {
+                        const el = document.getElementById(s.id);
+                        if (!el) return;
+                        // if already running, skip
+                        if (animState[s.id] && animState[s.id].running) return;
+                        animateCountUpRAF(el, s.value, DURATION);
+                    });
+                } else {
+                    // when leaving the viewport enough, reset numbers so it can trigger again next time
+                    stats.forEach(s => {
+                        const el = document.getElementById(s.id);
+                        if (!el) return;
+                        resetCount(el);
+                    });
+                }
+            });
+        }, {
+            threshold: [0, VIEW_THRESHOLD, 1]
         });
-      }
+
+        observer.observe(container);
     });
-  }, {
-    threshold: [0, VIEW_THRESHOLD, 1]
-  });
-
-  observer.observe(container);
-});
 </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Map card class to section ID
-  const cardToPanelMap = {
-    'eng': 'panel-undergrad',
-    'mgmt': 'panel-undergrad',
-    'bvoc': 'panel-undergrad',
-    'comp': 'panel-undergrad',
-    'research': 'panel-undergrad',
-  };
+    document.addEventListener('DOMContentLoaded', function () {
+        // Map card class to section ID
+        const cardToPanelMap = {
+            'eng': 'panel-undergrad',
+            'mgmt': 'panel-undergrad',
+            'bvoc': 'panel-undergrad',
+            'comp': 'panel-undergrad',
+            'research': 'panel-undergrad',
+        };
 
-  Object.entries(cardToPanelMap).forEach(([cardClass, panelId]) => {
-    const card = document.querySelector(`.about-card.${cardClass}`);
-    if (card) {
-      card.style.cursor = 'pointer'; // Optional: pointer cursor
-      card.addEventListener('click', () => {
-        const panel = document.getElementById(panelId);
-        if (panel) {
-          // Show panel if hidden (remove hidden class/attribute)
-          panel.hidden = false;
-          panel.classList.remove('upg2-panel--hidden');
+        Object.entries(cardToPanelMap).forEach(([cardClass, panelId]) => {
+            const card = document.querySelector(`.about-card.${cardClass}`);
+            if (card) {
+                card.style.cursor = 'pointer'; // Optional: pointer cursor
+                card.addEventListener('click', () => {
+                    const panel = document.getElementById(panelId);
+                    if (panel) {
+                        // Show panel if hidden (remove hidden class/attribute)
+                        panel.hidden = false;
+                        panel.classList.remove('upg2-panel--hidden');
 
-          // Hide other panels if necessary:
-          document.querySelectorAll('.upg2-panel').forEach(p => {
-            if (p.id !== panelId) {
-              p.hidden = true;
-              p.classList.add('upg2-panel--hidden');
+                        // Hide other panels if necessary:
+                        document.querySelectorAll('.upg2-panel').forEach(p => {
+                            if (p.id !== panelId) {
+                                p.hidden = true;
+                                p.classList.add('upg2-panel--hidden');
+                            }
+                        });
+
+                        // Scroll smoothly to the panel
+                        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                        // Optionally activate accompanying tab header, if you use tabs
+                        const tabHeader = document.querySelector(`[aria-labelledby="tab-${cardClass}"]`);
+                        if (tabHeader) {
+                            document.querySelectorAll('[aria-selected]').forEach(el => el.setAttribute('aria-selected', false));
+                            tabHeader.setAttribute('aria-selected', true);
+                        }
+                    }
+                });
             }
-          });
+        });
+    });
+</script>
 
-          // Scroll smoothly to the panel
-          panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+</html>
 
-          // Optionally activate accompanying tab header, if you use tabs
-          const tabHeader = document.querySelector(`[aria-labelledby="tab-${cardClass}"]`);
-          if (tabHeader) {
-            document.querySelectorAll('[aria-selected]').forEach(el => el.setAttribute('aria-selected', false));
-            tabHeader.setAttribute('aria-selected', true);
-          }
-        }
-      });
-    }
-  });
-});
-</script></html>
 </html>
