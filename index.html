@@ -5449,22 +5449,22 @@
             </button>
         </nav>
 
-      <<div class="video-section">
-  <video id="heroVideo" autoplay muted loop playsinline poster="">
-    <source src="uni-1.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+        <div class="video-section">
+            <video id="heroVideo" autoplay muted loop playsinline poster="">
+                <source src="uni-1.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
 
-  <button id="muteToggleBtn" class="unmute-button">🔊 Unmute</button>
 
-  <div class="video-overlay"></div>
-  <button class="menu-button">
-    <span class="material-symbols-outlined">menu</span>
-  </button>
-  <div class="scroll-indicator">
-    <span class="material-symbols-outlined">expand_more</span>
-  </div>
-</div>
+
+            <div class="video-overlay"></div>
+            <button class="menu-button">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <div class="scroll-indicator">
+                <span class="material-symbols-outlined">expand_more</span>
+            </div>
+        </div>
 
 
 
@@ -5581,6 +5581,7 @@
                 pursuit of learning.
             </p>
         </div>
+        
     </section>
 
 
@@ -6314,6 +6315,9 @@
                 display: none !important;
             }
         }
+        html,body { box-sizing: border-box; overflow-x: hidden; }
+* { box-sizing: inherit; }
+
     </style>
     <script>
         const row = document.getElementById('carousel-row');
@@ -7355,20 +7359,6 @@
             }
         });
     });
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const video = document.getElementById('heroVideo');
-    const muteToggleBtn = document.getElementById('muteToggleBtn');
-
-    video.muted = true;
-    muteToggleBtn.textContent = '🔊 Unmute';
-
-    muteToggleBtn.addEventListener('click', () => {
-      video.muted = !video.muted;
-      muteToggleBtn.textContent = video.muted ? '🔊 Unmute' : '🔇 Mute';
-    });
-  });
 </script>
 
 </html>
