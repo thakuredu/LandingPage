@@ -3803,7 +3803,7 @@
                 grid-template-columns: 1fr;
             }
 
-          
+
 
             .upg2-block {
                 min-height: 520px;
@@ -4037,7 +4037,7 @@
             border-radius: 8px;
         }
 
-        
+
         /* progarmmes section  */
         @media (max-width: 768px) {
             .upg2-hero {
@@ -4160,12 +4160,12 @@
             }
 
             .upg2-cta {
-                width: 92vw;
+                width: auto;
                 margin: 12px 0 0 0;
                 display: inline-block;
                 font-size: 1.08rem;
                 text-align: center;
-                padding: 11px 0;
+                /* padding: 11px 0; */
                 border-radius: 8px;
             }
         }
@@ -4217,6 +4217,7 @@
                 border-radius: 6px 6px 0 0;
             }
         }
+
         :root {
             --gv-bg: #1a1a2e;
             --gv-card-bg: #ffffff;
@@ -5559,57 +5560,76 @@
         @media (max-width: 420px) {
             .ft-tab {
                 width: 48px;
-                height: 120px;
+                /* height: 120px; */
                 font-size: 12px;
             }
         }
-/* MOBILE ONLY: stop video from over-bleeding and make it fill the box */
-@media (max-width: 768px) {
 
-  /* enforce container behavior */
-  .video-section {
-    position: relative !important;    /* anchor for absolute child */
-    overflow: hidden !important;      /* clip any overflow */
-    width: 100% !important;
-    height: 40vh !important;          /* visual height - tweak (32vh..45vh) */
-    max-height: 340px !important;
-    min-height: 180px !important;     /* prevents collapse on very small screens */
-    box-sizing: border-box !important;
-    padding: 0 !important;            /* prevent internal padding from enlarging box */
-    margin: 0 auto !important;        /* center if needed */
-  }
+        /* MOBILE ONLY: stop video from over-bleeding and make it fill the box */
+        @media (max-width: 768px) {
 
-  /* make the video strictly fill the wrapper without causing overflow */
-  .video-section > video,
-  .video-section video {
-    position: absolute !important;
-    inset: 0 !important;              /* top:0; right:0; bottom:0; left:0 */
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;     /* cover the container cleanly */
-    object-position: center center !important;
-    display: block !important;
-    max-width: none !important;       /* prevent intrinsic constraints */
-  }
+            /* enforce container behavior */
+            .video-section {
+                position: relative !important;
+                /* anchor for absolute child */
+                overflow: hidden !important;
+                /* clip any overflow */
+                width: 100% !important;
+                height: 40vh !important;
+                /* visual height - tweak (32vh..45vh) */
+                max-height: 340px !important;
+                min-height: 180px !important;
+                /* prevents collapse on very small screens */
+                box-sizing: border-box !important;
+                padding: 0 !important;
+                /* prevent internal padding from enlarging box */
+                margin: 0 auto !important;
+                /* center if needed */
+            }
 
-  /* ensure overlays and buttons sit on top inside the container */
-  .video-section .video-overlay,
-  .video-section .menu-button,
-  .video-section .scroll-indicator {
-    position: absolute !important;
-    z-index: 5 !important;
-    pointer-events: auto !important;
-  }
-  .video-section .menu-button { top: 12px; right: 12px; }
-  .video-section .scroll-indicator { bottom: 10px; left: 50%; transform: translateX(-50%); }
+            /* make the video strictly fill the wrapper without causing overflow */
+            .video-section>video,
+            .video-section video {
+                position: absolute !important;
+                inset: 0 !important;
+                /* top:0; right:0; bottom:0; left:0 */
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                /* cover the container cleanly */
+                object-position: center center !important;
+                display: block !important;
+                max-width: none !important;
+                /* prevent intrinsic constraints */
+            }
 
-  /* if some parent adds negative margins or extra width, clip it */
-  .video-section,
-  .video-section * {
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-}
+            /* ensure overlays and buttons sit on top inside the container */
+            .video-section .video-overlay,
+            .video-section .menu-button,
+            .video-section .scroll-indicator {
+                position: absolute !important;
+                z-index: 5 !important;
+                pointer-events: auto !important;
+            }
+
+            .video-section .menu-button {
+                top: 12px;
+                right: 12px;
+            }
+
+            .video-section .scroll-indicator {
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            /* if some parent adds negative margins or extra width, clip it */
+            .video-section,
+            .video-section * {
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+        }
 
         /* Mobile hero look (matches your reference) */
     </style>
@@ -6001,48 +6021,63 @@
                     <div class="upg2-grid">
                         <article class="upg2-card upg2-card--content" aria-labelledby="upg2-undergrad-title">
                             <p class="upg2-intro">
-                                Our B.Tech programme offers a solid foundation in engineering principles, combining
-                                theoretical knowledge with practical application.
-                                We aim to equip students with the skills needed to excel in a rapidly evolving
-                                technological landscape.
+                                At TCET Deemed to be University, our undergraduate programs are designed to build strong
+                                knowledge, hands-on skills, and a mindset to solve real-world problems. Students explore
+                                engineering, computer applications, management, and vocational studies while gaining
+                                exposure to emerging technologies like Artificial Intelligence, Data Science,
+                                Cybersecurity, Internet of Things, and Mechatronics. Our programs guide students to turn
+                                ideas into solutions and prepare them to thrive in the world beyond college.
                             </p>
 
                             <div class="upg2-programme-table">
                                 <h3 class="upg2-feat-title">Undergraduate Programmes</h3>
                                 <ol class="upg2-programme-list">
-                                    <li>Bachelor of Computer Applications</li>
-                                    <li>B.E Computer Engineering</li>
-                                    <li>B.E Information Technology</li>
-                                    <li>B.E Artificial Intelligence and Data Science</li>
-                                    <li>B.E Artificial Intelligence and Machine Learning</li>
-                                    <li>B.E Computer Science and Engineering (Cyber Security)</li>
-                                    <li>B.E Electronics and Telecommunication Engg</li>
-                                    <li>B.E Computer Science and Engineering (IoT)</li>
-                                    <li>B.E Electronics and Computer Science</li>
-                                    <li>B.E Mechanical Engineering</li>
-                                    <li>B.E Civil Engineering</li>
-                                    <li>B.E Mechanical and Mechatronics Engineering (Additive Manufacturing)</li>
+                                    <li>B.E. Computer Engineering</li>
+                                    <li>B.E. Information Technology</li>
+                                    <li>B.E. Electronics and Telecommunication Engineering</li>
+                                    <li>B.E. Electronics and Computer Science</li>
+                                    <li>B.E. Mechanical Engineering</li>
+                                    <li>B.E. Civil Engineering</li>
+                                    <li>B.E. Mechanical and Mechatronics Engineering with specialization in Additive
+                                        Manufacturing</li>
+                                    <li>B.E. Computer Science and Engineering with specialization in Cyber Security</li>
+                                    <li>B.E. Computer Science and Engineering with specialization in Internet of Things
+                                    </li>
+                                    <li>B.E. Artificial Intelligence and Data Science</li>
+                                    <li>B.E. Artificial Intelligence and Machine Learning</li>
+                                    <li>B.Tech Artificial Intelligence and Data Science</li>
+
+                                    <li>Bachelor of Computer Applications (BCA)</li>
+                                    <li>Bachelor of Business Administration (BBA)</li>
+
+                                    <li>B.Voc Artificial Intelligence and Data Science</li>
+                                    <li>B.Voc Software Development</li>
+                                    <li>B.Voc Animation and Graphic Designing</li>
+                                    <li>B.Voc Data Analytics</li>
+                                    <li>B.Voc Data Science</li>
+                                    <li>B.Voc Artificial Intelligence</li>
+
                                 </ol>
                             </div>
 
                             <div class="upg2-features">
                                 <div>
                                     <h3 class="upg2-feat-title">Eligibility</h3>
-                                    <ul class="upg2-list">
-                                        <li>Praesent facilisis lorem nec odio dignissim, ac tristique velit malesuada.
-                                        </li>
-                                        <li>Integer cursus sapien sit amet urna viverra, ut egestas lorem placerat.</li>
-                                        <li>Donec ac tellus sit amet sapien convallis cursus vitae nec lorem.</li>
-                                        <li>Morbi fringilla justo vitae erat efficitur, nec pretium justo faucibus.</li>
-                                    </ul>
+
+                                    <p class="upg2-feat-text">We look for students who are curious, motivated, and eager
+                                        to learn. If you have a strong academic foundation and a desire to create impact
+                                        through innovation, you are ready to join our programs.</p>
+
+
                                 </div>
 
                                 <div>
                                     <h3 class="upg2-feat-title">Career Prospects</h3>
                                     <p class="upg2-feat-text">
-                                        Graduates are prepared for roles in software development, civil engineering,
-                                        data science, and more,
-                                        with strong connections to leading tech companies and startups.
+                                        Graduates are prepared to lead projects, innovate solutions, and take on roles
+                                        in engineering, technology, management, and software. With practical experience,
+                                        guidance from industry experts, and strong professional networks, our students
+                                        are equipped to create impact from day one
                                     </p>
                                 </div>
                             </div>
@@ -6088,13 +6123,18 @@
                             <div class="upg2-programme-table">
                                 <h3 class="upg2-feat-title">Postgraduate Programmes</h3>
                                 <ol class="upg2-programme-list">
-                                    <li>M. in Computer Application</li>
-                                    <li>M.E. in Computer Engineering</li>
-                                    <li>M.E. in Information Technology</li>
-                                    <li>M.E. in Communication Technology and Management</li>
-                                    <li>M.E. in Mechanical Engineering</li>
-                                    <li>M.E. in Civil Engineering</li>
-                                    <li>M.E. in Artificial Intelligence and Data Science</li>
+                                    <li>M.E. Computer Engineering</li>
+                                    <li>M.E. Information Technology</li>
+                                    <li>M.E. Communication Technology and Management</li>
+                                    <li>M.E. Mechanical Engineering</li>
+                                    <li>M.E. Civil Engineering</li>
+                                    <li>M.Tech Artificial Intelligence and Data Science</li>
+                                    <li>M.E. Computer Engineering for Working Professionals</li>
+                                    <li>M.E. Information Technology for Working Professionals</li>
+                                    <li>Master of Business Administration (MBA)</li>
+                                    <li>Five Years Integrated MBA (BBA + MBA)</li>
+                                    <li>Master of Computer Applications (MCA)</li>
+
                                 </ol>
                             </div>
 
@@ -6150,11 +6190,12 @@
                             <div class="upg2-programme-table">
                                 <h3 class="upg2-feat-title">Ph.D. Programmes</h3>
                                 <ol class="upg2-programme-list">
-                                    <li>Ph.D. in Computer Engineering</li>
-                                    <li>Ph.D. in Electronics and Telecommunication Engineering</li>
-                                    <li>Ph.D. in Information Technology</li>
-                                    <li>Ph.D. in Mechanical Engineering</li>
-                                    <li>Ph.D. in Civil Engineering</li>
+                                    <li>Ph.D. Computer Engineering</li>
+                                    <li>Ph.D. Information Technology</li>
+                                    <li>Ph.D. Electronics and Telecommunication</li>
+                                    <li>Ph.D. Mechanical Engineering</li>
+                                    <li>Ph.D. Civil Engineering</li>
+
                                 </ol>
                             </div>
                             <div class="upg2-features">
@@ -6428,6 +6469,16 @@
             position: relative;
             overflow: hidden;
         }
+        @media (max-width: 768px) {
+    .tabs-track2 {
+        width: 100% !important;
+        min-height: 260px !important;  /* much better for mobile */
+        height: auto !important;       /* allow content to size naturally */
+        position: relative !important;
+        overflow: visible !important;  /* avoid clipping */
+    }
+}
+
 
         .carousel-row {
             display: flex;
@@ -6582,9 +6633,9 @@
             }
 
             .testimonial-card {
-                min-width: 100vw;
+                min-width: 90vw;
                 /* Card is width of viewport */
-                max-width: 100vw;
+                max-width: 90vw;
                 margin: 0 auto;
                 padding: 28px 12px 20px 12px;
                 border-radius: 10px;
@@ -6605,7 +6656,15 @@
             width: 70px;
             height: 80px;
         }
-        
+        @media (max-width: 768px) {
+    .testimonial-tabs-carousel {
+        padding: 32px 0 40px !important;  /* reduced spacing */
+        min-height: auto !important;      /* remove forced 90vh */
+        height: auto !important;          /* let content decide */
+        background: #f9fafb;              /* keep same bg */
+    }
+}
+
     </style>
     <script>
         const row = document.getElementById('carousel-row');
@@ -7040,30 +7099,32 @@
             /* MOBILE — cards styled to match reference image */
             @media (max-width: 768px) {
 
-               
-:root {
-    --cards-top-offset: 4px;     /* very small top gap */
-    --cards-bottom-offset: 4px;  /* very small bottom gap */
-}
+
+                :root {
+                    --cards-top-offset: 4px;
+                    /* very small top gap */
+                    --cards-bottom-offset: 4px;
+                    /* very small bottom gap */
+                }
 
 
-    .about-cards-row {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 14px !important;
-        padding: 12px !important;
+                .about-cards-row {
+                    display: grid !important;
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 14px !important;
+                    padding: 12px !important;
 
-        /* compact spacing */
-        margin: var(--cards-top-offset) 12px var(--cards-bottom-offset) !important;
+                    /* compact spacing */
+                    margin: var(--cards-top-offset) 12px var(--cards-bottom-offset) !important;
 
-        width: calc(100% - 24px) !important;
-        box-sizing: border-box !important;
-        position: relative !important;
-        transform: none !important;
-        float: none !important;
-        clear: both !important;
-        z-index: 2 !important;
-    }
+                    width: calc(100% - 24px) !important;
+                    box-sizing: border-box !important;
+                    position: relative !important;
+                    transform: none !important;
+                    float: none !important;
+                    clear: both !important;
+                    z-index: 2 !important;
+                }
 
                 /* card box */
                 .about-cards-row .about-card {
@@ -7248,6 +7309,7 @@
                     transform: translateX(-50%);
                 }
             }
+            
         </style>
 
 
@@ -7907,51 +7969,52 @@
 </script>
 
 <script>const gvChips = document.querySelector('.gv-chips');
-const leftBtn = document.querySelector('.chip-scroll--left');
-const rightBtn = document.querySelector('.chip-scroll--right');
-const chipScrollAmount = 120; // px per click
+    const leftBtn = document.querySelector('.chip-scroll--left');
+    const rightBtn = document.querySelector('.chip-scroll--right');
+    const chipScrollAmount = 120; // px per click
 
-function updateChipButtonsVisibility() {
-  const { scrollLeft, scrollWidth, clientWidth } = gvChips;
-  leftBtn.style.display = scrollLeft > 6 ? 'flex' : 'none';
-  rightBtn.style.display = (scrollLeft + clientWidth + 6) < scrollWidth ? 'flex' : 'none';
-}
+    function updateChipButtonsVisibility() {
+        const { scrollLeft, scrollWidth, clientWidth } = gvChips;
+        leftBtn.style.display = scrollLeft > 6 ? 'flex' : 'none';
+        rightBtn.style.display = (scrollLeft + clientWidth + 6) < scrollWidth ? 'flex' : 'none';
+    }
 
-// Scroll functions
-leftBtn.addEventListener('click', () => {
-  gvChips.scrollBy({ left: -chipScrollAmount, behavior: 'smooth' });
-});
-rightBtn.addEventListener('click', () => {
-  gvChips.scrollBy({ left: chipScrollAmount, behavior: 'smooth' });
-});
+    // Scroll functions
+    leftBtn.addEventListener('click', () => {
+        gvChips.scrollBy({ left: -chipScrollAmount, behavior: 'smooth' });
+    });
+    rightBtn.addEventListener('click', () => {
+        gvChips.scrollBy({ left: chipScrollAmount, behavior: 'smooth' });
+    });
 
-// Show/hide arrow buttons on scroll/resize
-gvChips.addEventListener('scroll', updateChipButtonsVisibility);
-window.addEventListener('resize', updateChipButtonsVisibility);
-setTimeout(updateChipButtonsVisibility, 300); // after page load
+    // Show/hide arrow buttons on scroll/resize
+    gvChips.addEventListener('scroll', updateChipButtonsVisibility);
+    window.addEventListener('resize', updateChipButtonsVisibility);
+    setTimeout(updateChipButtonsVisibility, 300); // after page load
 
-// Auto-scroll to active chip
-function scrollChipIntoView(chip) {
-  const chipsRect = gvChips.getBoundingClientRect();
-  const chipRect = chip.getBoundingClientRect();
-  if (chipRect.left < chipsRect.left) {
-    gvChips.scrollBy({ left: chipRect.left - chipsRect.left - 16, behavior: 'smooth' });
-  } else if (chipRect.right > chipsRect.right) {
-    gvChips.scrollBy({ left: chipRect.right - chipsRect.right + 16, behavior: 'smooth' });
-  }
-}
+    // Auto-scroll to active chip
+    function scrollChipIntoView(chip) {
+        const chipsRect = gvChips.getBoundingClientRect();
+        const chipRect = chip.getBoundingClientRect();
+        if (chipRect.left < chipsRect.left) {
+            gvChips.scrollBy({ left: chipRect.left - chipsRect.left - 16, behavior: 'smooth' });
+        } else if (chipRect.right > chipsRect.right) {
+            gvChips.scrollBy({ left: chipRect.right - chipsRect.right + 16, behavior: 'smooth' });
+        }
+    }
 
-// On chip click, make it active and scroll into view
-document.querySelectorAll('.gv-chip').forEach(chip => {
-  chip.addEventListener('click', function () {
-    document.querySelectorAll('.gv-chip').forEach(c => c.classList.remove('gv-chip--active'));
-    chip.classList.add('gv-chip--active');
-    scrollChipIntoView(chip);
-  });
-});
+    // On chip click, make it active and scroll into view
+    document.querySelectorAll('.gv-chip').forEach(chip => {
+        chip.addEventListener('click', function () {
+            document.querySelectorAll('.gv-chip').forEach(c => c.classList.remove('gv-chip--active'));
+            chip.classList.add('gv-chip--active');
+            scrollChipIntoView(chip);
+        });
+    });
 </script>
 
 </html>
+
 </html>
 
 </html>
