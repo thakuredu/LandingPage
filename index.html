@@ -5385,6 +5385,53 @@
                 font-size: 12px;
             }
         }
+/* MOBILE ONLY: stop video from over-bleeding and make it fill the box */
+@media (max-width: 768px) {
+
+  /* enforce container behavior */
+  .video-section {
+    position: relative !important;    /* anchor for absolute child */
+    overflow: hidden !important;      /* clip any overflow */
+    width: 100% !important;
+    height: 40vh !important;          /* visual height - tweak (32vh..45vh) */
+    max-height: 340px !important;
+    min-height: 180px !important;     /* prevents collapse on very small screens */
+    box-sizing: border-box !important;
+    padding: 0 !important;            /* prevent internal padding from enlarging box */
+    margin: 0 auto !important;        /* center if needed */
+  }
+
+  /* make the video strictly fill the wrapper without causing overflow */
+  .video-section > video,
+  .video-section video {
+    position: absolute !important;
+    inset: 0 !important;              /* top:0; right:0; bottom:0; left:0 */
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;     /* cover the container cleanly */
+    object-position: center center !important;
+    display: block !important;
+    max-width: none !important;       /* prevent intrinsic constraints */
+  }
+
+  /* ensure overlays and buttons sit on top inside the container */
+  .video-section .video-overlay,
+  .video-section .menu-button,
+  .video-section .scroll-indicator {
+    position: absolute !important;
+    z-index: 5 !important;
+    pointer-events: auto !important;
+  }
+  .video-section .menu-button { top: 12px; right: 12px; }
+  .video-section .scroll-indicator { bottom: 10px; left: 50%; transform: translateX(-50%); }
+
+  /* if some parent adds negative margins or extra width, clip it */
+  .video-section,
+  .video-section * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
 
         /* Mobile hero look (matches your reference) */
     </style>
