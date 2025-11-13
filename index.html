@@ -2312,7 +2312,7 @@
         /* Responsive */
         @media (max-width: 900px) {
             .hero-section-new {
-                padding-top: 30px;
+                padding-top: 15px;
                 padding-bottom: 40px;
                 min-height: 450px;
             }
@@ -2372,7 +2372,7 @@
             }
 
             .hero-content {
-                padding: 38px 20px 0 20px;
+                padding: 24px 20px 0 20px;
             }
 
             .hero-text {
@@ -6772,27 +6772,30 @@
             /* MOBILE — cards styled to match reference image */
             @media (max-width: 768px) {
 
-                /* spacing tweak — adjust if you need more/less gap from hero */
-                :root {
-                    --cards-top-offset: 28px;
-                }
+               
+:root {
+    --cards-top-offset: 4px;     /* very small top gap */
+    --cards-bottom-offset: 4px;  /* very small bottom gap */
+}
 
-                .about-cards-row {
-                    display: grid !important;
-                    grid-template-columns: repeat(2, 1fr) !important;
-                    gap: 14px !important;
-                    padding: 12px !important;
-                    margin: var(--cards-top-offset) 12px 12px !important;
-                    width: calc(100% - 24px) !important;
-                    box-sizing: border-box !important;
 
-                    /* neutralize desktop absolute/transform rules */
-                    position: relative !important;
-                    transform: none !important;
-                    float: none !important;
-                    clear: both !important;
-                    z-index: 2 !important;
-                }
+    .about-cards-row {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 14px !important;
+        padding: 12px !important;
+
+        /* compact spacing */
+        margin: var(--cards-top-offset) 12px var(--cards-bottom-offset) !important;
+
+        width: calc(100% - 24px) !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        transform: none !important;
+        float: none !important;
+        clear: both !important;
+        z-index: 2 !important;
+    }
 
                 /* card box */
                 .about-cards-row .about-card {
