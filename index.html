@@ -6720,121 +6720,216 @@
                     min-width: 40px;
                 }
             }
-          /* MOBILE FIX: tidy 2-up layout, center last card, remove overflow/absolute */
-/* MOBILE — cards styled to match reference image */
-@media (max-width: 768px) {
 
-  /* spacing tweak — adjust if you need more/less gap from hero */
-  :root { --cards-top-offset: 28px; }
+            /* MOBILE FIX: tidy 2-up layout, center last card, remove overflow/absolute */
+            /* MOBILE — cards styled to match reference image */
+            @media (max-width: 768px) {
 
-  .about-cards-row {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 14px !important;
-    padding: 12px !important;
-    margin: var(--cards-top-offset) 12px 12px !important;
-    width: calc(100% - 24px) !important;
-    box-sizing: border-box !important;
+                /* spacing tweak — adjust if you need more/less gap from hero */
+                :root {
+                    --cards-top-offset: 28px;
+                }
 
-    /* neutralize desktop absolute/transform rules */
-    position: relative !important;
-    transform: none !important;
-    float: none !important;
-    clear: both !important;
-    z-index: 2 !important;
-  }
+                .about-cards-row {
+                    display: grid !important;
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 14px !important;
+                    padding: 12px !important;
+                    margin: var(--cards-top-offset) 12px 12px !important;
+                    width: calc(100% - 24px) !important;
+                    box-sizing: border-box !important;
 
-  /* card box */
-  .about-cards-row .about-card {
-        position: static !important;
-        transform: none !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important; /* moved to center for better vertical balance */
-        gap: 10px !important;
+                    /* neutralize desktop absolute/transform rules */
+                    position: relative !important;
+                    transform: none !important;
+                    float: none !important;
+                    clear: both !important;
+                    z-index: 2 !important;
+                }
 
-        padding: 14px 10px !important;
+                /* card box */
+                .about-cards-row .about-card {
+                    position: static !important;
+                    transform: none !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    /* moved to center for better vertical balance */
+                    gap: 10px !important;
 
-        /* 👇 reduced height */
-        min-height: 95px !important;   /* from 120px → 95px */
-        height: auto !important;       /* auto adjust if content is small */
+                    padding: 14px 10px !important;
 
-        border-radius: 12px !important;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.06) !important;
+                    /* 👇 reduced height */
+                    min-height: 95px !important;
+                    /* from 120px → 95px */
+                    height: auto !important;
+                    /* auto adjust if content is small */
 
-        margin: 0 !important;
-        width: 100% !important;
-        overflow: visible !important;
-        text-align: center !important;
-    }
+                    border-radius: 12px !important;
+                    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06) !important;
 
-  /* icon circle (pastel background) */
-  .about-cards-row .about-card-icon {
-      width: 40px !important;
-        height: 40px !important;
-    border-radius: 999px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: none !important;
-  }
+                    margin: 0 !important;
+                    width: 100% !important;
+                    overflow: visible !important;
+                    text-align: center !important;
+                }
 
-  /* color variants for icon backgrounds (example set) */
-  .about-card.eng .about-card-icon { background: rgba(99,102,241,0.12); }   /* purple tint */
-  .about-card.mgmt .about-card-icon { background: rgba(139,92,246,0.08); }  /* violet tint */
-  .about-card.bvoc .about-card-icon { background: rgba(250,204,21,0.08); }  /* yellow tint */
-  .about-card.comp .about-card-icon { background: rgba(56,189,248,0.08); }  /* blue tint */
-  .about-card.research .about-card-icon { background: rgba(99,102,241,0.06); } /* subtle */
+                /* icon circle (pastel background) */
+                .about-cards-row .about-card-icon {
+                    width: 40px !important;
+                    height: 40px !important;
+                    border-radius: 999px !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    box-shadow: none !important;
+                }
 
-  .about-cards-row .about-card-icon img {
-      /* width: 28px !important; */
-        height: auto !important;
-    display: block !important;
-    object-fit: contain !important;
-  }
+                /* color variants for icon backgrounds (example set) */
+                .about-card.eng .about-card-icon {
+                    background: rgba(99, 102, 241, 0.12);
+                }
 
-  /* title styling */
-  .about-cards-row .about-card-title {
-        font-size: 13px !important;
+                /* purple tint */
+                .about-card.mgmt .about-card-icon {
+                    background: rgba(139, 92, 246, 0.08);
+                }
 
-    font-weight: 600 !important;
-    color: #fff!important;       /* dark slate */
-    line-height: 1.1 !important;
-    margin: 0 !important;
-    padding: 0 6px !important;
-    white-space: normal !important;
-    word-break: break-word !important;
-  }
+                /* violet tint */
+                .about-card.bvoc .about-card-icon {
+                    background: rgba(250, 204, 21, 0.08);
+                }
 
-  /* center the last card and make it span both columns */
-  .about-cards-row > .about-card:last-child {
-    grid-column: 1 / -1 !important;
-    justify-self: center !important;
-    max-width: 360px !important; /* controls width of the lone card */
-    width: 100% !important;
-  }
+                /* yellow tint */
+                .about-card.comp .about-card-icon {
+                    background: rgba(56, 189, 248, 0.08);
+                }
 
-  /* remove interfering pseudo elements */
-  .about-cards-row .about-card::before,
-  .about-cards-row .about-card::after {
-    display: none !important;
-    content: none !important;
-  }
+                /* blue tint */
+                .about-card.research .about-card-icon {
+                    background: rgba(99, 102, 241, 0.06);
+                }
 
-  /* ensure admission enquiry overlay doesn't hide icons — push cards left a bit if needed */
-  .about-cards-row { padding-right: 20px !important; }
+                /* subtle */
 
-  /* optional: tighter look on smaller phones */
-  @media (max-width: 360px) {
-    .about-cards-row { gap: 10px !important; padding: 10px !important; }
-    .about-cards-row .about-card { padding: 14px !important; min-height: 110px !important; }
-    .about-cards-row .about-card-icon { width: 56px !important; height: 56px !important; }
-    .about-cards-row .about-card-icon img { width: 32px !important; }
-  }
-}
+                .about-cards-row .about-card-icon img {
+                    /* width: 28px !important; */
+                    height: auto !important;
+                    display: block !important;
+                    object-fit: contain !important;
+                }
 
-  
+                /* title styling */
+                .about-cards-row .about-card-title {
+                    font-size: 13px !important;
+
+                    font-weight: 600 !important;
+                    color: #fff !important;
+                    /* dark slate */
+                    line-height: 1.1 !important;
+                    margin: 0 !important;
+                    padding: 0 6px !important;
+                    white-space: normal !important;
+                    word-break: break-word !important;
+                }
+
+                /* center the last card and make it span both columns */
+                .about-cards-row>.about-card:last-child {
+                    grid-column: 1 / -1 !important;
+                    justify-self: center !important;
+                    max-width: 360px !important;
+                    /* controls width of the lone card */
+                    width: 100% !important;
+                }
+
+                /* remove interfering pseudo elements */
+                .about-cards-row .about-card::before,
+                .about-cards-row .about-card::after {
+                    display: none !important;
+                    content: none !important;
+                }
+
+                /* ensure admission enquiry overlay doesn't hide icons — push cards left a bit if needed */
+                .about-cards-row {
+                    padding-right: 20px !important;
+                }
+
+                /* optional: tighter look on smaller phones */
+                @media (max-width: 360px) {
+                    .about-cards-row {
+                        gap: 10px !important;
+                        padding: 10px !important;
+                    }
+
+                    .about-cards-row .about-card {
+                        padding: 14px !important;
+                        min-height: 110px !important;
+                    }
+
+                    .about-cards-row .about-card-icon {
+                        width: 56px !important;
+                        height: 56px !important;
+                    }
+
+                    .about-cards-row .about-card-icon img {
+                        width: 32px !important;
+                    }
+                }
+            }
+
+            /* mobile-only: ensure page/container doesn't collapse and video is visible & fills box */
+            @media (max-width: 768px) {
+
+                /* make the overall page container behave normally on mobile so children show up */
+                .page-container {
+                    display: block !important;
+                    /* safe: only on mobile */
+                    min-height: auto !important;
+                    height: auto !important;
+                }
+
+                /* video wrapper: explicit visual height so video is visible */
+                .video-section {
+                    position: relative !important;
+                    width: 100% !important;
+                    height: 40vh !important;
+                    /* adjust to taste (32vh..45vh) */
+                    min-height: 200px !important;
+                    /* prevents collapse on small viewports */
+                    max-height: 340px !important;
+                    overflow: hidden !important;
+                    box-sizing: border-box !important;
+                }
+
+                /* make the <video> fill that wrapper exactly */
+                .video-section video {
+                    display: block !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    object-fit: cover !important;
+                    object-position: center center !important;
+                }
+
+                /* keep overlays/buttons visible and positioned inside wrapper */
+                .video-overlay,
+                .menu-button,
+                .scroll-indicator {
+                    position: absolute !important;
+                    z-index: 3 !important;
+                }
+
+                .menu-button {
+                    top: 12px;
+                    right: 12px;
+                }
+
+                .scroll-indicator {
+                    bottom: 10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
         </style>
 
 
