@@ -5759,13 +5759,13 @@
                     <div class="npf_wgts" data-height="450px" data-w="3161dad8e26b7ac51061b90c16309269"></div>
                 </div>
 
-                <script type="text/javascript">
+                <!-- <script type="text/javascript">
                     var s = document.createElement("script");
                     s.type = "text/javascript";
                     s.async = true;
                     s.src = "https://widgets.in8.nopaperforms.com/emwgts.js";
                     document.body.appendChild(s);
-                </script>
+                </script> -->
 
             </div>
         </div>
@@ -6235,6 +6235,8 @@
     </main>
 
     <section id="placements" class="research-innovation-section">
+        <h2 class="mobile-placements-heading">PLACEMENTS</h2>
+
         <div class="ri-container">
             <div class="vertical-logo-marquees left-fixed">
                 <div class="vertical-marquee marquee-down">
@@ -6286,6 +6288,7 @@
                     </label>
                 </div>
             </div>
+
             <div class="ri-right-panel">
                 <div class="ri-overlap-content">
                     <div class="ri-innovation-label">
@@ -6295,6 +6298,26 @@
                     <!-- <button class="ri-read-more-btn" onclick="window.location.href='#'">READ MORE</button> -->
                 </div>
             </div>
+            <div class="mobile-logo-carousel">
+                <div class="carousel-track">
+                    <img src="./Placements/1.webp" alt="">
+                    <img src="./Placements/2.webp" alt="">
+                    <img src="./Placements/3.webp" alt="">
+                    <img src="./Placements/4.webp" alt="">
+                    <img src="./Placements/5.webp" alt="">
+                    <img src="./Placements/6.webp" alt="">
+                    <img src="./Placements/7.webp" alt="">
+                    <!-- repeat once more for seamless loop -->
+                    <img src="./Placements/1.webp" alt="">
+                    <img src="./Placements/2.webp" alt="">
+                    <img src="./Placements/3.webp" alt="">
+                    <img src="./Placements/4.webp" alt="">
+                    <img src="./Placements/5.webp" alt="">
+                    <img src="./Placements/6.webp" alt="">
+                    <img src="./Placements/7.webp" alt="">
+                </div>
+            </div>
+
         </div>
     </section>
     </section>
@@ -6373,11 +6396,18 @@
                             <h3>Aarti K</h3>
                             <p>“A global campus, rigorous academics and extraordinary faculty...”</p>
                         </div>
-                        <!-- add more cards for 10-15 total -->
+                       
+                      
                     </div>
+                    
                 </div>
+  
+   
             </div>
+
         </div>
+        <div class="carousel-dots" id="carousel-dots"></div>
+
     </section>
     <style>
         .testimonial-tabs-carousel {
@@ -6425,6 +6455,11 @@
             text-align: left;
             /* changed from left to center */
         }
+@media (max-width: 767px) {
+    .testimonial-heading {
+        margin-bottom: 0.25rem !important; /* or 0 */
+    }
+}
 
 
         .testimonial-description {
@@ -6434,6 +6469,11 @@
             max-width: 430px;
             text-align: left;
         }
+@media (max-width: 767px) {
+    .testimonial-description {
+        margin-top: 0 !important;
+    }
+}
 
         .carousel-nav-row {
             margin-top: 60px;
@@ -6664,93 +6704,163 @@
         background: #f9fafb;              /* keep same bg */
     }
 }
+@media (max-width: 767px) {
+    .carousel-nav-row {
+        display: none !important;
+    }
+    .carousel-dots {
+        display: flex;
+        justify-content: center;
+        margin: 14px 0 6px 0;
+        gap: 10px;
+    }
+    .carousel-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #d3d3e2;
+        transition: background 0.2s;
+        cursor: pointer;
+    }
+    .carousel-dot.active {
+        background: #223D77;
+        width: 13px;
+        height: 13px;
+    }
+}
+@media (min-width: 768px) {
+    .carousel-dots {
+        display: none !important;
+    }
+}
 
     </style>
-    <script>
-        const row = document.getElementById('carousel-row');
-        const cards = row.children;
-        const leftBtn = document.getElementById('carousel-left-btn');
-        const rightBtn = document.getElementById('carousel-right-btn');
-        let startIdx = 0;
-        let intervalId;
-        let stoppedByHover = false;
+    
+<script>
+const row = document.getElementById('carousel-row');
+const cards = row.children;
+const leftBtn = document.getElementById('carousel-left-btn');
+const rightBtn = document.getElementById('carousel-right-btn');
+let startIdx = 0;
+let intervalId;
+let stoppedByHover = false;
 
-        // Function to get card width (responsive)
-        function getCardWidth() {
-            return cards[0].offsetWidth + 20; // gap
-        }
-
-        // Function to determine how many cards to show
-        function getCardsToShow() {
-            return window.innerWidth <= 767 ? 1 : 3;
-        }
-
-        // Update carousel position
-        function updateRow() {
-            row.style.transform = `translateX(${-startIdx * getCardWidth()}px)`;
-        }
-
-        // Next card function
-        function next() {
-            const cardsToShow = getCardsToShow();
+// Dots
+const dotsContainer = document.getElementById('carousel-dots');
+function getCardsToShow() {
+    return window.innerWidth <= 767 ? 1 : 3;
+}
+function getCardWidth() {
+    return cards[0].offsetWidth + (window.innerWidth <= 767 ? 20 : 36);
+}
+function updateDots() {
+    if (window.innerWidth > 767) return;
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < cards.length; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'carousel-dot' + (i === startIdx ? ' active' : '');
+        dot.onclick = () => {
+            startIdx = i;
+            updateRow();
+        };
+        dotsContainer.appendChild(dot);
+    }
+}
+function updateRow() {
+    row.style.transform = `translateX(${-startIdx * getCardWidth()}px)`;
+    updateDots();
+}
+// Desktop next/prev
+function next() {
+    const cardsToShow = getCardsToShow();
+    startIdx = (startIdx + 1) % cards.length;
+    if (startIdx > cards.length - cardsToShow) startIdx = 0;
+    updateRow();
+}
+function prev() {
+    const cardsToShow = getCardsToShow();
+    startIdx = (startIdx - 1 + cards.length) % cards.length;
+    if (startIdx > cards.length - cardsToShow) startIdx = cards.length - cardsToShow;
+    updateRow();
+}
+// Auto carousel logic
+function startCarousel() {
+    if (intervalId) clearInterval(intervalId);
+    if (window.innerWidth > 767) {
+        intervalId = setInterval(() => {
+            if (!stoppedByHover) next();
+        }, 3000);
+    } else {
+        intervalId = setInterval(() => {
             startIdx = (startIdx + 1) % cards.length;
-            if (startIdx > cards.length - cardsToShow) startIdx = 0;
             updateRow();
-        }
+        }, 3000);
+    }
+}
 
-        // Previous card function
-        function prev() {
-            const cardsToShow = getCardsToShow();
+// Touch swipe for mobile
+let startX = null;
+row.addEventListener('touchstart', (e) => {
+    if (window.innerWidth > 767) return;
+    startX = e.touches[0].clientX;
+}, { passive: true });
+
+row.addEventListener('touchmove', (e) => {
+    if (window.innerWidth > 767 || startX === null) return;
+    const deltaX = e.touches[0].clientX - startX;
+    if (Math.abs(deltaX) > 45) {
+        if (deltaX < 0) {
+            startIdx = (startIdx + 1) % cards.length;
+        } else {
             startIdx = (startIdx - 1 + cards.length) % cards.length;
-            if (startIdx > cards.length - cardsToShow) startIdx = cards.length - cardsToShow;
-            updateRow();
         }
-
-        // Start/stop auto carousel based on screen size
-        function startCarousel() {
-            if (intervalId) clearInterval(intervalId);
-            if (window.innerWidth > 767) {
-                intervalId = setInterval(() => {
-                    if (!stoppedByHover) next();
-                }, 3000);
-            }
-        }
-
-        // Initialize carousel
-        startCarousel();
         updateRow();
+        startX = null;
+    }
+}, { passive: true });
 
-        // Event listeners for buttons
-        rightBtn.addEventListener('click', () => {
-            stoppedByHover = true;
-            next();
-            startCarousel(); // Restart auto carousel if on desktop
-        });
-        leftBtn.addEventListener('click', () => {
-            stoppedByHover = true;
-            prev();
-            startCarousel(); // Restart auto carousel if on desktop
-        });
+row.addEventListener('touchend', () => {
+    if (window.innerWidth > 767) return;
+    startX = null;
+}, { passive: true });
 
-        // Handle resize
-        window.addEventListener('resize', () => {
-            updateRow();
-            startCarousel();
-        });
+// Desktop navigation
+rightBtn.addEventListener('click', () => {
+    stoppedByHover = true;
+    next();
+    startCarousel();
+});
+leftBtn.addEventListener('click', () => {
+    stoppedByHover = true;
+    prev();
+    startCarousel();
+});
 
-        // Hover effect (optional)
-        Array.from(cards).forEach(card => {
-            card.addEventListener('mouseenter', e => {
-                stoppedByHover = true;
-                card.classList.add('card-pop');
-            });
-            card.addEventListener('mouseleave', e => {
-                stoppedByHover = false;
-                card.classList.remove('card-pop');
-            });
-        });
+// Resize/re-init
+window.addEventListener('resize', () => {
+    updateRow();
+    startCarousel();
+    updateDots();
+});
 
-    </script>
+// Hover effect (desktop only)
+Array.from(cards).forEach(card => {
+    card.addEventListener('mouseenter', e => {
+        if (window.innerWidth > 767) stoppedByHover = true;
+        if (window.innerWidth > 767) card.classList.add('card-pop');
+    });
+    card.addEventListener('mouseleave', e => {
+        if (window.innerWidth > 767) stoppedByHover = false;
+        if (window.innerWidth > 767) card.classList.remove('card-pop');
+    });
+});
+
+// Init
+updateRow();
+updateDots();
+startCarousel();
+
+</script>
 
     <h1 id="life" class="upg2-hero-title">
         Life @ TCET University<br />
@@ -6867,70 +6977,139 @@
 
 
         <section class="faq-section">
-            <h1 class="upg2-hero-title">
-                Frequently Asked Questions ? <span>(FAQs)</span>
-            </h1>
-
-            <!-- First question - starts expanded by default -->
-            <div class="faq-items">
-                <div class="faq-item faq-expanded">
-                    <span class="faq-number">01</span>
-                    <div class="faq-body">
-                        <div class="faq-title-arrow">
-                            <h2>What undergraduate, postgraduate and doctoral programmes does TCET offer?</h2>
-                            <span class="faq-arrow">&#9654;</span>
-                        </div>
-                        <div class="faq-content">
-                            <p>
-                                Answer outline: Cover UG courses like B.E. in Computer Engineering, B.Tech AI & Data
-                                Science, etc.,
-                                PG courses like M.E./MBA/MCA, and Ph.D.-Technology programmes. (See full list on the
-                                "Programmes"
-                                page.)
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Other questions -->
-                <div class="faq-item">
-                    <span class="faq-number">02</span>
-                    <div class="faq-body">
-                        <div class="faq-title-arrow">
-                            <h3>How can I apply for the engineering programme?</h3>
-                            <span class="faq-arrow">&#9654;</span>
-                        </div>
-                        <div class="faq-content">
-                            <p>
-                                Experience modern learning environments enhanced by technology that encourage
-                                collaboration, creativity,
-                                and fluid knowledge sharing.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <span class="faq-number">03</span>
-                    <div class="faq-body">
-                        <div class="faq-title-arrow">
-                            <h3>What are the entrance exams required for admission to the UG Engineering Programme?</h3>
-                            <span class="faq-arrow">&#9654;</span>
-                        </div>
-                        <div class="faq-content">
-                            <p>
-                                Guidance and resources to help enhance your personal brand to stand out in competitive
-                                job markets.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Repeat similarly for FAQs 04 to 08 -->
-                <!-- ... -->
-
-            </div>
-        </section>
+  <h1 class="faq-heading">
+    Frequently Asked Questions ? <span>(FAQs)</span>
+  </h1>
+  <div class="faq-items">
+    <div class="faq-item">
+      <span class="faq-number">01</span>
+      <div class="faq-body">
+        <div class="faq-title-arrow">
+          <h2>What undergraduate, postgraduate and doctoral programmes does TCET offer?</h2>
+          <span class="faq-arrow">&#9654;</span>
+        </div>
+        <div class="faq-content">
+          <p>
+            TCET offers UG programmes (e.g., B.E. in Computer Engineering, B.Tech AI & Data Science), PG courses (M.E., MBA, MCA), and Ph.D.-Technology programmes. Refer to the Programmes page for the complete list.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Dummy FAQs - repeat with unique questions -->
+    <div class="faq-item">
+      <span class="faq-number">02</span>
+      <div class="faq-body">
+        <div class="faq-title-arrow">
+          <h3>How can I apply for the engineering programme?</h3>
+          <span class="faq-arrow">&#9654;</span>
+        </div>
+        <div class="faq-content">
+          <p>
+            Visit the official TCET admission portal and complete the application form online.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <span class="faq-number">03</span>
+      <div class="faq-body">
+        <div class="faq-title-arrow">
+          <h3>What entrance exams are required for UG Engineering?</h3>
+          <span class="faq-arrow">&#9654;</span>
+        </div>
+        <div class="faq-content">
+          <p>
+            Admission to UG engineering requires MHT-CET or JEE Main scores depending on the programme.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <span class="faq-number">04</span>
+      <div class="faq-body">
+        <div class="faq-title-arrow">
+          <h3>Is there hostel accommodation available?</h3>
+          <span class="faq-arrow">&#9654;</span>
+        </div>
+        <div class="faq-content">
+          <p>
+            Yes, TCET offers hostel facilities for outstation students.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <span class="faq-number">05</span>
+      <div class="faq-body">
+        <div class="faq-title-arrow">
+          <h3>What are TCET’s placement statistics?</h3>
+          <span class="faq-arrow">&#9654;</span>
+        </div>
+        <div class="faq-content">
+          <p>
+            TCET maintains an excellent placement track record; stats are updated annually on the placements page.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <span class="faq-number">06</span>
+      <div class="faq-body">
+        <div class="faq-title-arrow">
+          <h3>Are there scholarship options?</h3>
+          <span class="faq-arrow">&#9654;</span>
+        </div>
+        <div class="faq-content">
+          <p>
+            Merit scholarships and government schemes are available for eligible students at TCET.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <span class="faq-number">07</span>
+      <div class="faq-body">
+        <div class="faq-title-arrow">
+          <h3>What is TCET’s faculty strength?</h3>
+          <span class="faq-arrow">&#9654;</span>
+        </div>
+        <div class="faq-content">
+          <p>
+            TCET boasts highly experienced faculty across engineering, management, and technology disciplines.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <span class="faq-number">08</span>
+      <div class="faq-body">
+        <div class="faq-title-arrow">
+          <h3>How to request a campus visit?</h3>
+          <span class="faq-arrow">&#9654;</span>
+        </div>
+        <div class="faq-content">
+          <p>
+            Submit a request via the contact page; guided tours are available for prospective students on weekends.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <span class="faq-number">09</span>
+      <div class="faq-body">
+        <div class="faq-title-arrow">
+          <h3>Whom to contact for international admissions?</h3>
+          <span class="faq-arrow">&#9654;</span>
+        </div>
+        <div class="faq-content">
+          <p>
+            TCET International Cell assists foreign students; contact details are provided on the admissions page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
         <style>
             .faq-section {
@@ -7309,75 +7488,482 @@
                     transform: translateX(-50%);
                 }
             }
-            
+            /* FAQ number does NOT zoom on expand for mobile*/
+@media (max-width: 768px) {
+  .faq-item.faq-expanded>.faq-number {
+    font-size: 2rem !important;
+    min-width: 50px !important;
+  }
+}
+/* Desktop: keep original expand styles */
+@media (min-width: 769px) {
+  .faq-item.faq-expanded>.faq-number {
+    font-size: 5rem;
+  }
+}
         </style>
 
 
         <script>
-            // FAQ Toggle Functionality — ensures fully auto-expand to fit content
-            document.addEventListener('DOMContentLoaded', function () {
-                const faqItems = document.querySelectorAll('.faq-item');
+// FAQ Toggle Functionality — ensures NO FAQ is expanded by default on mobile
+document.addEventListener('DOMContentLoaded', function () {
+  const faqItems = document.querySelectorAll('.faq-item');
+  // Mobile detection
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+  // Ensure NONE open by default on mobile
+  if (isMobile()) {
+    faqItems.forEach(function(item) {
+      item.classList.remove('faq-expanded');
+      const content = item.querySelector('.faq-content');
+      content.style.maxHeight = '0';
+      content.style.overflow = 'hidden';
+    });
+  }
+  // FAQ Toggle Logic stays same
+  faqItems.forEach(function (item) {
+    item.addEventListener('click', function () {
+      const content = this.querySelector('.faq-content');
+      const arrow = this.querySelector('.faq-arrow');
+      const isExpanded = this.classList.contains('faq-expanded');
+      // Close all other FAQs
+      faqItems.forEach(function (otherItem) {
+        if (otherItem !== item) {
+          const otherContent = otherItem.querySelector('.faq-content');
+          const otherArrow = otherItem.querySelector('.faq-arrow');
+          otherItem.classList.remove('faq-expanded');
+          otherContent.style.maxHeight = '0';
+          otherContent.style.paddingTop = '0';
+          otherContent.style.overflow = 'hidden';
+          otherArrow.style.transform = 'rotate(0deg)';
+        }
+      });
+      // Toggle current FAQ
+      if (isExpanded) {
+        this.classList.remove('faq-expanded');
+        content.style.maxHeight = '0';
+        content.style.paddingTop = '0';
+        content.style.overflow = 'hidden';
+        arrow.style.transform = 'rotate(0deg)';
+      } else {
+        this.classList.add('faq-expanded');
+        content.style.overflow = 'hidden';
+        content.style.maxHeight = content.scrollHeight + 'px';
+        content.style.paddingTop = '0.75rem';
+        arrow.style.transform = 'rotate(90deg)';
+        content.addEventListener('transitionend', function handler(e) {
+          if (e.propertyName === 'max-height' && item.classList.contains('faq-expanded')) {
+            content.style.maxHeight = 'none';
+            content.style.overflow = 'visible';
+            content.removeEventListener('transitionend', handler);
+          }
+        });
+      }
+    });
+  });
+});
+</script>
+<style>
+            /* MOBILE FIX: tidy 2-up layout, center last card, remove overflow/absolute */
+            /* MOBILE — cards styled to match reference image */
+            @media (max-width: 768px) {
 
-                faqItems.forEach(function (item) {
-                    item.addEventListener('click', function () {
-                        const content = this.querySelector('.faq-content');
-                        const arrow = this.querySelector('.faq-arrow');
-                        const isExpanded = this.classList.contains('faq-expanded');
 
-                        // Close all other FAQs
-                        faqItems.forEach(function (otherItem) {
-                            if (otherItem !== item) {
-                                const otherContent = otherItem.querySelector('.faq-content');
-                                const otherArrow = otherItem.querySelector('.faq-arrow');
-                                otherItem.classList.remove('faq-expanded');
-                                otherContent.style.maxHeight = '0';
-                                otherContent.style.paddingTop = '0';
-                                otherContent.style.overflow = 'hidden';
-                                otherArrow.style.transform = 'rotate(0deg)';
-                            }
-                        });
-
-                        // Toggle current FAQ
-                        if (isExpanded) {
-                            this.classList.remove('faq-expanded');
-                            content.style.maxHeight = '0';
-                            content.style.paddingTop = '0';
-                            content.style.overflow = 'hidden';
-                            arrow.style.transform = 'rotate(0deg)';
-                        } else {
-                            this.classList.add('faq-expanded');
-                            content.style.overflow = 'hidden';           // Ensures smooth transition
-                            content.style.maxHeight = content.scrollHeight + 'px';
-                            content.style.paddingTop = '0.75rem';
-                            arrow.style.transform = 'rotate(90deg)';
-                            // After transition, remove max-height constraint for auto-grow/shrink
-                            content.addEventListener('transitionend', function handler(e) {
-                                if (e.propertyName === 'max-height' && item.classList.contains('faq-expanded')) {
-                                    content.style.maxHeight = 'none';
-                                    content.style.overflow = 'visible';
-                                    content.removeEventListener('transitionend', handler);
-                                }
-                            });
-                        }
-                    });
-                });
-                // On page load: ensure the initially open FAQ auto-fits its content
-                const openItem = document.querySelector('.faq-item.faq-expanded');
-                if (openItem) {
-                    const openContent = openItem.querySelector('.faq-content');
-                    openContent.style.maxHeight = openContent.scrollHeight + 'px';
-                    // After transition, unlock the height so it adapts on content change
-                    openContent.addEventListener('transitionend', function handler(e) {
-                        if (e.propertyName === 'max-height' && openItem.classList.contains('faq-expanded')) {
-                            openContent.style.maxHeight = 'none';
-                            openContent.style.overflow = 'visible';
-                            openContent.removeEventListener('transitionend', handler);
-                        }
-                    });
+                :root {
+                    --cards-top-offset: 4px;
+                    /* very small top gap */
+                    --cards-bottom-offset: 4px;
+                    /* very small bottom gap */
                 }
-            });
-        </script>
 
+
+                .about-cards-row {
+                    display: grid !important;
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 14px !important;
+                    padding: 12px !important;
+
+                    /* compact spacing */
+                    margin: var(--cards-top-offset) 12px var(--cards-bottom-offset) !important;
+
+                    width: calc(100% - 24px) !important;
+                    box-sizing: border-box !important;
+                    position: relative !important;
+                    transform: none !important;
+                    float: none !important;
+                    clear: both !important;
+                    z-index: 2 !important;
+                }
+
+                /* card box */
+                .about-cards-row .about-card {
+                    position: static !important;
+                    transform: none !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    /* moved to center for better vertical balance */
+                    gap: 10px !important;
+
+                    padding: 14px 10px !important;
+
+                    /* 👇 reduced height */
+                    min-height: 95px !important;
+                    /* from 120px → 95px */
+                    height: auto !important;
+                    /* auto adjust if content is small */
+
+                    border-radius: 12px !important;
+                    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06) !important;
+
+                    margin: 0 !important;
+                    width: 100% !important;
+                    overflow: visible !important;
+                    text-align: center !important;
+                }
+
+                /* icon circle (pastel background) */
+                .about-cards-row .about-card-icon {
+                    width: 40px !important;
+                    height: 40px !important;
+                    border-radius: 999px !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    box-shadow: none !important;
+                }
+
+                /* color variants for icon backgrounds (example set) */
+                .about-card.eng .about-card-icon {
+                    background: rgba(99, 102, 241, 0.12);
+                }
+
+                /* purple tint */
+                .about-card.mgmt .about-card-icon {
+                    background: rgba(139, 92, 246, 0.08);
+                }
+
+                /* violet tint */
+                .about-card.bvoc .about-card-icon {
+                    background: rgba(250, 204, 21, 0.08);
+                }
+
+                /* yellow tint */
+                .about-card.comp .about-card-icon {
+                    background: rgba(56, 189, 248, 0.08);
+                }
+
+                /* blue tint */
+                .about-card.research .about-card-icon {
+                    background: rgba(99, 102, 241, 0.06);
+                }
+
+                /* subtle */
+
+                .about-cards-row .about-card-icon img {
+                    /* width: 28px !important; */
+                    height: auto !important;
+                    display: block !important;
+                    object-fit: contain !important;
+                }
+
+                /* title styling */
+                .about-cards-row .about-card-title {
+                    font-size: 13px !important;
+
+                    font-weight: 600 !important;
+                    color: #fff !important;
+                    /* dark slate */
+                    line-height: 1.1 !important;
+                    margin: 0 !important;
+                    padding: 0 6px !important;
+                    white-space: normal !important;
+                    word-break: break-word !important;
+                }
+
+                /* center the last card and make it span both columns */
+                .about-cards-row>.about-card:last-child {
+                    grid-column: 1 / -1 !important;
+                    justify-self: center !important;
+                    max-width: 220px !important;
+                    /* controls width of the lone card */
+                    width: 100% !important;
+                }
+
+                /* remove interfering pseudo elements */
+                .about-cards-row .about-card::before,
+                .about-cards-row .about-card::after {
+                    display: none !important;
+                    content: none !important;
+                }
+
+                /* ensure admission enquiry overlay doesn't hide icons — push cards left a bit if needed */
+                /* .about-cards-row {
+                    padding-right: 20px !important;
+                } */
+
+                /* optional: tighter look on smaller phones */
+                @media (max-width: 360px) {
+                    .about-cards-row {
+                        gap: 10px !important;
+                        padding: 10px !important;
+                    }
+
+                    .about-cards-row .about-card {
+                        padding: 14px !important;
+                        min-height: 110px !important;
+                    }
+
+                    .about-cards-row .about-card-icon {
+                        width: 56px !important;
+                        height: 56px !important;
+                    }
+
+                    .about-cards-row .about-card-icon img {
+                        width: 32px !important;
+                    }
+                }
+            }
+
+            /* mobile-only: ensure page/container doesn't collapse and video is visible & fills box */
+            @media (max-width: 768px) {
+
+                /* make the overall page container behave normally on mobile so children show up */
+                .page-container {
+                    display: block !important;
+                    /* safe: only on mobile */
+                    min-height: auto !important;
+                    height: auto !important;
+                }
+
+                /* video wrapper: explicit visual height so video is visible */
+                .video-section {
+                    position: relative !important;
+                    width: 100% !important;
+                    height: 40vh !important;
+                    /* adjust to taste (32vh..45vh) */
+                    min-height: 200px !important;
+                    /* prevents collapse on small viewports */
+                    max-height: 340px !important;
+                    overflow: hidden !important;
+                    box-sizing: border-box !important;
+                }
+
+                /* make the <video> fill that wrapper exactly */
+                .video-section video {
+                    display: block !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    object-fit: cover !important;
+                    object-position: center center !important;
+                }
+
+                /* keep overlays/buttons visible and positioned inside wrapper */
+                .video-overlay,
+                .menu-button,
+                .scroll-indicator {
+                    position: absolute !important;
+                    z-index: 3 !important;
+                }
+
+                .menu-button {
+                    top: 12px;
+                    right: 12px;
+                }
+
+                .scroll-indicator {
+                    bottom: 10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+
+            @media (max-width: 768px) {
+
+                /* remove the left vertical moving logos */
+                .vertical-logo-marquees {
+                    display: none !important;
+                }
+
+                /* make placements section centered and stacked */
+                /* ---- Placements stats: exact mobile look ---- */
+                #placements .ri-container {
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    padding: 18px 16px !important;
+                    gap: 20px !important;
+                    text-align: center !important;
+                }
+
+                .ri-stats-panel {
+                    width: 100% !important;
+                    max-width: 420px !important;
+                    /* matches screenshot proportions */
+                    background: #ffffff !important;
+                    padding: 22px 20px !important;
+                    /* tight top/bottom padding */
+                    border-radius: 14px !important;
+                    /* slightly rounded */
+                    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
+                    /* soft shadow */
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    gap: 20px !important;
+                    /* space between stat blocks */
+                    box-sizing: border-box !important;
+                }
+
+                /* each stat block is a vertically centered column */
+                .ri-stats-block {
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    gap: 8px !important;
+                    width: 100% !important;
+                    padding: 6px 0 !important;
+                }
+
+                /* big bold red number */
+                .ri-stats-block span {
+                    display: block;
+                    font-size: 44px !important;
+                    /* large number size */
+                    line-height: 1 !important;
+                    font-weight: 800 !important;
+                    color: #C7162B !important;
+                    /* red from reference */
+                    text-align: center !important;
+                    letter-spacing: 0.5px;
+                }
+
+                /* smaller label below the number */
+                .ri-stats-block label {
+                    display: block;
+                    font-size: 14px !important;
+                    color: #4B5563 !important;
+                    /* muted dark */
+                    font-weight: 500 !important;
+                    text-align: center !important;
+                    margin-top: 2px !important;
+                }
+
+                /* slim centered divider between stat rows */
+                .ri-divider {
+                    width: 36% !important;
+                    /* short line like reference */
+                    height: 1px !important;
+                    background: #E5E7EB !important;
+                    margin: 6px auto !important;
+                    /* center and small vertical gap */
+                }
+
+                /* optional: slightly reduce vertical rhythm on very small phones */
+                @media (max-width: 360px) {
+                    .ri-stats-panel {
+                        padding: 18px 14px !important;
+                        gap: 16px !important;
+                    }
+
+                    .ri-stats-block span {
+                        font-size: 38px !important;
+                    }
+
+                    .ri-stats-block label {
+                        font-size: 13px !important;
+                    }
+
+                    .ri-divider {
+                        width: 40% !important;
+                    }
+                }
+
+                /* hide the vertical desktop marquees */
+                .vertical-logo-marquees {
+                    display: none !important;
+                }
+
+                /* horizontal carousel wrapper */
+                .mobile-logo-carousel {
+                    width: 100%;
+                    overflow: hidden;
+                    margin-top: 10px;
+                    padding: 8px 0;
+                }
+
+                /* scrolling strip */
+                .mobile-logo-carousel .carousel-track {
+                    display: flex;
+                    gap: 22px;
+                    animation: scrollLogos 7s linear infinite;
+                    align-items: center;
+                }
+
+                /* logo style */
+                .mobile-logo-carousel img {
+                    width: 90px;
+                    height: 90px;
+                    object-fit: contain;
+                    /* background: #fff; */
+                    padding: 10px;
+                    border-radius: 14px;
+                    /* box-shadow: 0 4px 12px rgba(0,0,0,0.06); */
+                }
+
+                /* smooth infinite scroll */
+                @keyframes scrollLogos {
+                    from {
+                        transform: translateX(-50%);
+                    }
+
+                    to {
+                        transform: translateX(0);
+                    }
+                }
+
+
+
+                /* right panel text removed from corner */
+                .ri-right-panel {
+                    display: none !important;
+                }
+            }
+
+            .mobile-logo-carousel {
+                display: none;
+            }
+
+            @media (max-width: 768px) {
+                .mobile-logo-carousel {
+                    display: block !important;
+                }
+            }
+            .mobile-placements-heading {
+  display: none;
+}
+
+    @media (max-width: 768px) {
+  .mobile-placements-heading {
+    display: block !important;
+    font-size: 28px !important;
+    font-weight: 800 !important;
+    color: #C7162B !important;
+    text-align: center !important;
+    padding: 10px auto 14px !important;
+    letter-spacing: 0.5px;
+    background-color: transparent !important;
+  }
+}
+
+        
+        </style>
+
+
+        
 
         <footer style="width:100%;">
             <div class="tgb-contact-wrap">
